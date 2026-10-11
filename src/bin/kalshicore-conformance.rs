@@ -417,5 +417,5 @@ where
 }
 
 fn timestamp_utc() -> String {
-    format!("{:?}", std::time::SystemTime::now())
+    chrono::Utc::now().to_rfc3339()
 }
