@@ -1,0 +1,29 @@
+name: Question
+description: Ask about kalshi-rs usage, examples, or API coverage.
+title: "Question: "
+labels:
+  - question
+body:
+  - type: input
+    id: package-version
+    attributes:
+      label: SDK version or Git revision
+      placeholder: "0.1.0 or commit SHA"
+  - type: input
+    id: runtime-version
+    attributes:
+      label: Rust compiler version
+      placeholder: "rustc --version"
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What are you trying to do, and where are you stuck? Do not include credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Relevant code or API surface
+      description: Include a small snippet, operation ID, endpoint, or message type.
+      render: rust

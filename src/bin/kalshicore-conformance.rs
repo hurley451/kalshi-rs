@@ -1,7 +1,7 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use kalshi_rs::{
+use kalshi_client::{
     FillQuery, build_portfolio_fills_path, build_signing_preimage, parse_fills_page,
     parse_websocket_message,
 };
