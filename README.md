@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/hurley451/kalshi-rs/blob/main/LICENSE)
 [![Rust Edition 2024](https://img.shields.io/badge/Rust-edition%202024-black.svg)](https://doc.rust-lang.org/edition-guide/rust-2024/)
 [![Status: prerelease](https://img.shields.io/badge/status-prerelease-yellow.svg)](https://github.com/hurley451/kalshi-rs/releases)
-[![GitHub stars](https://img.shields.io/github/stars/hurley451/kalshi-rs.svg?style=social&cacheSeconds=300)](https://github.com/hurley451/kalshi-rs/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/hurley451/kalshi-rs.svg?style=social)](https://github.com/hurley451/kalshi-rs/stargazers)
 
 A Rust SDK for the [Kalshi](https://kalshi.com) prediction market API, with async
 REST requests through reqwest, RSA-PSS authentication, and serde JSON handling.
@@ -248,6 +248,10 @@ Other filters are `order_id`, `subaccount`, `exchange_index`, `min_ts`, and `max
 The helper emits a comma-separated `ticker` query parameter. Optional
 fixed-point fields stay strings in the serde model.
 
+The current parser requires `side` and `created_time`, although those fields are
+optional in the official schema. A valid response omitting them cannot currently
+be parsed into `FillsPage`; use generic JSON access for that response shape.
+
 ### Balance, Positions, and Historical Data
 
 ```rust,no_run
@@ -279,10 +283,14 @@ use kalshi_client::{KalshiClient, KalshiError, KalshiRequest};
 
 async fn discovery(client: &KalshiClient) -> Result<(), KalshiError> {
     for operation in ["GetEvents", "GetSeriesList", "GetStructuredTargets", "GetMilestones"] {
-        println!("{}", client.request(operation, KalshiRequest {
+        let mut request = KalshiRequest {
             authenticated: false,
             ..Default::default()
-        }).await?);
+        };
+        if operation == "GetMilestones" {
+            request.query.push(("limit".into(), kalshi_client::QueryValue::from(100_u32)));
+        }
+        println!("{}", client.request(operation, request).await?);
     }
     let mut weather = KalshiRequest { authenticated: false, ..Default::default() };
     weather.path_parameters.insert("city".into(), "miami".into());
