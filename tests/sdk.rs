@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 
-use kalshi_rs::{
+use kalshi_client::{
     DEMO, KalshiAuth, KalshiClient, KalshiRequest, OFFICIAL_OPERATION_SOURCE, OPERATIONS,
     QueryValue, build_operation_path, build_portfolio_fills_path, build_signing_preimage,
     build_trade_api_path, get_operation,
@@ -86,7 +86,7 @@ fn prepares_authenticated_requests() {
 
 #[test]
 fn keeps_fills_helper_compatible() {
-    let query = kalshi_rs::FillQuery {
+    let query = kalshi_client::FillQuery {
         tickers: vec!["KXAAA".to_string(), "KXBBB".to_string()],
         limit: Some(100),
         cursor: Some("abc".to_string()),

@@ -536,7 +536,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kalshi_rs"
+name = "kalshi-client"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",

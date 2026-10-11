@@ -1,10 +1,15 @@
 [package]
-name = "kalshi_rs"
+name = "kalshi-client"
 version = "0.1.0"
 edition = "2024"
-description = "Rust SDK target for KalshiCore conformance"
+description = "Rust SDK for the Kalshi prediction market API with async REST requests and RSA-PSS signing."
 license = "MIT"
 repository = "https://github.com/hurley451/kalshi-rs"
+homepage = "https://github.com/hurley451/kalshi-rs"
+documentation = "https://github.com/hurley451/kalshi-rs#quick-start"
+readme = "README.md"
+keywords = ["kalshi", "prediction-markets", "trading", "rest", "sdk"]
+categories = ["api-bindings", "asynchronous", "web-programming::http-client"]
 
 [dependencies]
 base64 = "0.22"
