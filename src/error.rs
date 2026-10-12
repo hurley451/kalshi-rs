@@ -25,6 +25,8 @@ impl std::error::Error for KalshiApiError {}
 
 #[derive(Debug, Error)]
 pub enum KalshiError {
+    #[error("typed contract error: {0}")]
+    Contract(String),
     #[error("unknown Kalshi operation: {0}")]
     UnknownOperation(String),
 
@@ -45,6 +47,12 @@ pub enum KalshiError {
 
     #[error("RSA key error: {0}")]
     RsaKey(String),
+
+    #[error("invalid Kalshi signing credentials")]
+    InvalidSigningCredentials,
+
+    #[error("Kalshi request signing failed")]
+    SigningFailed,
 
     #[error("HTTP error: {0}")]
     Http(#[from] reqwest::Error),

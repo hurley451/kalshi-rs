@@ -1,0 +1,5637 @@
+{
+  "sourceSha256": "091f171718a0376b0c1a2e9348b02b1ce003d0786dd04d772dd11005ca414bf4",
+  "sourceDocumentSha256": "b42f04ccd202939eb964e6c9055a3fac6fe9cdba404fb584dc1f346fd07a22f9",
+  "operationCount": 118,
+  "paginationCount": 28,
+  "componentSchemaCount": 209,
+  "definitionCount": 688,
+  "generatorCompatibility": [
+    "Optional/default fields preserve presence instead of injecting source defaults",
+    "Required fields never deserialize through defaults",
+    "Optional nullable fields preserve missing/null/value",
+    "Required nullable fields require presence",
+    "Every model Debug is redacted; unused default helpers removed",
+    "Invalid enum defaults are omitted only from generator input, never schema constraints",
+    "Undeclared response bodies are unknown; only 204 is guaranteed empty"
+  ],
+  "compatibility": [
+    {
+      "pointer": "#/components/schemas/PriceDistributionHistorical/properties/open",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistributionHistorical/properties/low",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistributionHistorical/properties/high",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistributionHistorical/properties/close",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistributionHistorical/properties/mean",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistributionHistorical/properties/previous",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/ApiKey/properties/subaccount",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/ApiKey/properties/fcm_subtrader_id",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/GetApiKeysResponse/properties/api_key_region_expiration_ts",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/CreateApiKeyResponse/properties/warning",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/GenerateApiKeyResponse/properties/warning",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/ApiUsageLevelGrant/properties/expires_ts",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/ExchangeStatus/properties/exchange_estimated_resume_time",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/open_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/low_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/high_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/close_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/mean_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/previous_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/min_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/PriceDistribution/properties/max_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Settlement/properties/value",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Deposit/properties/finalized_ts",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Withdrawal/properties/finalized_ts",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Order/properties/expiration_time",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Order/properties/created_time",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Order/properties/last_update_time",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Order/properties/self_trade_prevention_type",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Order/properties/order_group_id",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Order/properties/subaccount_number",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Milestone/properties/end_date",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Milestone/properties/source_id",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/IncentiveProgram/properties/discount_factor_bps",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/IncentiveProgram/properties/target_size_fp",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/IncentiveProgram/properties/max_reward_per_account",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Fill/properties/subaccount_number",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/CreateOrderGroupRequest/properties/contracts_limit_fp",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/UpdateOrderGroupLimitRequest/properties/contracts_limit_fp",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/CreateRFQRequest/properties/contracts_fp",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/CreateOrderRequest/properties/count_fp",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersIndividualResponse/properties/client_order_id",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersIndividualResponse/properties/order",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersIndividualResponse/properties/error",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCancelOrdersIndividualResponse/properties/order",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCancelOrdersIndividualResponse/properties/error",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AmendOrderRequest/properties/count_fp",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/DecreaseOrderV2Request/properties/reduce_by",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/DecreaseOrderV2Request/properties/reduce_to",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AmendOrderV2Response/properties/remaining_count",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AmendOrderV2Response/properties/fill_count",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AmendOrderV2Response/properties/average_fill_price",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AmendOrderV2Response/properties/average_fee_paid",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/client_order_id",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/fill_count",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/remaining_count",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/average_fill_price",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/average_fee_paid",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/ts_ms",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCreateOrdersV2Response/properties/orders/items/properties/error",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCancelOrdersV2Response/properties/orders/items/properties/client_order_id",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCancelOrdersV2Response/properties/orders/items/properties/ts_ms",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/BatchCancelOrdersV2Response/properties/orders/items/properties/error",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AssociatedEvent/properties/size_max",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/AssociatedEvent/properties/size_min",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventFeeChange/properties/fee_type_override",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventFeeChange/properties/fee_multiplier_override",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/GetEventMetadataResponse/properties/competition",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/GetEventMetadataResponse/properties/competition_scope",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventData/properties/strike_date",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventData/properties/strike_period",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventData/properties/product_metadata",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventData/properties/settlement_sources",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventData/properties/fee_type_override",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/EventData/properties/fee_multiplier_override",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Series/properties/tags",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Series/properties/settlement_sources",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Series/properties/product_metadata",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Series/properties/additional_prohibitions",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/MveSelectedLeg/properties/yes_settlement_value_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/expected_expiration_time",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/settlement_value_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/settlement_ts",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/settlement_floor_dollars",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/occurrence_datetime",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/fee_waiver_expiration_time",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/early_close_condition",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/floor_strike",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/cap_strike",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/functional_strike",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/custom_strike",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/components/schemas/Market/properties/primary_participant_key",
+      "fix": "OAS nullable -> JSON Schema anyOf with null; original branch retained"
+    },
+    {
+      "pointer": "#/paths//historical/markets/get/parameters/mve_filter",
+      "fix": "Nullable does not widen enum/const; null remains forbidden. Invalid default is annotation only and is not injected."
+    }
+  ],
+  "operations": [
+    {
+      "id": "GetExchangeStatus",
+      "method": "get_exchange_status",
+      "source": "#/paths/~1exchange~1status/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetExchangeStatusStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "500",
+          "schema": "GetExchangeStatusStatus500"
+        },
+        {
+          "status": "503",
+          "schema": "GetExchangeStatusStatus503"
+        },
+        {
+          "status": "504",
+          "schema": "GetExchangeStatusStatus504"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetSeriesFeeChanges",
+      "method": "get_series_fee_changes",
+      "source": "#/paths/~1series~1fee_changes/get",
+      "parameters": "GetSeriesFeeChangesParameters",
+      "parameterBindings": [
+        {
+          "name": "series_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "show_historical",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetSeriesFeeChangesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetSeriesFeeChangesStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetSeriesFeeChangesStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetExchangeSchedule",
+      "method": "get_exchange_schedule",
+      "source": "#/paths/~1exchange~1schedule/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetExchangeScheduleStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetUserDataTimestamp",
+      "method": "get_user_data_timestamp",
+      "source": "#/paths/~1exchange~1user_data_timestamp/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetUserDataTimestampStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMarketCandlesticks",
+      "method": "get_market_candlesticks",
+      "source": "#/paths/~1series~1{series_ticker}~1markets~1{ticker}~1candlesticks/get",
+      "parameters": "GetMarketCandlesticksParameters",
+      "parameterBindings": [
+        {
+          "name": "series_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "start_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "end_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "period_interval",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_latest_before_start",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMarketCandlesticksStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetTrades",
+      "method": "get_trades",
+      "source": "#/paths/~1markets~1trades/get",
+      "parameters": "GetTradesParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "is_block_trade",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetTradesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetMarketOrderbook",
+      "method": "get_market_orderbook",
+      "source": "#/paths/~1markets~1{ticker}~1orderbook/get",
+      "parameters": "GetMarketOrderbookParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "depth",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMarketOrderbookStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetMarketOrderbookStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetMarketOrderbookStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetMarketOrderbookStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMarketOrderbooks",
+      "method": "get_market_orderbooks",
+      "source": "#/paths/~1markets~1orderbooks/get",
+      "parameters": "GetMarketOrderbooksParameters",
+      "parameterBindings": [
+        {
+          "name": "tickers",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": true
+        }
+      ],
+      "body": null,
+      "success": "GetMarketOrderbooksStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetMarketOrderbooksStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetMarketOrderbooksStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetMarketOrderbooksStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetSeries",
+      "method": "get_series",
+      "source": "#/paths/~1series~1{series_ticker}/get",
+      "parameters": "GetSeriesParameters",
+      "parameterBindings": [
+        {
+          "name": "series_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_volume",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetSeriesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetSeriesStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetSeriesStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetSeriesList",
+      "method": "get_series_list",
+      "source": "#/paths/~1series/get",
+      "parameters": "GetSeriesListParameters",
+      "parameterBindings": [
+        {
+          "name": "category",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "tags",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_product_metadata",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_volume",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_updated_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetSeriesListStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetSeriesListStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetSeriesListStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMarkets",
+      "method": "get_markets",
+      "source": "#/paths/~1markets/get",
+      "parameters": "GetMarketsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_created_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_created_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_updated_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_updated_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_close_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_close_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_settled_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_settled_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "tickers",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "mve_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMarketsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetMarket",
+      "method": "get_market",
+      "source": "#/paths/~1markets~1{ticker}/get",
+      "parameters": "GetMarketParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMarketStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "BatchGetMarketCandlesticks",
+      "method": "batch_get_market_candlesticks",
+      "source": "#/paths/~1markets~1candlesticks/get",
+      "parameters": "BatchGetMarketCandlesticksParameters",
+      "parameterBindings": [
+        {
+          "name": "market_tickers",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "start_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "end_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "period_interval",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_latest_before_start",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "BatchGetMarketCandlesticksStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMarketCandlesticksByEvent",
+      "method": "get_market_candlesticks_by_event",
+      "source": "#/paths/~1series~1{series_ticker}~1events~1{ticker}~1candlesticks/get",
+      "parameters": "GetMarketCandlesticksByEventParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "start_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "end_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "period_interval",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMarketCandlesticksByEventStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetEvents",
+      "method": "get_events",
+      "source": "#/paths/~1events/get",
+      "parameters": "GetEventsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "with_nested_markets",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "with_milestones",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "tickers",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_close_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_updated_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetEventsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetMultivariateEvents",
+      "method": "get_multivariate_events",
+      "source": "#/paths/~1events~1multivariate/get",
+      "parameters": "GetMultivariateEventsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "collection_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "with_nested_markets",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMultivariateEventsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetEventFeeChanges",
+      "method": "get_event_fee_changes",
+      "source": "#/paths/~1events~1fee_changes/get",
+      "parameters": "GetEventFeeChangesParameters",
+      "parameterBindings": [
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetEventFeeChangesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetEventFeeChangesStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetEventFeeChangesStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetEvent",
+      "method": "get_event",
+      "source": "#/paths/~1events~1{event_ticker}/get",
+      "parameters": "GetEventParameters",
+      "parameterBindings": [
+        {
+          "name": "event_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "with_nested_markets",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetEventStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetEventMetadata",
+      "method": "get_event_metadata",
+      "source": "#/paths/~1events~1{event_ticker}~1metadata/get",
+      "parameters": "GetEventMetadataParameters",
+      "parameterBindings": [
+        {
+          "name": "event_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetEventMetadataStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetEventForecastPercentilesHistory",
+      "method": "get_event_forecast_percentiles_history",
+      "source": "#/paths/~1series~1{series_ticker}~1events~1{ticker}~1forecast_percentile_history/get",
+      "parameters": "GetEventForecastPercentilesHistoryParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "percentiles",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": true
+        },
+        {
+          "name": "start_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "end_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "period_interval",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetEventForecastPercentilesHistoryStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetOrders",
+      "method": "get_orders",
+      "source": "#/paths/~1portfolio~1orders/get",
+      "parameters": "GetOrdersParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetOrdersStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetOrdersStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetOrdersStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetOrdersStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetOrder",
+      "method": "get_order",
+      "source": "#/paths/~1portfolio~1orders~1{order_id}/get",
+      "parameters": "GetOrderParameters",
+      "parameterBindings": [
+        {
+          "name": "order_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetOrderStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetOrderStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetOrderStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetOrderStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetOrderQueuePositions",
+      "method": "get_order_queue_positions",
+      "source": "#/paths/~1portfolio~1orders~1queue_positions/get",
+      "parameters": "GetOrderQueuePositionsParameters",
+      "parameterBindings": [
+        {
+          "name": "market_tickers",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetOrderQueuePositionsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetOrderQueuePositionsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetOrderQueuePositionsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetOrderQueuePositionsStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetOrderQueuePosition",
+      "method": "get_order_queue_position",
+      "source": "#/paths/~1portfolio~1orders~1{order_id}~1queue_position/get",
+      "parameters": "GetOrderQueuePositionParameters",
+      "parameterBindings": [
+        {
+          "name": "order_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetOrderQueuePositionStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetOrderQueuePositionStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetOrderQueuePositionStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetOrderQueuePositionStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CreateOrderV2",
+      "method": "create_order_v2",
+      "source": "#/paths/~1portfolio~1events~1orders/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateOrderV2Body",
+      "success": "CreateOrderV2Status201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateOrderV2Status400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateOrderV2Status401"
+        },
+        {
+          "status": "403",
+          "schema": "CreateOrderV2Status403"
+        },
+        {
+          "status": "409",
+          "schema": "CreateOrderV2Status409"
+        },
+        {
+          "status": "429",
+          "schema": "CreateOrderV2Status429"
+        },
+        {
+          "status": "500",
+          "schema": "CreateOrderV2Status500"
+        },
+        {
+          "status": "503",
+          "schema": "CreateOrderV2Status503"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CancelAllOrders",
+      "method": "cancel_all_orders",
+      "source": "#/paths/~1portfolio~1events~1orders/delete",
+      "parameters": "CancelAllOrdersParameters",
+      "parameterBindings": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "CancelAllOrdersStatus401"
+        },
+        {
+          "status": "429",
+          "schema": "CancelAllOrdersStatus429"
+        },
+        {
+          "status": "500",
+          "schema": "CancelAllOrdersStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "BatchCreateOrdersV2",
+      "method": "batch_create_orders_v2",
+      "source": "#/paths/~1portfolio~1events~1orders~1batched/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "BatchCreateOrdersV2Body",
+      "success": "BatchCreateOrdersV2Status201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "BatchCreateOrdersV2Status400"
+        },
+        {
+          "status": "401",
+          "schema": "BatchCreateOrdersV2Status401"
+        },
+        {
+          "status": "403",
+          "schema": "BatchCreateOrdersV2Status403"
+        },
+        {
+          "status": "500",
+          "schema": "BatchCreateOrdersV2Status500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "BatchCancelOrdersV2",
+      "method": "batch_cancel_orders_v2",
+      "source": "#/paths/~1portfolio~1events~1orders~1batched/delete",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "BatchCancelOrdersV2Body",
+      "success": "BatchCancelOrdersV2Status200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "BatchCancelOrdersV2Status400"
+        },
+        {
+          "status": "401",
+          "schema": "BatchCancelOrdersV2Status401"
+        },
+        {
+          "status": "403",
+          "schema": "BatchCancelOrdersV2Status403"
+        },
+        {
+          "status": "500",
+          "schema": "BatchCancelOrdersV2Status500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CancelOrderV2",
+      "method": "cancel_order_v2",
+      "source": "#/paths/~1portfolio~1events~1orders~1{order_id}/delete",
+      "parameters": "CancelOrderV2Parameters",
+      "parameterBindings": [
+        {
+          "name": "order_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "market_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "CancelOrderV2Status200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "CancelOrderV2Status401"
+        },
+        {
+          "status": "404",
+          "schema": "CancelOrderV2Status404"
+        },
+        {
+          "status": "500",
+          "schema": "CancelOrderV2Status500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "AmendOrderV2",
+      "method": "amend_order_v2",
+      "source": "#/paths/~1portfolio~1events~1orders~1{order_id}~1amend/post",
+      "parameters": "AmendOrderV2Parameters",
+      "parameterBindings": [
+        {
+          "name": "order_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "AmendOrderV2Body",
+      "success": "AmendOrderV2Status200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "AmendOrderV2Status400"
+        },
+        {
+          "status": "401",
+          "schema": "AmendOrderV2Status401"
+        },
+        {
+          "status": "403",
+          "schema": "AmendOrderV2Status403"
+        },
+        {
+          "status": "404",
+          "schema": "AmendOrderV2Status404"
+        },
+        {
+          "status": "500",
+          "schema": "AmendOrderV2Status500"
+        },
+        {
+          "status": "503",
+          "schema": "AmendOrderV2Status503"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DecreaseOrderV2",
+      "method": "decrease_order_v2",
+      "source": "#/paths/~1portfolio~1events~1orders~1{order_id}~1decrease/post",
+      "parameters": "DecreaseOrderV2Parameters",
+      "parameterBindings": [
+        {
+          "name": "order_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "DecreaseOrderV2Body",
+      "success": "DecreaseOrderV2Status200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "DecreaseOrderV2Status400"
+        },
+        {
+          "status": "401",
+          "schema": "DecreaseOrderV2Status401"
+        },
+        {
+          "status": "404",
+          "schema": "DecreaseOrderV2Status404"
+        },
+        {
+          "status": "500",
+          "schema": "DecreaseOrderV2Status500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetOrderGroups",
+      "method": "get_order_groups",
+      "source": "#/paths/~1portfolio~1order_groups/get",
+      "parameters": "GetOrderGroupsParameters",
+      "parameterBindings": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetOrderGroupsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetOrderGroupsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetOrderGroupsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetOrderGroupsStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CreateOrderGroup",
+      "method": "create_order_group",
+      "source": "#/paths/~1portfolio~1order_groups~1create/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateOrderGroupBody",
+      "success": "CreateOrderGroupStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateOrderGroupStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateOrderGroupStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "CreateOrderGroupStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetOrderGroup",
+      "method": "get_order_group",
+      "source": "#/paths/~1portfolio~1order_groups~1{order_group_id}/get",
+      "parameters": "GetOrderGroupParameters",
+      "parameterBindings": [
+        {
+          "name": "order_group_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetOrderGroupStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetOrderGroupStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetOrderGroupStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetOrderGroupStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DeleteOrderGroup",
+      "method": "delete_order_group",
+      "source": "#/paths/~1portfolio~1order_groups~1{order_group_id}/delete",
+      "parameters": "DeleteOrderGroupParameters",
+      "parameterBindings": [
+        {
+          "name": "order_group_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "DeleteOrderGroupStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "DeleteOrderGroupStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "DeleteOrderGroupStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "DeleteOrderGroupStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "ResetOrderGroup",
+      "method": "reset_order_group",
+      "source": "#/paths/~1portfolio~1order_groups~1{order_group_id}~1reset/put",
+      "parameters": "ResetOrderGroupParameters",
+      "parameterBindings": [
+        {
+          "name": "order_group_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "ResetOrderGroupBody",
+      "success": "ResetOrderGroupStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "ResetOrderGroupStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "ResetOrderGroupStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "ResetOrderGroupStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "TriggerOrderGroup",
+      "method": "trigger_order_group",
+      "source": "#/paths/~1portfolio~1order_groups~1{order_group_id}~1trigger/put",
+      "parameters": "TriggerOrderGroupParameters",
+      "parameterBindings": [
+        {
+          "name": "order_group_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "TriggerOrderGroupBody",
+      "success": "TriggerOrderGroupStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "TriggerOrderGroupStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "TriggerOrderGroupStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "TriggerOrderGroupStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "UpdateOrderGroupLimit",
+      "method": "update_order_group_limit",
+      "source": "#/paths/~1portfolio~1order_groups~1{order_group_id}~1limit/put",
+      "parameters": "UpdateOrderGroupLimitParameters",
+      "parameterBindings": [
+        {
+          "name": "order_group_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "UpdateOrderGroupLimitBody",
+      "success": "UpdateOrderGroupLimitStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "UpdateOrderGroupLimitStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "UpdateOrderGroupLimitStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "UpdateOrderGroupLimitStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "UpdateOrderGroupLimitStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetBalance",
+      "method": "get_balance",
+      "source": "#/paths/~1portfolio~1balance/get",
+      "parameters": "GetBalanceParameters",
+      "parameterBindings": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetBalanceStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetBalanceStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetBalanceStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "IntraExchangeInstanceTransfer",
+      "method": "intra_exchange_instance_transfer",
+      "source": "#/paths/~1portfolio~1intra_exchange_instance_transfer/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "IntraExchangeInstanceTransferBody",
+      "success": "IntraExchangeInstanceTransferStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "IntraExchangeInstanceTransferStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "IntraExchangeInstanceTransferStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "IntraExchangeInstanceTransferStatus403"
+        },
+        {
+          "status": "500",
+          "schema": "IntraExchangeInstanceTransferStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetIntraExchangeInstanceTransfers",
+      "method": "get_intra_exchange_instance_transfers",
+      "source": "#/paths/~1portfolio~1intra_exchange_instance_transfers/get",
+      "parameters": "GetIntraExchangeInstanceTransfersParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetIntraExchangeInstanceTransfersStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetIntraExchangeInstanceTransfersStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetIntraExchangeInstanceTransfersStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetIntraExchangeInstanceTransfersStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetIntraExchangeInstanceTransfer",
+      "method": "get_intra_exchange_instance_transfer",
+      "source": "#/paths/~1portfolio~1intra_exchange_instance_transfers~1{transfer_id}/get",
+      "parameters": "GetIntraExchangeInstanceTransferParameters",
+      "parameterBindings": [
+        {
+          "name": "transfer_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetIntraExchangeInstanceTransferStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetIntraExchangeInstanceTransferStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetIntraExchangeInstanceTransferStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetIntraExchangeInstanceTransferStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CreateSubaccount",
+      "method": "create_subaccount",
+      "source": "#/paths/~1portfolio~1subaccounts/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateSubaccountBody",
+      "success": "CreateSubaccountStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateSubaccountStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateSubaccountStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "CreateSubaccountStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "ApplySubaccountTransfer",
+      "method": "apply_subaccount_transfer",
+      "source": "#/paths/~1portfolio~1subaccounts~1transfer/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "ApplySubaccountTransferBody",
+      "success": "ApplySubaccountTransferStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "ApplySubaccountTransferStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "ApplySubaccountTransferStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "ApplySubaccountTransferStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetSubaccountBalances",
+      "method": "get_subaccount_balances",
+      "source": "#/paths/~1portfolio~1subaccounts~1balances/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetSubaccountBalancesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetSubaccountBalancesStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetSubaccountBalancesStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetSubaccountTransfers",
+      "method": "get_subaccount_transfers",
+      "source": "#/paths/~1portfolio~1subaccounts~1transfers/get",
+      "parameters": "GetSubaccountTransfersParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetSubaccountTransfersStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetSubaccountTransfersStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetSubaccountTransfersStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetSubaccountNetting",
+      "method": "get_subaccount_netting",
+      "source": "#/paths/~1portfolio~1subaccounts~1netting/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetSubaccountNettingStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetSubaccountNettingStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetSubaccountNettingStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "UpdateSubaccountNetting",
+      "method": "update_subaccount_netting",
+      "source": "#/paths/~1portfolio~1subaccounts~1netting/put",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "UpdateSubaccountNettingBody",
+      "success": null,
+      "successStatus": 200,
+      "unknownSuccess": true,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "UpdateSubaccountNettingStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "UpdateSubaccountNettingStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "UpdateSubaccountNettingStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetPositions",
+      "method": "get_positions",
+      "source": "#/paths/~1portfolio~1positions/get",
+      "parameters": "GetPositionsParameters",
+      "parameterBindings": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "count_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "settlement_status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetPositionsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetPositionsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetPositionsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetPositionsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetSettlements",
+      "method": "get_settlements",
+      "source": "#/paths/~1portfolio~1settlements/get",
+      "parameters": "GetSettlementsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetSettlementsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetSettlementsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetSettlementsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetSettlementsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetDeposits",
+      "method": "get_deposits",
+      "source": "#/paths/~1portfolio~1deposits/get",
+      "parameters": "GetDepositsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetDepositsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetDepositsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetDepositsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetDepositsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetWithdrawals",
+      "method": "get_withdrawals",
+      "source": "#/paths/~1portfolio~1withdrawals/get",
+      "parameters": "GetWithdrawalsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetWithdrawalsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetWithdrawalsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetWithdrawalsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetWithdrawalsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetPortfolioRestingOrderTotalValue",
+      "method": "get_portfolio_resting_order_total_value",
+      "source": "#/paths/~1portfolio~1summary~1total_resting_order_value/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetPortfolioRestingOrderTotalValueStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetPortfolioRestingOrderTotalValueStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetPortfolioRestingOrderTotalValueStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetFills",
+      "method": "get_fills",
+      "source": "#/paths/~1portfolio~1fills/get",
+      "parameters": "GetFillsParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "order_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "exchange_index",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFillsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetCommunicationsID",
+      "method": "get_communications_id",
+      "source": "#/paths/~1communications~1id/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetCommunicationsIdStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetCommunicationsIdStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetCommunicationsIdStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetBlockTradeProposals",
+      "method": "get_block_trade_proposals",
+      "source": "#/paths/~1communications~1block-trade-proposals/get",
+      "parameters": "GetBlockTradeProposalsParameters",
+      "parameterBindings": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "market_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetBlockTradeProposalsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetBlockTradeProposalsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetBlockTradeProposalsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetBlockTradeProposalsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "ProposeBlockTrade",
+      "method": "propose_block_trade",
+      "source": "#/paths/~1communications~1block-trade-proposals/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "ProposeBlockTradeBody",
+      "success": "ProposeBlockTradeStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "ProposeBlockTradeStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "ProposeBlockTradeStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "ProposeBlockTradeStatus403"
+        },
+        {
+          "status": "500",
+          "schema": "ProposeBlockTradeStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "AcceptBlockTradeProposal",
+      "method": "accept_block_trade_proposal",
+      "source": "#/paths/~1communications~1block-trade-proposals~1{block_trade_proposal_id}~1accept/post",
+      "parameters": "AcceptBlockTradeProposalParameters",
+      "parameterBindings": [
+        {
+          "name": "block_trade_proposal_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "AcceptBlockTradeProposalBody",
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "AcceptBlockTradeProposalStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "AcceptBlockTradeProposalStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "AcceptBlockTradeProposalStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "AcceptBlockTradeProposalStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetRFQs",
+      "method": "get_rf_qs",
+      "source": "#/paths/~1communications~1rfqs/get",
+      "parameters": "GetRfQsParameters",
+      "parameterBindings": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "market_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "creator_user_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "user_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetRfQsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetRfQsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetRfQsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetRfQsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "CreateRFQ",
+      "method": "create_rfq",
+      "source": "#/paths/~1communications~1rfqs/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateRfqBody",
+      "success": "CreateRfqStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateRfqStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateRfqStatus401"
+        },
+        {
+          "status": "409",
+          "schema": "CreateRfqStatus409"
+        },
+        {
+          "status": "500",
+          "schema": "CreateRfqStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetRFQ",
+      "method": "get_rfq",
+      "source": "#/paths/~1communications~1rfqs~1{rfq_id}/get",
+      "parameters": "GetRfqParameters",
+      "parameterBindings": [
+        {
+          "name": "rfq_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetRfqStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetRfqStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetRfqStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetRfqStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetRfqStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DeleteRFQ",
+      "method": "delete_rfq",
+      "source": "#/paths/~1communications~1rfqs~1{rfq_id}/delete",
+      "parameters": "DeleteRfqParameters",
+      "parameterBindings": [
+        {
+          "name": "rfq_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "DeleteRfqStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "DeleteRfqStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "DeleteRfqStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "DeleteRfqStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetRFQQuote",
+      "method": "get_rfq_quote",
+      "source": "#/paths/~1communications~1rfqs~1{rfq_id}~1quotes~1{quote_id}/get",
+      "parameters": "GetRfqQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "rfq_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetRfqQuoteStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetRfqQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetRfqQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetRfqQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetRfqQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DeleteRFQQuote",
+      "method": "delete_rfq_quote",
+      "source": "#/paths/~1communications~1rfqs~1{rfq_id}~1quotes~1{quote_id}/delete",
+      "parameters": "DeleteRfqQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "rfq_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "DeleteRfqQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "DeleteRfqQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "DeleteRfqQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "DeleteRfqQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "AcceptRFQQuote",
+      "method": "accept_rfq_quote",
+      "source": "#/paths/~1communications~1rfqs~1{rfq_id}~1quotes~1{quote_id}~1accept/put",
+      "parameters": "AcceptRfqQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "rfq_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "AcceptRfqQuoteBody",
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "AcceptRfqQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "AcceptRfqQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "AcceptRfqQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "AcceptRfqQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "ConfirmRFQQuote",
+      "method": "confirm_rfq_quote",
+      "source": "#/paths/~1communications~1rfqs~1{rfq_id}~1quotes~1{quote_id}~1confirm/put",
+      "parameters": "ConfirmRfqQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "rfq_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "ConfirmRfqQuoteBody",
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "ConfirmRfqQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "ConfirmRfqQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "ConfirmRfqQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "ConfirmRfqQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetQuotes",
+      "method": "get_quotes",
+      "source": "#/paths/~1communications~1quotes/get",
+      "parameters": "GetQuotesParameters",
+      "parameterBindings": [
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "quote_creator_user_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "user_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "rfq_user_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "rfq_creator_user_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "rfq_creator_subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "rfq_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetQuotesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetQuotesStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetQuotesStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetQuotesStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "CreateQuote",
+      "method": "create_quote",
+      "source": "#/paths/~1communications~1quotes/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateQuoteBody",
+      "success": "CreateQuoteStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateQuoteStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "CreateQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetQuote",
+      "method": "get_quote",
+      "source": "#/paths/~1communications~1quotes~1{quote_id}/get",
+      "parameters": "GetQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetQuoteStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "GetQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DeleteQuote",
+      "method": "delete_quote",
+      "source": "#/paths/~1communications~1quotes~1{quote_id}/delete",
+      "parameters": "DeleteQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "DeleteQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "DeleteQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "DeleteQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "DeleteQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "AcceptQuote",
+      "method": "accept_quote",
+      "source": "#/paths/~1communications~1quotes~1{quote_id}~1accept/put",
+      "parameters": "AcceptQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "AcceptQuoteBody",
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "AcceptQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "AcceptQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "AcceptQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "AcceptQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "ConfirmQuote",
+      "method": "confirm_quote",
+      "source": "#/paths/~1communications~1quotes~1{quote_id}~1confirm/put",
+      "parameters": "ConfirmQuoteParameters",
+      "parameterBindings": [
+        {
+          "name": "quote_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "ConfirmQuoteBody",
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "ConfirmQuoteStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "ConfirmQuoteStatus401"
+        },
+        {
+          "status": "404",
+          "schema": "ConfirmQuoteStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "ConfirmQuoteStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetApiKeys",
+      "method": "get_api_keys",
+      "source": "#/paths/~1api_keys/get",
+      "parameters": "GetApiKeysParameters",
+      "parameterBindings": [
+        {
+          "name": "fcm_subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetApiKeysStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CreateApiKey",
+      "method": "create_api_key",
+      "source": "#/paths/~1api_keys/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateApiKeyBody",
+      "success": "CreateApiKeyStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "403",
+          "schema": null
+        },
+        {
+          "status": "409",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GenerateApiKey",
+      "method": "generate_api_key",
+      "source": "#/paths/~1api_keys~1generate/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "GenerateApiKeyBody",
+      "success": "GenerateApiKeyStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "403",
+          "schema": null
+        },
+        {
+          "status": "409",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DeleteApiKey",
+      "method": "delete_api_key",
+      "source": "#/paths/~1api_keys~1{api_key}/delete",
+      "parameters": "DeleteApiKeyParameters",
+      "parameterBindings": [
+        {
+          "name": "api_key",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": null,
+      "successStatus": 204,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetAccountApiLimits",
+      "method": "get_account_api_limits",
+      "source": "#/paths/~1account~1limits/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetAccountApiLimitsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "UpgradeAccountApiUsageLevel",
+      "method": "upgrade_account_api_usage_level",
+      "source": "#/paths/~1account~1api_usage_level~1upgrade/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": null,
+      "successStatus": 201,
+      "unknownSuccess": true,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "403",
+          "schema": null
+        },
+        {
+          "status": "429",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetAccountApiUsageLevelVolumeProgress",
+      "method": "get_account_api_usage_level_volume_progress",
+      "source": "#/paths/~1account~1api_usage_level~1volume_progress/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetAccountApiUsageLevelVolumeProgressStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetAccountEndpointCosts",
+      "method": "get_account_endpoint_costs",
+      "source": "#/paths/~1account~1endpoint_costs/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetAccountEndpointCostsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetTagsForSeriesCategories",
+      "method": "get_tags_for_series_categories",
+      "source": "#/paths/~1search~1tags_by_categories/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetTagsForSeriesCategoriesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetFiltersForSports",
+      "method": "get_filters_for_sports",
+      "source": "#/paths/~1search~1filters_by_sport/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetFiltersForSportsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetLiveDataByMilestone",
+      "method": "get_live_data_by_milestone",
+      "source": "#/paths/~1live_data~1milestone~1{milestone_id}/get",
+      "parameters": "GetLiveDataByMilestoneParameters",
+      "parameterBindings": [
+        {
+          "name": "milestone_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_player_stats",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetLiveDataByMilestoneStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetLiveData",
+      "method": "get_live_data",
+      "source": "#/paths/~1live_data~1{type}~1milestone~1{milestone_id}/get",
+      "parameters": "GetLiveDataParameters",
+      "parameterBindings": [
+        {
+          "name": "type",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "milestone_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "include_player_stats",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetLiveDataStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetLiveDatas",
+      "method": "get_live_datas",
+      "source": "#/paths/~1live_data~1batch/get",
+      "parameters": "GetLiveDatasParameters",
+      "parameterBindings": [
+        {
+          "name": "milestone_ids",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": true
+        },
+        {
+          "name": "include_player_stats",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetLiveDatasStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetGameStats",
+      "method": "get_game_stats",
+      "source": "#/paths/~1live_data~1milestone~1{milestone_id}~1game_stats/get",
+      "parameters": "GetGameStatsParameters",
+      "parameterBindings": [
+        {
+          "name": "milestone_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetGameStatsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetEventLiveData",
+      "method": "get_event_live_data",
+      "source": "#/paths/~1live_data~1events~1{event_ticker}/get",
+      "parameters": "GetEventLiveDataParameters",
+      "parameterBindings": [
+        {
+          "name": "event_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "range",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetEventLiveDataStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetWeatherIndex",
+      "method": "get_weather_index",
+      "source": "#/paths/~1live_data~1weather~1{city}/get",
+      "parameters": "GetWeatherIndexParameters",
+      "parameterBindings": [
+        {
+          "name": "city",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "last_sec",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "detailed",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetWeatherIndexStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetWeatherIndexCalibrations",
+      "method": "get_weather_index_calibrations",
+      "source": "#/paths/~1live_data~1weather~1{city}~1calibrations/get",
+      "parameters": "GetWeatherIndexCalibrationsParameters",
+      "parameterBindings": [
+        {
+          "name": "city",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetWeatherIndexCalibrationsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetStructuredTargets",
+      "method": "get_structured_targets",
+      "source": "#/paths/~1structured_targets/get",
+      "parameters": "GetStructuredTargetsParameters",
+      "parameterBindings": [
+        {
+          "name": "ids",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": true
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "competition",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "page_size",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetStructuredTargetsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetStructuredTarget",
+      "method": "get_structured_target",
+      "source": "#/paths/~1structured_targets~1{structured_target_id}/get",
+      "parameters": "GetStructuredTargetParameters",
+      "parameterBindings": [
+        {
+          "name": "structured_target_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetStructuredTargetStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMilestone",
+      "method": "get_milestone",
+      "source": "#/paths/~1milestones~1{milestone_id}/get",
+      "parameters": "GetMilestoneParameters",
+      "parameterBindings": [
+        {
+          "name": "milestone_id",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMilestoneStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMilestones",
+      "method": "get_milestones",
+      "source": "#/paths/~1milestones/get",
+      "parameters": "GetMilestonesParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "minimum_start_date",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "category",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "competition",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "source_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "related_event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_updated_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMilestonesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetMultivariateEventCollection",
+      "method": "get_multivariate_event_collection",
+      "source": "#/paths/~1multivariate_event_collections~1{collection_ticker}/get",
+      "parameters": "GetMultivariateEventCollectionParameters",
+      "parameterBindings": [
+        {
+          "name": "collection_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMultivariateEventCollectionStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetMultivariateEventCollectionStatus400"
+        },
+        {
+          "status": "404",
+          "schema": "GetMultivariateEventCollectionStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetMultivariateEventCollectionStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CreateMarketInMultivariateEventCollection",
+      "method": "create_market_in_multivariate_event_collection",
+      "source": "#/paths/~1multivariate_event_collections~1{collection_ticker}/post",
+      "parameters": "CreateMarketInMultivariateEventCollectionParameters",
+      "parameterBindings": [
+        {
+          "name": "collection_ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": "CreateMarketInMultivariateEventCollectionBody",
+      "success": "CreateMarketInMultivariateEventCollectionStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateMarketInMultivariateEventCollectionStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateMarketInMultivariateEventCollectionStatus401"
+        },
+        {
+          "status": "429",
+          "schema": "CreateMarketInMultivariateEventCollectionStatus429"
+        },
+        {
+          "status": "500",
+          "schema": "CreateMarketInMultivariateEventCollectionStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMultivariateEventCollections",
+      "method": "get_multivariate_event_collections",
+      "source": "#/paths/~1multivariate_event_collections/get",
+      "parameters": "GetMultivariateEventCollectionsParameters",
+      "parameterBindings": [
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "associated_event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMultivariateEventCollectionsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetMultivariateEventCollectionsStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetMultivariateEventCollectionsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetIncentivePrograms",
+      "method": "get_incentive_programs",
+      "source": "#/paths/~1incentive_programs/get",
+      "parameters": "GetIncentiveProgramsParameters",
+      "parameterBindings": [
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "incentive_description",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetIncentiveProgramsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetIncentiveProgramsStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetIncentiveProgramsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetFCMFills",
+      "method": "get_fcm_fills",
+      "source": "#/paths/~1fcm~1fills/get",
+      "parameters": "GetFcmFillsParameters",
+      "parameterBindings": [
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFcmFillsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "403",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetFCMOrders",
+      "method": "get_fcm_orders",
+      "source": "#/paths/~1fcm~1orders/get",
+      "parameters": "GetFcmOrdersParameters",
+      "parameterBindings": [
+        {
+          "name": "subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "client_order_ids",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFcmOrdersStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "403",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "ListFCMSubtraders",
+      "method": "list_fcm_subtraders",
+      "source": "#/paths/~1fcm~1subtraders/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "ListFcmSubtradersStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "ListFcmSubtradersStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "ListFcmSubtradersStatus403"
+        },
+        {
+          "status": "500",
+          "schema": "ListFcmSubtradersStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "CreateFCMSubtrader",
+      "method": "create_fcm_subtrader",
+      "source": "#/paths/~1fcm~1subtraders/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateFcmSubtraderBody",
+      "success": "CreateFcmSubtraderStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateFcmSubtraderStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateFcmSubtraderStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "CreateFcmSubtraderStatus403"
+        },
+        {
+          "status": "409",
+          "schema": "CreateFcmSubtraderStatus409"
+        },
+        {
+          "status": "500",
+          "schema": "CreateFcmSubtraderStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetFCMEventContractDailyCap",
+      "method": "get_fcm_event_contract_daily_cap",
+      "source": "#/paths/~1fcm~1subtraders~1event_contract_daily_cap/get",
+      "parameters": "GetFcmEventContractDailyCapParameters",
+      "parameterBindings": [
+        {
+          "name": "subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFcmEventContractDailyCapStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetFcmEventContractDailyCapStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetFcmEventContractDailyCapStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "GetFcmEventContractDailyCapStatus403"
+        },
+        {
+          "status": "404",
+          "schema": "GetFcmEventContractDailyCapStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetFcmEventContractDailyCapStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "UpdateFCMEventContractDailyCap",
+      "method": "update_fcm_event_contract_daily_cap",
+      "source": "#/paths/~1fcm~1subtraders~1event_contract_daily_cap/put",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "UpdateFcmEventContractDailyCapBody",
+      "success": "UpdateFcmEventContractDailyCapStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "UpdateFcmEventContractDailyCapStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "UpdateFcmEventContractDailyCapStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "UpdateFcmEventContractDailyCapStatus403"
+        },
+        {
+          "status": "404",
+          "schema": "UpdateFcmEventContractDailyCapStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "UpdateFcmEventContractDailyCapStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "DeleteFCMEventContractDailyCap",
+      "method": "delete_fcm_event_contract_daily_cap",
+      "source": "#/paths/~1fcm~1subtraders~1event_contract_daily_cap/delete",
+      "parameters": "DeleteFcmEventContractDailyCapParameters",
+      "parameterBindings": [
+        {
+          "name": "subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "DeleteFcmEventContractDailyCapStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "DeleteFcmEventContractDailyCapStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "DeleteFcmEventContractDailyCapStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "DeleteFcmEventContractDailyCapStatus403"
+        },
+        {
+          "status": "404",
+          "schema": "DeleteFcmEventContractDailyCapStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "DeleteFcmEventContractDailyCapStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetFCMSubtraderBlockedCategories",
+      "method": "get_fcm_subtrader_blocked_categories",
+      "source": "#/paths/~1fcm~1subtraders~1blocked_categories/get",
+      "parameters": "GetFcmSubtraderBlockedCategoriesParameters",
+      "parameterBindings": [
+        {
+          "name": "subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFcmSubtraderBlockedCategoriesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetFcmSubtraderBlockedCategoriesStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetFcmSubtraderBlockedCategoriesStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "GetFcmSubtraderBlockedCategoriesStatus403"
+        },
+        {
+          "status": "500",
+          "schema": "GetFcmSubtraderBlockedCategoriesStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "UpdateFCMSubtraderBlockedCategories",
+      "method": "update_fcm_subtrader_blocked_categories",
+      "source": "#/paths/~1fcm~1subtraders~1blocked_categories/put",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "UpdateFcmSubtraderBlockedCategoriesBody",
+      "success": "UpdateFcmSubtraderBlockedCategoriesStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "UpdateFcmSubtraderBlockedCategoriesStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "UpdateFcmSubtraderBlockedCategoriesStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "UpdateFcmSubtraderBlockedCategoriesStatus403"
+        },
+        {
+          "status": "404",
+          "schema": "UpdateFcmSubtraderBlockedCategoriesStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "UpdateFcmSubtraderBlockedCategoriesStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetTargetBalanceAllocation",
+      "method": "get_target_balance_allocation",
+      "source": "#/paths/~1portfolio~1target_balance_allocation/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetTargetBalanceAllocationStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "401",
+          "schema": "GetTargetBalanceAllocationStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "GetTargetBalanceAllocationStatus403"
+        },
+        {
+          "status": "500",
+          "schema": "GetTargetBalanceAllocationStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "SetTargetBalanceAllocation",
+      "method": "set_target_balance_allocation",
+      "source": "#/paths/~1portfolio~1target_balance_allocation/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "SetTargetBalanceAllocationBody",
+      "success": "SetTargetBalanceAllocationStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "SetTargetBalanceAllocationStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "SetTargetBalanceAllocationStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "SetTargetBalanceAllocationStatus403"
+        },
+        {
+          "status": "500",
+          "schema": "SetTargetBalanceAllocationStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetFCMPositions",
+      "method": "get_fcm_positions",
+      "source": "#/paths/~1fcm~1positions/get",
+      "parameters": "GetFcmPositionsParameters",
+      "parameterBindings": [
+        {
+          "name": "subtrader_id",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "count_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "settlement_status",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFcmPositionsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "403",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "CreateFCMPositionTransfer",
+      "method": "create_fcm_position_transfer",
+      "source": "#/paths/~1fcm~1positions~1transfers/post",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": "CreateFcmPositionTransferBody",
+      "success": "CreateFcmPositionTransferStatus201",
+      "successStatus": 201,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "CreateFcmPositionTransferStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "CreateFcmPositionTransferStatus401"
+        },
+        {
+          "status": "403",
+          "schema": "CreateFcmPositionTransferStatus403"
+        },
+        {
+          "status": "404",
+          "schema": "CreateFcmPositionTransferStatus404"
+        },
+        {
+          "status": "409",
+          "schema": "CreateFcmPositionTransferStatus409"
+        },
+        {
+          "status": "429",
+          "schema": "CreateFcmPositionTransferStatus429"
+        },
+        {
+          "status": "500",
+          "schema": "CreateFcmPositionTransferStatus500"
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetHistoricalCutoff",
+      "method": "get_historical_cutoff",
+      "source": "#/paths/~1historical~1cutoff/get",
+      "parameters": null,
+      "parameterBindings": [],
+      "body": null,
+      "success": "GetHistoricalCutoffStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetMarketCandlesticksHistorical",
+      "method": "get_market_candlesticks_historical",
+      "source": "#/paths/~1historical~1markets~1{ticker}~1candlesticks/get",
+      "parameters": "GetMarketCandlesticksHistoricalParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "start_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "end_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "period_interval",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetMarketCandlesticksHistoricalStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": null
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": false
+    },
+    {
+      "id": "GetFillsHistorical",
+      "method": "get_fills_historical",
+      "source": "#/paths/~1historical~1fills/get",
+      "parameters": "GetFillsHistoricalParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetFillsHistoricalStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": null
+        },
+        {
+          "status": "401",
+          "schema": null
+        },
+        {
+          "status": "404",
+          "schema": "GetFillsHistoricalStatus404"
+        },
+        {
+          "status": "500",
+          "schema": null
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetHistoricalOrders",
+      "method": "get_historical_orders",
+      "source": "#/paths/~1historical~1orders/get",
+      "parameters": "GetHistoricalOrdersParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetHistoricalOrdersStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetHistoricalOrdersStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetHistoricalOrdersStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetHistoricalOrdersStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetHistoricalPositions",
+      "method": "get_historical_positions",
+      "source": "#/paths/~1historical~1positions/get",
+      "parameters": "GetHistoricalPositionsParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetHistoricalPositionsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetHistoricalPositionsStatus400"
+        },
+        {
+          "status": "401",
+          "schema": "GetHistoricalPositionsStatus401"
+        },
+        {
+          "status": "500",
+          "schema": "GetHistoricalPositionsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetTradesHistorical",
+      "method": "get_trades_historical",
+      "source": "#/paths/~1historical~1trades/get",
+      "parameters": "GetTradesHistoricalParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "min_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "max_ts",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "is_block_trade",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetTradesHistoricalStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetTradesHistoricalStatus400"
+        },
+        {
+          "status": "404",
+          "schema": "GetTradesHistoricalStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetTradesHistoricalStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetHistoricalMarkets",
+      "method": "get_historical_markets",
+      "source": "#/paths/~1historical~1markets/get",
+      "parameters": "GetHistoricalMarketsParameters",
+      "parameterBindings": [
+        {
+          "name": "limit",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "tickers",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "event_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "series_ticker",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        },
+        {
+          "name": "mve_filter",
+          "in": "query",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetHistoricalMarketsStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "400",
+          "schema": "GetHistoricalMarketsStatus400"
+        },
+        {
+          "status": "500",
+          "schema": "GetHistoricalMarketsStatus500"
+        }
+      ],
+      "paginated": true
+    },
+    {
+      "id": "GetHistoricalMarket",
+      "method": "get_historical_market",
+      "source": "#/paths/~1historical~1markets~1{ticker}/get",
+      "parameters": "GetHistoricalMarketParameters",
+      "parameterBindings": [
+        {
+          "name": "ticker",
+          "in": "path",
+          "style": "form",
+          "explode": true,
+          "array": false
+        }
+      ],
+      "body": null,
+      "success": "GetHistoricalMarketStatus200",
+      "successStatus": 200,
+      "unknownSuccess": false,
+      "errors": [
+        {
+          "status": "404",
+          "schema": "GetHistoricalMarketStatus404"
+        },
+        {
+          "status": "500",
+          "schema": "GetHistoricalMarketStatus500"
+        }
+      ],
+      "paginated": false
+    }
+  ]
+}

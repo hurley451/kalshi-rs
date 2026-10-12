@@ -1,10 +1,12 @@
 use std::collections::BTreeMap;
 
 use base64::Engine;
+use rand_core::{RngCore, SeedableRng};
 use rsa::RsaPrivateKey;
+use rsa::pkcs1::DecodeRsaPrivateKey;
 use rsa::pkcs8::DecodePrivateKey;
 use rsa::pss::SigningKey;
-use rsa::signature::{RandomizedSigner, SignatureEncoding};
+use rsa::signature::{RandomizedSigner, SignatureEncoding, Signer};
 use sha2::Sha256;
 
 use crate::error::KalshiError;
@@ -59,15 +61,50 @@ pub fn sign_kalshi_request(
     path_and_query: &str,
     timestamp_ms: &str,
 ) -> Result<SignedKalshiRequest, KalshiError> {
-    let key = RsaPrivateKey::from_pkcs8_pem(&auth.private_key_pem)
-        .map_err(|error| KalshiError::RsaKey(error.to_string()))?;
-    let signing_key = SigningKey::<Sha256>::new(key);
-    let mut rng = rand_core::OsRng;
-    let signature = signing_key.sign_with_rng(
-        &mut rng,
-        build_signing_preimage(timestamp_ms, method, path_and_query).as_bytes(),
-    );
-    let signature = base64::engine::general_purpose::STANDARD.encode(signature.to_bytes());
+    sign_with_entropy(auth, method, path_and_query, timestamp_ms, |seed| {
+        rand_core::OsRng.try_fill_bytes(seed).map_err(|_| ())
+    })
+}
+
+fn sign_with_entropy(
+    auth: &KalshiAuth,
+    method: &str,
+    path_and_query: &str,
+    timestamp_ms: &str,
+    entropy: impl FnOnce(&mut [u8]) -> Result<(), ()>,
+) -> Result<SignedKalshiRequest, KalshiError> {
+    if auth.api_key_id.is_empty()
+        || !auth
+            .api_key_id
+            .bytes()
+            .all(|byte| (0x21..=0x7e).contains(&byte))
+        || timestamp_ms.is_empty()
+        || !timestamp_ms.bytes().all(|byte| byte.is_ascii_digit())
+    {
+        return Err(KalshiError::InvalidSigningCredentials);
+    }
+    let message = build_signing_preimage(timestamp_ms, method, path_and_query);
+    let signature = if let Ok(key) = RsaPrivateKey::from_pkcs8_pem(&auth.private_key_pem)
+        .or_else(|_| RsaPrivateKey::from_pkcs1_pem(&auth.private_key_pem))
+    {
+        // RSA uses infallible RNG methods; acquire OS entropy before signing.
+        let mut seed = [0; 32];
+        entropy(&mut seed).map_err(|_| KalshiError::SigningFailed)?;
+        let mut rng = rand_chacha::ChaCha20Rng::from_seed(seed);
+        SigningKey::<Sha256>::new(key)
+            .try_sign_with_rng(&mut rng, message.as_bytes())
+            .map_err(|_| KalshiError::SigningFailed)?
+            .to_bytes()
+            .to_vec()
+    } else if let Ok(key) = ed25519_dalek::SigningKey::from_pkcs8_pem(&auth.private_key_pem) {
+        key.try_sign(message.as_bytes())
+            .map_err(|_| KalshiError::SigningFailed)?
+            .to_bytes()
+            .to_vec()
+    } else {
+        return Err(KalshiError::InvalidSigningCredentials);
+    };
+    let signature = base64::engine::general_purpose::STANDARD.encode(signature);
 
     let mut headers = BTreeMap::new();
     headers.insert("KALSHI-ACCESS-KEY".to_string(), auth.api_key_id.clone());
@@ -82,4 +119,40 @@ pub fn sign_kalshi_request(
         signature,
         headers,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rsa::pkcs8::EncodePrivateKey;
+
+    #[test]
+    fn entropy_failure_returns_a_sanitized_error_without_headers() {
+        let key = RsaPrivateKey::new(&mut rand_core::OsRng, 2048).unwrap();
+        let auth = KalshiAuth {
+            api_key_id: "SECRET_KEY_ID".into(),
+            private_key_pem: key.to_pkcs8_pem(Default::default()).unwrap().to_string(),
+        };
+        let error = sign_with_entropy(&auth, "GET", "/trade-api/v2/portfolio/balance", "1", |_| {
+            Err(())
+        })
+        .unwrap_err();
+        assert!(matches!(error, KalshiError::SigningFailed));
+        assert_eq!(error.to_string(), "Kalshi request signing failed");
+        assert!(!format!("{error:?}").contains("SECRET"));
+        assert!(std::error::Error::source(&error).is_none());
+    }
+
+    #[test]
+    fn ed25519_does_not_require_entropy_for_signing() {
+        let key = ed25519_dalek::SigningKey::from_bytes(&[42; 32]);
+        let auth = KalshiAuth {
+            api_key_id: "fixture-key".into(),
+            private_key_pem: key.to_pkcs8_pem(Default::default()).unwrap().to_string(),
+        };
+        sign_with_entropy(&auth, "GET", "/trade-api/v2/portfolio/balance", "1", |_| {
+            panic!("Ed25519 must not request entropy")
+        })
+        .unwrap();
+    }
 }

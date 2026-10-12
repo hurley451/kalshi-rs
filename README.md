@@ -7,7 +7,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/hurley451/kalshi-rs.svg?style=social)](https://github.com/hurley451/kalshi-rs/stargazers)
 
 A Rust SDK for the [Kalshi](https://kalshi.com) prediction market API, with async
-REST requests through reqwest, RSA-PSS authentication, and serde JSON handling.
+REST requests through reqwest, RSA-PSS or Ed25519 authentication, and serde JSON handling.
 
 This is a community client, not an official Kalshi SDK.
 The repository is `kalshi-rs`, the Cargo package is `kalshi-client`,
@@ -29,53 +29,60 @@ and Rust imports use `kalshi_client`. The crate is not yet published.
 
 ## Features
 
-- Generated REST operation registry with IDs, methods, paths, summaries, and tags.
+- 118 named async REST methods with domain facades and typed serde models.
+- Runtime validation of documented inputs, responses and error payloads.
+- 28 lazy cursor paginators preserving complete page shapes and filters.
 - Async HTTP requests with production and demo environment constants.
-- RSA-PSS signing with API-key headers and canonical signing helpers.
+- RSA-PSS or Ed25519 signing with API-key headers and canonical signing helpers.
 - Encoded path/query values and JSON request bodies.
 - Portfolio fills query builders and serde response models.
 - WebSocket envelope parsing and shared offline conformance fixtures.
 - Request preparation for inspecting method, URL, headers, and body before sending.
 
-Generic requests return `serde_json::Value`. Generated operations do not include
-parameter, request-body, or response schemas. Typed fills parsing is provided by
-free functions, not a `client.portfolio` facade.
+Named methods use `kalshi_client::models` and validate the official wire schemas.
+Generic requests remain an escape hatch returning `serde_json::Value`.
+Undeclared response bodies remain unspecified; `UnspecifiedResponse` retains
+status, headers, decoded content and exact `raw_body` bytes.
 
 ### API Coverage
 
 | API family | Selected generated operation IDs | Support |
 |------------|----------------------------------|---------|
-| Exchange | `GetExchangeStatus`, `GetExchangeSchedule` | Generic REST |
-| Account | `GetAccountApiLimits`, `GetAccountEndpointCosts` | Generic REST |
-| Markets | `GetMarkets`, `GetMarket`, `GetMarketOrderbook`, `GetTrades` | Generic REST |
-| Events and series | `GetEvents`, `GetEvent`, `GetSeriesList`, `GetSeries` | Generic REST |
-| Discovery | `GetStructuredTargets`, `GetMilestones`, `GetMultivariateEventCollections` | Generic REST |
-| V2 orders | `CreateOrderV2`, `CancelOrderV2`, `AmendOrderV2`, `BatchCreateOrdersV2` | Generic REST |
-| Order groups | `GetOrderGroups`, `CreateOrderGroup`, `TriggerOrderGroup` | Generic REST |
-| Portfolio | `GetBalance`, `GetPositions`, `GetSettlements`, `GetFills` | Generic REST; fills query/parser helpers |
-| Subaccounts | `GetSubaccountBalances`, `ApplySubaccountTransfer`, `GetSubaccountTransfers` | Generic REST |
-| Historical | `GetHistoricalCutoff`, `GetHistoricalMarkets`, `GetFillsHistorical` | Generic REST |
-| Incentives and allocation | `GetIncentivePrograms`, `GetTargetBalanceAllocation` | Generic REST |
-| Live data | `GetEventLiveData`, `GetWeatherIndex`, `GetWeatherIndexCalibrations` | Generic REST |
-| API keys | `GetApiKeys`, `CreateApiKey`, `DeleteApiKey` | Generic REST |
-| Communications | `GetCommunicationsID`, `GetRFQs`, `GetQuotes` | Generic REST |
+| Exchange | `GetExchangeStatus`, `GetExchangeSchedule` | Typed REST |
+| Account | `GetAccountApiLimits`, `GetAccountEndpointCosts` | Typed REST |
+| Markets | `GetMarkets`, `GetMarket`, `GetMarketOrderbook`, `GetTrades` | Typed REST |
+| Events and series | `GetEvents`, `GetEvent`, `GetSeriesList`, `GetSeries` | Typed REST |
+| Discovery | `GetStructuredTargets`, `GetMilestones`, `GetMultivariateEventCollections` | Typed REST |
+| V2 orders | `CreateOrderV2`, `CancelOrderV2`, `AmendOrderV2`, `BatchCreateOrdersV2` | Typed REST |
+| Order groups | `GetOrderGroups`, `CreateOrderGroup`, `TriggerOrderGroup` | Typed REST |
+| Portfolio | `GetBalance`, `GetPositions`, `GetSettlements`, `GetFills` | Typed REST; legacy fills helpers |
+| Subaccounts | `GetSubaccountBalances`, `ApplySubaccountTransfer`, `GetSubaccountTransfers` | Typed REST |
+| Historical | `GetHistoricalCutoff`, `GetHistoricalMarkets`, `GetFillsHistorical` | Typed REST |
+| Incentives and allocation | `GetIncentivePrograms`, `GetTargetBalanceAllocation` | Typed REST |
+| Live data | `GetEventLiveData`, `GetWeatherIndex`, `GetWeatherIndexCalibrations` | Typed REST |
+| API keys | `GetApiKeys`, `CreateApiKey`, `DeleteApiKey` | Typed REST |
+| Communications and FCM | `GetCommunicationsID`, `GetRFQs`, `GetQuotes`, `GetFCMOrders` | Typed REST |
 | WebSocket | `parse_websocket_message` | Parsing only; no transport or subscriptions |
 
-The checked-in inventory contains 118 operations. Inventory access is broader
-than typed models and contract-tested coverage. See [API coverage and gaps](https://github.com/hurley451/kalshi-rs/blob/main/docs/API_COVERAGE.md)
+The predictions snapshot contains 118 operations. Named methods, schema tests and
+wire tests cover that snapshot, not universal live compatibility. See [API coverage and gaps](https://github.com/hurley451/kalshi-rs/blob/main/docs/API_COVERAGE.md)
 and [official API docs](https://docs.kalshi.com).
 
 Automatic retries, rate limiting and WebSocket connection management are not
 implemented. HTTP transport can be configured with `KalshiClient::with_http_client`.
-Empty successful responses return JSON null.
+Generic empty successes return JSON null; typed HTTP 204 operations return `()`.
 
 ## Requirements
 
 - A current stable Rust toolchain supporting edition 2024 and the locked dependencies.
 - A Tokio runtime for async HTTP execution.
 - Kalshi API credentials for private endpoints, separately issued for demo/production.
-- Node.js and a KalshiCore checkout only for operation regeneration.
+- Node.js and a pinned KalshiCore checkout for contract regeneration.
 - A KalshiCore checkout for offline conformance.
+
+The package records its immutable Core source commit in
+`package.metadata.kalshicore.ref`. See [contribution guidance](CONTRIBUTING.md)
+for locked generation dependencies and staged reproducibility checks.
 
 ## Installation
 
@@ -98,22 +105,19 @@ Create a binary application with `cargo new kalshi-demo`, add the dependencies
 above, and put this in `src/main.rs`. Run it with `cargo run`.
 
 ```rust,no_run
-use kalshi_client::{DEMO, KalshiClient, KalshiRequest};
+use kalshi_client::{DEMO, KalshiClient};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = KalshiClient::new(DEMO, None);
-    let status = client.request("GetExchangeStatus", KalshiRequest {
-        authenticated: false,
-        ..Default::default()
-    }).await?;
-    println!("{status}");
+    let status = client.exchange().get_exchange_status().await?;
+    println!("exchange active: {}", status.exchange_active);
     Ok(())
 }
 ```
 
-Public calls without credentials must set `authenticated: false`.
-`KalshiRequest::default()` requests authentication.
+Named public methods do not require credentials. Generic public requests must
+set `authenticated: false`; `KalshiRequest::default()` requests authentication.
 
 ## Authentication
 
@@ -138,70 +142,58 @@ fn authenticated_demo_client() -> Result<KalshiClient, Box<dyn std::error::Error
 }
 ```
 
-The signer accepts a **PKCS#8 RSA PEM private key**, typically beginning with
-`-----BEGIN PRIVATE KEY-----`. PKCS#1 (`BEGIN RSA PRIVATE KEY`) and Ed25519
-keys are not accepted by the current signer.
+The signer accepts RSA PKCS#1 or PKCS#8 PEM private keys and Ed25519 PKCS#8
+PEM private keys. It selects the algorithm from the parsed key, not the PEM
+header. Encrypted PEM input and other key types are not supported. Invalid keys
+or header credentials fail with sanitized errors before dispatch.
 
 RSA-PSS uses SHA-256 and signs the timestamp, uppercase method, and API path
 without the query string. Keep system time accurate. Store keys outside the
 repository and use credentials issued for the selected environment.
+Ed25519 signs the same message directly, without prehashing. Signing failures
+are returned as errors instead of panicking.
 
 ## REST Examples
 
 These functions accept a client from the quick start or authentication examples.
 They compile as README doctests but are not executed by the test suite.
-Generic query/body field names use Kalshi's wire format.
+Models and generic request fields use Kalshi's wire format.
 
 ### List Markets with Pagination
 
 ```rust,no_run
-use kalshi_client::{KalshiClient, KalshiError, KalshiRequest, QueryValue};
+use kalshi_client::{KalshiClient, models::GetMarketsParameters};
 
-async fn list_markets(client: &KalshiClient) -> Result<(), KalshiError> {
-    let mut cursor: Option<String> = None;
-    loop {
-        let mut request = KalshiRequest {
-            authenticated: false,
-            query: vec![
-                ("limit".into(), QueryValue::from(100_u32)),
-                ("status".into(), QueryValue::from("open")),
-            ],
-            ..Default::default()
-        };
-        if let Some(value) = cursor.take() {
-            request.query.push(("cursor".into(), QueryValue::from(value)));
+async fn list_markets(client: &KalshiClient) -> Result<(), Box<dyn std::error::Error>> {
+    let mut pages = client.markets().get_markets_pages(GetMarketsParameters {
+        limit: Some(100), ..Default::default()
+    });
+    while let Some(page) = pages.next_page().await? {
+        for market in &page.markets {
+            println!("{}: {}", market.ticker, market.title.as_deref().unwrap_or(""));
         }
-        let page = client.request("GetMarkets", request).await?;
-        let markets = page["markets"].as_array()
-            .ok_or_else(|| KalshiError::Fixture("Missing markets array".into()))?;
-        for market in markets {
-            println!("{}: {}", market["ticker"], market["title"]);
-        }
-        cursor = page["cursor"].as_str().filter(|s| !s.is_empty()).map(str::to_owned);
-        if cursor.is_none() { break; }
     }
     Ok(())
 }
 ```
 
-There is no automatic paginator. Preserve filters when continuing a cursor.
-The response is JSON; add application-specific serde models when needed.
+Paginated methods expose `..._pages`. Each `next_page()` sends one request;
+dropping the pager stops further requests. Empty/absent final cursors terminate,
+repeated cursors fail, and filters stay unchanged. Pages retain every response
+collection rather than flattening an arbitrary array.
 
 ### Get Market Details and an Order Book
 
 ```rust,no_run
-use kalshi_client::{KalshiClient, KalshiError, KalshiRequest, QueryValue};
+use kalshi_client::{KalshiClient, models::{GetMarketParameters, GetMarketOrderbookParameters}};
 
-async fn inspect_market(client: &KalshiClient, ticker: &str) -> Result<(), KalshiError> {
-    let mut request = KalshiRequest {
-        authenticated: false,
-        ..Default::default()
-    };
-    request.path_parameters.insert("ticker".into(), ticker.into());
-    println!("{}", client.request("GetMarket", request.clone()).await?);
-    request.query.push(("depth".into(), QueryValue::from(10_u32)));
-    let book = client.request("GetMarketOrderbook", request).await?;
-    println!("{}", book["orderbook_fp"]);
+async fn inspect_market(client: &KalshiClient, ticker: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let market = client.markets().get_market(&GetMarketParameters { ticker: ticker.into() }).await?;
+    println!("{}", market.market.ticker);
+    let book = client.markets().get_market_orderbook(&GetMarketOrderbookParameters {
+        ticker: ticker.into(), depth: Some(10)
+    }).await?;
+    println!("{}", serde_json::to_string(&book.orderbook_fp)?);
     Ok(())
 }
 ```
@@ -213,58 +205,40 @@ an application-selected decimal type rather than floating-point arithmetic.
 ### Portfolio Fills and Pagination
 
 ```rust,no_run
-use kalshi_client::{
-    FillQuery, KalshiClient, KalshiError, KalshiRequest,
-    parse_fills_page, portfolio_fills_query,
-};
+use kalshi_client::{KalshiClient, models::GetFillsParameters};
 
-async fn list_fills(client: &KalshiClient) -> Result<(), KalshiError> {
-    let mut query = FillQuery {
-        tickers: vec!["YOUR-MARKET-A".into(), "YOUR-MARKET-B".into()],
-        limit: Some(100),
-        ..Default::default()
-    };
-    loop {
-        let body = client.request("GetFills", KalshiRequest {
-            query: portfolio_fills_query(&query)?,
-            ..Default::default()
-        }).await?;
-        let page = parse_fills_page(body)?;
-        for fill in page.fills {
-            println!("{} {:?} {:?}", fill.ticker, fill.count_fp, fill.yes_price_dollars);
+async fn list_fills(client: &KalshiClient) -> Result<(), Box<dyn std::error::Error>> {
+    let mut pages = client.portfolio().get_fills_pages(GetFillsParameters {
+        limit: std::num::NonZeroU64::new(100), ..Default::default()
+    });
+    while let Some(page) = pages.next_page().await? {
+        for fill in &page.fills {
+            println!("{} {}", fill.ticker, fill.count_fp.as_str());
         }
-        query.cursor = (!page.cursor.is_empty()).then_some(page.cursor);
-        if query.cursor.is_none() { break; }
     }
     Ok(())
 }
 ```
 
-Pass an authenticated client. Use either `ticker: Some(...)` or a populated
-`tickers` list, not both. Lists accept at most 100 entries and reject blanks.
-Other filters are `order_id`, `subaccount`, `exchange_index`, `min_ts`, and `max_ts`.
-The helper emits a comma-separated `ticker` query parameter. Optional
-fixed-point fields stay strings in the serde model. Deprecated `side` and `action`,
+Pass an authenticated client. The generated query uses the official `ticker`
+filter; the legacy `FillQuery` helper additionally supports a ticker list.
+Filters include `order_id`, `subaccount`, `exchange_index`, `min_ts` and `max_ts`.
+Fixed-point values preserve decimal strings. Deprecated `side` and `action`,
 `created_time` and `ts` are optional. `cursor` is a required string; an empty
 cursor marks the last page.
 
 ### Balance, Positions, and Historical Data
 
 ```rust,no_run
-use kalshi_client::{KalshiClient, KalshiError, KalshiRequest, QueryValue};
+use kalshi_client::{KalshiClient, models::{GetBalanceParameters, GetPositionsParameters, GetHistoricalMarketsParameters}};
 
-async fn portfolio_and_history(client: &KalshiClient) -> Result<(), KalshiError> {
-    println!("{}", client.request("GetBalance", KalshiRequest::default()).await?);
-    println!("{}", client.request("GetPositions", KalshiRequest {
-        query: vec![("limit".into(), QueryValue::from(100_u32))],
-        ..Default::default()
-    }).await?);
-    for operation in ["GetHistoricalCutoff", "GetHistoricalMarkets"] {
-        println!("{}", client.request(operation, KalshiRequest {
-            authenticated: false,
-            ..Default::default()
-        }).await?);
-    }
+async fn portfolio_and_history(client: &KalshiClient) -> Result<(), Box<dyn std::error::Error>> {
+    let balance = client.portfolio().get_balance(&GetBalanceParameters::default()).await?;
+    let positions = client.portfolio().get_positions(&GetPositionsParameters::default()).await?;
+    let cutoff = client.historical().get_historical_cutoff().await?;
+    let markets = client.historical().get_historical_markets(&GetHistoricalMarketsParameters::default()).await?;
+    println!("{}", serde_json::to_string(&balance)?);
+    let _ = (positions, cutoff, markets);
     Ok(())
 }
 ```
@@ -350,6 +324,26 @@ remain JSON unless you deserialize them into a model such as `OrderBookDeltaMess
 
 ## Error Handling
 
+Named methods return an operation-specific `TypedError`. Its `payload` contains
+the declared error variant when decoding succeeds; `source` retains transport or
+API context even when that payload is malformed or unspecified.
+
+```rust,no_run
+use kalshi_client::{KalshiClient, KalshiError, models::GetBalanceParameters};
+
+async fn read_balance(client: &KalshiClient) {
+    match client.portfolio().get_balance(&GetBalanceParameters::default()).await {
+        Ok(balance) => println!("{}", serde_json::to_string(&balance).unwrap()),
+        Err(error) => match &error.source {
+            KalshiError::Api(api) => eprintln!("HTTP status: {}", api.status),
+            _ => eprintln!("{error}"),
+        },
+    }
+}
+```
+
+Generic request errors remain available for the escape hatch:
+
 ```rust,no_run
 use kalshi_client::{KalshiClient, KalshiError, KalshiRequest};
 
@@ -367,7 +361,8 @@ async fn inspect_errors(client: &KalshiClient) {
             }
         }
         Err(KalshiError::MissingAuth) => eprintln!("Configure authentication."),
-        Err(KalshiError::RsaKey(error)) => eprintln!("Check PKCS#8 RSA PEM: {error}"),
+        Err(KalshiError::InvalidSigningCredentials) => eprintln!("Check API key ID and private key format"),
+        Err(KalshiError::SigningFailed) => eprintln!("Request signing failed"),
         Err(KalshiError::UnknownOperation(id)) => eprintln!("Unknown operation: {id}"),
         Err(error) => eprintln!("{error}"),
     }
@@ -418,7 +413,7 @@ See [contributing](CONTRIBUTING.md) for development and test commands.
 
 ```text
 src/
-  auth.rs             RSA-PSS signing
+  auth.rs             RSA-PSS and Ed25519 signing
   client.rs           Request preparation and async HTTP execution
   environment.rs      Production/demo constants
   error.rs            SDK error enum
@@ -441,7 +436,7 @@ From a repository checkout:
 cargo run --example read_only -- status
 cargo run --example read_only -- markets
 cargo run --example read_only -- orderbook YOUR-DEMO-MARKET-TICKER
-# Requires demo API key ID and PKCS#8 private-key file environment variables:
+# Requires demo API key ID and supported PEM private-key file environment variables:
 cargo run --example read_only -- fills
 ```
 

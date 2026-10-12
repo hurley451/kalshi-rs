@@ -7,7 +7,9 @@ pub mod error;
 pub mod generated;
 pub mod operation;
 pub mod portfolio;
+pub mod typed;
 pub mod websocket;
+pub use generated::models;
 
 pub use auth::*;
 pub use client::*;

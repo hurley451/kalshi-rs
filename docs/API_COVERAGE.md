@@ -1,23 +1,34 @@
 # kalshi-rs API Coverage
 
-This SDK renders KalshiCore's operation inventory into Rust. Its checked-in
-OpenAPI snapshot contains 118 REST operations. This is a snapshot count, not a claim
-of complete live API compatibility.
+The predictions OpenAPI snapshot contains 118 REST operations. Each has a named
+async method, typed serde input/response/error models and runtime validation.
+Snapshot verification is not a claim of live compatibility with later changes.
 
 ## Support Levels
 
 | Surface | Current support |
 |---------|-----------------|
-| REST inventory | Generated operation IDs, HTTP methods, paths, summaries, and tags; no parameter/body schemas |
-| REST execution | Generic operation-ID requests with path/query/body values |
-| Authentication | RSA-PSS signing, API-key headers, canonical signing paths |
+| REST methods | 118 named async methods and domain facades |
+| Models | Complete declared inputs, responses/errors and source optionality |
+| Pagination | 28 lazy page iterators preserving filters and full page shapes |
+| Authentication | RSA-PSS and Ed25519 signing, API-key headers, canonical signing paths |
 | Environments | Production and demo |
 | Portfolio fills | Query helper and response parsing |
 | WebSocket | Envelope parsing and offline replay; no connection/subscription client |
 | Conformance | Four registered offline fixtures |
 
-Portfolio fills have serde models and query helpers; generic requests return `serde_json::Value`.
+Named models live in `kalshi_client::models`. Fixed-point values preserve strings;
+nullable and optional fields retain their distinct presence. Generic requests
+remain an escape hatch returning `serde_json::Value`. Undeclared successful
+bodies retain status, headers, decoded content and exact raw bytes.
 Async HTTP uses reqwest and requires a Tokio runtime.
+
+The [endpoint matrix](../tools/typed-coverage.json) records parameters, request
+bodies, responses, named methods and pagination. The
+[model manifest](../tools/typed-model-manifest.json) records schema/model mapping.
+Tests cover every method through actual HTTP, positive/negative schema fixtures,
+recursive field presence, fixed-point precision, signature verification and
+external Cargo consumers.
 
 ## Validated Contracts
 
@@ -28,13 +39,12 @@ The target manifest registers these fixtures:
 - `rest.response.portfolio-fills-page`
 - `websocket.replay.orderbook-delta`
 
-See the [parent framework](https://github.com/hurley451/KalshiCore) for source
-provenance, fixture contents, and target registration. Passing these fixtures does
-not validate all 118 endpoint request/response contracts or live exchange behavior.
+These four shared fixtures supplement endpoint/model tests. See the
+[parent framework](https://github.com/hurley451/KalshiCore) for fixture contents.
 
 ## Remaining Gaps
 
-- Dedicated typed models and contract tests for most REST endpoints.
+- Separate perps, clearing-member and manual CF REST coverage.
 - WebSocket transport, subscriptions, reconnect, and order-book state management.
 - Automatic retries, rate limiting, and cancellation configuration.
 - Credentialed integration tests and independent live API validation.
