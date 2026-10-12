@@ -38,6 +38,7 @@ pub struct KalshiOperation {
     pub path: &'static str,
     pub summary: Option<&'static str>,
     pub tags: &'static [&'static str],
+    pub repeated_query_parameters: &'static [&'static str],
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -74,12 +75,16 @@ function renderOperation(operation) {
   const tags = Array.isArray(operation.tags)
     ? operation.tags.filter((tag) => typeof tag === "string").map(rustString).join(", ")
     : "";
+  const repeated = Array.isArray(operation.repeatedQueryParameters)
+    ? operation.repeatedQueryParameters.map(rustString).join(", ")
+    : "";
   return `    KalshiOperation {
         operation_id: ${rustString(readString(operation, "operationId"))},
         method: ${rustString(readString(operation, "method").toUpperCase())},
         path: ${rustString(readString(operation, "path"))},
         summary: ${summary},
         tags: &[${tags}],
+        repeated_query_parameters: &[${repeated}],
     },`;
 }
 

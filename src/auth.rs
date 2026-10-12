@@ -9,17 +9,38 @@ use sha2::Sha256;
 
 use crate::error::KalshiError;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct KalshiAuth {
     pub api_key_id: String,
     pub private_key_pem: String,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+impl std::fmt::Debug for KalshiAuth {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter
+            .debug_struct("KalshiAuth")
+            .field("api_key_id", &"[REDACTED]")
+            .field("private_key_pem", &"[REDACTED]")
+            .finish()
+    }
+}
+
+#[derive(Clone, PartialEq, Eq)]
 pub struct SignedKalshiRequest {
     pub timestamp_ms: String,
     pub signature: String,
     pub headers: BTreeMap<String, String>,
+}
+
+impl std::fmt::Debug for SignedKalshiRequest {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter
+            .debug_struct("SignedKalshiRequest")
+            .field("timestamp_ms", &self.timestamp_ms)
+            .field("signature", &"[REDACTED]")
+            .field("headers", &"[REDACTED]")
+            .finish()
+    }
 }
 
 pub fn build_signing_preimage(timestamp_ms: &str, method: &str, path_and_query: &str) -> String {
