@@ -1,5 +1,28 @@
 use thiserror::Error;
 
+pub struct KalshiApiError {
+    pub status: reqwest::StatusCode,
+    pub headers: reqwest::header::HeaderMap,
+    pub body: serde_json::Value,
+}
+
+impl std::fmt::Debug for KalshiApiError {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter
+            .debug_struct("KalshiApiError")
+            .field("status", &self.status)
+            .finish_non_exhaustive()
+    }
+}
+
+impl std::fmt::Display for KalshiApiError {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(formatter, "Kalshi API returned HTTP {}", self.status)
+    }
+}
+
+impl std::error::Error for KalshiApiError {}
+
 #[derive(Debug, Error)]
 pub enum KalshiError {
     #[error("unknown Kalshi operation: {0}")]
@@ -25,6 +48,12 @@ pub enum KalshiError {
 
     #[error("HTTP error: {0}")]
     Http(#[from] reqwest::Error),
+
+    #[error(transparent)]
+    Api(Box<KalshiApiError>),
+
+    #[error("invalid request header: {0}")]
+    InvalidHeader(String),
 
     #[error("JSON error: {0}")]
     Json(#[from] serde_json::Error),

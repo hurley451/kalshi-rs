@@ -4,16 +4,26 @@ use serde_json::Value;
 
 use crate::auth::{KalshiAuth, sign_kalshi_request};
 use crate::environment::{KalshiEnvironment, PRODUCTION};
-use crate::error::KalshiError;
+use crate::error::{KalshiApiError, KalshiError};
 use crate::operation::{
     PathParameters, QueryParameters, build_operation_path, build_trade_api_path, operation_or_error,
 };
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct KalshiClient {
     environment: KalshiEnvironment,
     auth: Option<KalshiAuth>,
     http: reqwest::Client,
+}
+
+impl std::fmt::Debug for KalshiClient {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter
+            .debug_struct("KalshiClient")
+            .field("environment", &self.environment)
+            .field("authenticated", &self.auth.is_some())
+            .finish_non_exhaustive()
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -25,7 +35,7 @@ pub struct KalshiRequest {
     pub authenticated: bool,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub struct PreparedKalshiRequest {
     pub method: String,
     pub url: String,
@@ -34,12 +44,32 @@ pub struct PreparedKalshiRequest {
     pub body: Option<Value>,
 }
 
+impl std::fmt::Debug for PreparedKalshiRequest {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter
+            .debug_struct("PreparedKalshiRequest")
+            .field("method", &self.method)
+            .field("url", &self.url)
+            .field("headers", &"[REDACTED]")
+            .field("body", &"[REDACTED]")
+            .finish()
+    }
+}
+
 impl KalshiClient {
     pub fn new(environment: KalshiEnvironment, auth: Option<KalshiAuth>) -> Self {
+        Self::with_http_client(environment, auth, reqwest::Client::new())
+    }
+
+    pub fn with_http_client(
+        environment: KalshiEnvironment,
+        auth: Option<KalshiAuth>,
+        http: reqwest::Client,
+    ) -> Self {
         Self {
             environment,
             auth,
-            http: reqwest::Client::new(),
+            http,
         }
     }
 
@@ -63,6 +93,23 @@ impl KalshiClient {
             signing_path.trim_start_matches("/trade-api/v2")
         );
 
+        let mut headers = BTreeMap::new();
+        for (name, value) in request.headers {
+            let parsed = reqwest::header::HeaderName::from_bytes(name.as_bytes())
+                .map_err(|_| KalshiError::InvalidHeader(name.clone()))?;
+            reqwest::header::HeaderValue::from_str(&value)
+                .map_err(|_| KalshiError::InvalidHeader(name.clone()))?;
+            let canonical = match parsed.as_str() {
+                "accept" => "Accept",
+                "content-type" => "Content-Type",
+                "kalshi-access-key" => "KALSHI-ACCESS-KEY",
+                "kalshi-access-timestamp" => "KALSHI-ACCESS-TIMESTAMP",
+                "kalshi-access-signature" => "KALSHI-ACCESS-SIGNATURE",
+                other => other,
+            };
+            headers.insert(canonical.to_string(), value);
+        }
+        request.headers = headers;
         request
             .headers
             .entry("Accept".to_string())
@@ -108,8 +155,27 @@ impl KalshiClient {
         if let Some(body) = prepared.body {
             builder = builder.json(&body);
         }
-        let response = builder.send().await?.error_for_status()?;
-        Ok(response.json().await?)
+        let response = builder.send().await?;
+        let status = response.status();
+        let headers = response.headers().clone();
+        let bytes = response.bytes().await?;
+        if !status.is_success() {
+            let body = if bytes.is_empty() {
+                Value::Null
+            } else {
+                serde_json::from_slice(&bytes)
+                    .unwrap_or_else(|_| Value::String(String::from_utf8_lossy(&bytes).into_owned()))
+            };
+            return Err(KalshiError::Api(Box::new(KalshiApiError {
+                status,
+                headers,
+                body,
+            })));
+        }
+        if bytes.is_empty() {
+            return Ok(Value::Null);
+        }
+        Ok(serde_json::from_slice(&bytes)?)
     }
 }
 

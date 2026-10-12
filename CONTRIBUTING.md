@@ -9,7 +9,10 @@ Use a current checkout of [KalshiCore](https://github.com/hurley451/KalshiCore)
 for shared contracts and offline fixtures.
 
 ```bash
-cargo test
+cargo test --locked
+cargo clippy --locked --all-targets -- -D warnings
+cargo fmt --all -- --check
+node tools/generate_operations.mjs --kalshicore-root /path/to/KalshiCore
 cargo run --bin kalshicore-conformance -- --kalshicore-root /path/to/KalshiCore --report artifacts/kalshicore-conformance/report.json
 ```
 

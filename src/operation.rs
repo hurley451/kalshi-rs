@@ -79,7 +79,7 @@ pub fn build_operation_path(
         });
     }
 
-    let query_string = serialize_query(query);
+    let query_string = serialize_operation_query(operation, query);
     if query_string.is_empty() {
         Ok(path)
     } else {
@@ -110,6 +110,33 @@ pub fn serialize_query(query: &QueryParameters) -> String {
                 urlencoding::encode(name),
                 urlencoding::encode(&query_value_to_string(value))
             )
+        })
+        .collect::<Vec<_>>()
+        .join("&")
+}
+
+pub fn serialize_operation_query(operation: &KalshiOperation, query: &QueryParameters) -> String {
+    query
+        .iter()
+        .flat_map(|(name, value)| {
+            let values = if operation.repeated_query_parameters.contains(&name.as_str()) {
+                match value {
+                    QueryValue::Array(values) => values.iter().collect::<Vec<_>>(),
+                    value => vec![value],
+                }
+            } else {
+                vec![value]
+            };
+            values
+                .into_iter()
+                .map(|value| {
+                    format!(
+                        "{}={}",
+                        urlencoding::encode(name),
+                        urlencoding::encode(&query_value_to_string(value))
+                    )
+                })
+                .collect::<Vec<_>>()
         })
         .collect::<Vec<_>>()
         .join("&")

@@ -165,12 +165,12 @@ fn run_rest_response(_fixture_id: &str, fixture: &Value) -> Result<String, Strin
     )?;
     expect_eq(
         string(expected_first, "fillId")?,
-        first_fill.fill_id.as_deref().unwrap_or_default(),
+        first_fill.fill_id.as_str(),
         "fill id",
     )?;
     expect_eq(
         number(expected_first, "exchangeIndex")?,
-        i64::from(first_fill.exchange_index.unwrap_or_default()),
+        first_fill.exchange_index,
         "exchange index",
     )?;
     expect_eq(
@@ -190,40 +190,44 @@ fn run_rest_response(_fixture_id: &str, fixture: &Value) -> Result<String, Strin
     )?;
     expect_eq(
         string(expected_first, "marketTicker")?,
-        first_fill.market_ticker.as_deref().unwrap_or_default(),
+        first_fill.market_ticker.as_str(),
         "market ticker",
     )?;
     expect_eq(
         string(expected_first, "outcomeSide")?,
-        first_fill.outcome_side.as_deref().unwrap_or_default(),
+        first_fill.outcome_side.as_str(),
         "outcome side",
     )?;
     expect_eq(
         string(expected_first, "bookSide")?,
-        first_fill.book_side.as_deref().unwrap_or_default(),
+        first_fill.book_side.as_str(),
         "book side",
     )?;
     expect_eq(
         string(expected_first, "countFp")?,
-        first_fill.count_fp.as_deref().unwrap_or_default(),
+        first_fill.count_fp.as_str(),
         "count fp",
     )?;
     expect_eq(
         string(expected_first, "yesPriceDollars")?,
-        first_fill.yes_price_dollars.as_deref().unwrap_or_default(),
+        first_fill.yes_price_dollars.as_str(),
         "yes price dollars",
     )?;
     expect_eq(
         string(expected_first, "noPriceDollars")?,
-        first_fill.no_price_dollars.as_deref().unwrap_or_default(),
+        first_fill.no_price_dollars.as_str(),
         "no price dollars",
     )?;
     expect_eq(
         string(expected_first, "feeCost")?,
-        first_fill.fee_cost.as_deref().unwrap_or_default(),
+        first_fill.fee_cost.as_str(),
         "fee cost",
     )?;
-    expect_eq(string(expected_first, "side")?, &first_fill.side, "side")?;
+    expect_eq(
+        string(expected_first, "side")?,
+        first_fill.side.as_deref().unwrap_or_default(),
+        "side",
+    )?;
     expect_eq(
         string(expected_first, "action")?,
         first_fill.action.as_deref().unwrap_or_default(),
@@ -236,7 +240,7 @@ fn run_rest_response(_fixture_id: &str, fixture: &Value) -> Result<String, Strin
     )?;
     expect_eq(
         number(expected_first, "subaccountNumber")?,
-        i64::from(first_fill.subaccount_number.unwrap_or_default()),
+        first_fill.subaccount_number.unwrap_or_default(),
         "subaccount number",
     )?;
     expect_eq(
@@ -244,11 +248,7 @@ fn run_rest_response(_fixture_id: &str, fixture: &Value) -> Result<String, Strin
         first_fill.ts.unwrap_or_default(),
         "ts",
     )?;
-    expect_eq(
-        string(expected, "cursor")?,
-        page.cursor.as_deref().unwrap_or_default(),
-        "cursor",
-    )?;
+    expect_eq(string(expected, "cursor")?, page.cursor.as_str(), "cursor")?;
     Ok("Portfolio fills response shape parsed.".to_string())
 }
 
@@ -302,16 +302,15 @@ fn run_websocket_replay(_fixture_id: &str, fixture: &Value) -> Result<String, St
 
 fn read_fixture(root: &Path, fixture_id: &str) -> Result<Value, String> {
     let inventory = read_json(&root.join("fixtures/inventory.json")).ok();
-    if let Some(inventory) = inventory {
-        if let Some(fixtures) = inventory["fixtures"].as_array() {
-            for fixture in fixtures {
-                if fixture["id"].as_str() == Some(fixture_id) {
-                    if let Some(path) = fixture["path"].as_str() {
-                        return read_json(&root.join(path)).map_err(|error| error.to_string());
-                    }
-                }
-            }
-        }
+    if let Some(path) = inventory
+        .as_ref()
+        .and_then(|inventory| inventory["fixtures"].as_array())
+        .into_iter()
+        .flatten()
+        .filter(|fixture| fixture["id"].as_str() == Some(fixture_id))
+        .find_map(|fixture| fixture["path"].as_str())
+    {
+        return read_json(&root.join(path)).map_err(|error| error.to_string());
     }
 
     let path = match fixture_id {

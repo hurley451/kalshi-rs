@@ -5,6 +5,8 @@ use crate::error::KalshiError;
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 pub struct WebSocketEnvelope {
+    pub id: Option<i64>,
+    pub sending_ts_ms: Option<i64>,
     #[serde(rename = "type")]
     pub message_type: String,
     pub sid: Option<i64>,

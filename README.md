@@ -9,9 +9,8 @@
 A Rust SDK for the [Kalshi](https://kalshi.com) prediction market API, with async
 REST requests through reqwest, RSA-PSS authentication, and serde JSON handling.
 
-This repository renders [KalshiCore](https://github.com/hurley451/KalshiCore)
-contracts into an idiomatic Rust SDK. It is a community project, not an official
-Kalshi SDK. The repository is `kalshi-rs`, the Cargo package is `kalshi-client`,
+This is a community client, not an official Kalshi SDK.
+The repository is `kalshi-rs`, the Cargo package is `kalshi-client`,
 and Rust imports use `kalshi_client`. The crate is not yet published.
 
 ## Contents
@@ -24,7 +23,7 @@ and Rust imports use `kalshi_client`. The crate is not yet published.
 - [WebSocket message parsing](#websocket-message-parsing)
 - [Error handling](#error-handling)
 - [Configuration](#configuration)
-- [Generated operations and conformance](#generated-operations-and-conformance)
+- [Operation lookup](#operation-lookup)
 - [Running examples](#running-examples)
 - [SDK family and support](#sdk-family-and-support)
 
@@ -66,10 +65,9 @@ The checked-in inventory contains 118 operations. Inventory access is broader
 than typed models and contract-tested coverage. See [API coverage and gaps](https://github.com/hurley451/kalshi-rs/blob/main/docs/API_COVERAGE.md)
 and [official API docs](https://docs.kalshi.com).
 
-Automatic retries, rate limiting, HTTP-client injection, and WebSocket connection
-management are not implemented. Successful HTTP responses are currently decoded
-as JSON; an empty response such as HTTP 204 returns a decoding error. This matters
-for some generic mutation endpoints.
+Automatic retries, rate limiting and WebSocket connection management are not
+implemented. HTTP transport can be configured with `KalshiClient::with_http_client`.
+Empty successful responses return JSON null.
 
 ## Requirements
 
@@ -235,7 +233,7 @@ async fn list_fills(client: &KalshiClient) -> Result<(), KalshiError> {
         for fill in page.fills {
             println!("{} {:?} {:?}", fill.ticker, fill.count_fp, fill.yes_price_dollars);
         }
-        query.cursor = page.cursor.filter(|value| !value.is_empty());
+        query.cursor = (!page.cursor.is_empty()).then_some(page.cursor);
         if query.cursor.is_none() { break; }
     }
     Ok(())
@@ -246,11 +244,9 @@ Pass an authenticated client. Use either `ticker: Some(...)` or a populated
 `tickers` list, not both. Lists accept at most 100 entries and reject blanks.
 Other filters are `order_id`, `subaccount`, `exchange_index`, `min_ts`, and `max_ts`.
 The helper emits a comma-separated `ticker` query parameter. Optional
-fixed-point fields stay strings in the serde model.
-
-The current parser requires `side` and `created_time`, although those fields are
-optional in the official schema. A valid response omitting them cannot currently
-be parsed into `FillsPage`; use generic JSON access for that response shape.
+fixed-point fields stay strings in the serde model. Deprecated `side` and `action`,
+`created_time` and `ts` are optional. `cursor` is a required string; an empty
+cursor marks the last page.
 
 ### Balance, Positions, and Historical Data
 
@@ -299,8 +295,6 @@ async fn discovery(client: &KalshiClient) -> Result<(), KalshiError> {
 }
 ```
 
-Endpoint-specific availability and permissions remain Kalshi's responsibility.
-
 ### Prepare a Demo Order without Sending It
 
 This example builds a request and does not submit it. The payload uses V2
@@ -334,8 +328,7 @@ To submit, use `client.request("CreateOrderV2", request).await` instead of
 `prepare_request`. A successful JSON response contains `order_id`; cancellation
 uses `CancelOrderV2` with path parameter `order_id` and queries `exchange_index`
 and `market_ticker`. Do not assume cancelling reverses fills. Generic mutation
-schemas are not validated locally, and successful empty bodies currently fail JSON
-decoding. The read-only example runner below performs no mutations.
+schemas are not validated locally. The read-only example runner below performs no mutations.
 
 ## WebSocket Message Parsing
 
@@ -367,6 +360,12 @@ async fn inspect_errors(client: &KalshiClient) {
             eprintln!("HTTP/transport failure, status: {:?}", error.status());
             if error.is_decode() { eprintln!("Response was not valid expected JSON."); }
         }
+        Err(KalshiError::Api(error)) => {
+            eprintln!("API status: {}", error.status);
+            if error.status == 429 {
+                eprintln!("Retry-After: {:?}", error.headers.get("retry-after"));
+            }
+        }
         Err(KalshiError::MissingAuth) => eprintln!("Configure authentication."),
         Err(KalshiError::RsaKey(error)) => eprintln!("Check PKCS#8 RSA PEM: {error}"),
         Err(KalshiError::UnknownOperation(id)) => eprintln!("Unknown operation: {id}"),
@@ -376,8 +375,9 @@ async fn inspect_errors(client: &KalshiClient) {
 ```
 
 `KalshiError` also distinguishes missing/unused path parameters, JSON decoding,
-I/O, and helper/fixture validation errors. API failures use reqwest status errors;
-the client does not expose API error bodies, response headers, or `Retry-After`.
+I/O, and helper validation errors. `KalshiError::Api` retains status, response
+headers and the JSON or text error body. Debug formatting omits credentials and
+account payloads; do not log those fields directly.
 Retry policy belongs to the application. Never blindly replay a failed mutation.
 
 ## Configuration
@@ -396,40 +396,23 @@ Retry policy belongs to the application. Never blindly replay a failed mutation.
 | `request` timestamp | Current system time | Signing time supplied internally |
 
 Custom environments use `KalshiEnvironment` with `name`, `rest_base_url`, and
-`websocket_url`, each a static string. There is no public HTTP-client injection,
-timeout, or cancellation configuration. reqwest defaults apply. A caller can bound
+`websocket_url`, each a static string. Use a configured reqwest client with
+`KalshiClient::with_http_client` to set transport timeouts. A caller can bound
 an async wait using its runtime, but dropping a request does not prove that a
 mutation was never accepted.
 
-## Generated Operations and Conformance
+## Operation Lookup
 
 ```rust
-use kalshi_client::{OPERATIONS, OFFICIAL_OPERATION_SOURCE, get_operation};
+use kalshi_client::{OPERATIONS, get_operation};
 
-println!("Version: {}", OFFICIAL_OPERATION_SOURCE.version);
-println!("SHA-256: {}", OFFICIAL_OPERATION_SOURCE.sha256);
 assert_eq!(get_operation("GetMarket").unwrap().path, "/markets/{ticker}");
 for operation in OPERATIONS.iter().filter(|op| op.path.starts_with("/portfolio")) {
     println!("{} {} {}", operation.operation_id, operation.method, operation.path);
 }
 ```
 
-Ordinary builds use the checked-in inventory. Regeneration needs Node.js and KalshiCore:
-
-```bash
-node tools/generate_operations.mjs --kalshicore-root /path/to/KalshiCore
-cargo test
-cargo run --bin kalshicore-conformance -- --kalshicore-root /path/to/KalshiCore --report artifacts/kalshicore-conformance/report.json
-```
-
-The four offline fixtures cover signing canonicalization, fills query
-serialization, fills response parsing, and order-book message replay. Passing
-them does not validate every operation's contract or live HTTP/trading behavior.
-The README is included in crate documentation and Rust snippets are doctests;
-`no_run` snippets compile without sending requests.
-
-Scheduled parent issue filing needs `KALSHICORE_ISSUE_TOKEN` with issue access to
-KalshiCore. Reports identify the target as `rust.kalshi-rs`.
+See [contributing](CONTRIBUTING.md) for development and test commands.
 
 ## Project Structure
 
@@ -439,7 +422,7 @@ src/
   client.rs           Request preparation and async HTTP execution
   environment.rs      Production/demo constants
   error.rs            SDK error enum
-  generated/          Operation inventory and source provenance
+  generated/          Operation definitions
   operation.rs        Path and query handling
   portfolio.rs        Fills models, filters, and parsing
   websocket.rs        Envelope and delta models
@@ -447,7 +430,7 @@ src/
 examples/read_only.rs Read-only demo examples
 tests/                SDK tests
 tools/                Operation generator
-docs/                 Coverage and visibility tracking
+docs/                 API documentation
 ```
 
 ## Running Examples
@@ -479,7 +462,6 @@ Read [contributing](https://github.com/hurley451/kalshi-rs/blob/main/CONTRIBUTIN
 [usage question](https://github.com/hurley451/kalshi-rs/issues/new?template=question.yml),
 or open a [discussion](https://github.com/hurley451/kalshi-rs/discussions).
 Report SDK behavior here and shared contract/fixture gaps in KalshiCore.
-See [visibility tracking](https://github.com/hurley451/kalshi-rs/blob/main/docs/VISIBILITY.md) for discovery metrics.
 
 ## License
 

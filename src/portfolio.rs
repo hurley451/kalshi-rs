@@ -20,43 +20,69 @@ pub struct FillQuery {
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 pub struct FillsPage {
     pub fills: Vec<Fill>,
-    pub cursor: Option<String>,
+    pub cursor: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 pub struct Fill {
     #[serde(rename = "fill_id")]
-    pub fill_id: Option<String>,
+    pub fill_id: String,
     #[serde(rename = "exchange_index")]
-    pub exchange_index: Option<u32>,
+    pub exchange_index: i64,
     #[serde(rename = "trade_id")]
     pub trade_id: String,
     #[serde(rename = "order_id")]
     pub order_id: String,
     pub ticker: String,
     #[serde(rename = "market_ticker")]
-    pub market_ticker: Option<String>,
+    pub market_ticker: String,
     #[serde(rename = "outcome_side")]
-    pub outcome_side: Option<String>,
+    pub outcome_side: String,
     #[serde(rename = "book_side")]
-    pub book_side: Option<String>,
+    pub book_side: String,
     #[serde(rename = "count_fp")]
-    pub count_fp: Option<String>,
+    pub count_fp: String,
     #[serde(rename = "yes_price_dollars")]
-    pub yes_price_dollars: Option<String>,
+    pub yes_price_dollars: String,
     #[serde(rename = "no_price_dollars")]
-    pub no_price_dollars: Option<String>,
+    pub no_price_dollars: String,
     #[serde(rename = "fee_cost")]
-    pub fee_cost: Option<String>,
-    pub side: String,
+    pub fee_cost: String,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_present",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub side: Option<String>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_present",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub action: Option<String>,
     #[serde(rename = "is_taker")]
     pub is_taker: bool,
     #[serde(rename = "created_time")]
-    pub created_time: String,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_present",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_time: Option<String>,
     #[serde(rename = "subaccount_number")]
-    pub subaccount_number: Option<u32>,
+    pub subaccount_number: Option<i64>,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_present",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub ts: Option<i64>,
+}
+
+fn deserialize_present<'de, T: Deserialize<'de>, D: serde::Deserializer<'de>>(
+    deserializer: D,
+) -> Result<Option<T>, D::Error> {
+    T::deserialize(deserializer).map(Some)
 }
 
 pub fn build_portfolio_fills_path(query: &FillQuery) -> Result<String, KalshiError> {
@@ -70,10 +96,45 @@ pub fn build_portfolio_fills_path(query: &FillQuery) -> Result<String, KalshiErr
 }
 
 pub fn parse_fills_page(value: Value) -> Result<FillsPage, KalshiError> {
-    Ok(serde_json::from_value(value)?)
+    let page: FillsPage = serde_json::from_value(value)?;
+    for fill in &page.fills {
+        if !["yes", "no"].contains(&fill.outcome_side.as_str())
+            || !["bid", "ask"].contains(&fill.book_side.as_str())
+            || fill
+                .side
+                .as_deref()
+                .is_some_and(|side| !["yes", "no"].contains(&side))
+            || fill
+                .action
+                .as_deref()
+                .is_some_and(|action| !["buy", "sell"].contains(&action))
+            || fill
+                .created_time
+                .as_deref()
+                .is_some_and(|value| chrono::DateTime::parse_from_rfc3339(value).is_err())
+        {
+            return Err(KalshiError::Fixture(
+                "Invalid fill direction or action.".into(),
+            ));
+        }
+    }
+    Ok(page)
 }
 
 pub fn portfolio_fills_query(query: &FillQuery) -> Result<QueryParameters, KalshiError> {
+    if query
+        .limit
+        .is_some_and(|limit| !(1..=1000).contains(&limit))
+    {
+        return Err(KalshiError::Fixture(
+            "Fill limit must be between 1 and 1000.".into(),
+        ));
+    }
+    if query.subaccount.is_some_and(|value| value > 63) {
+        return Err(KalshiError::Fixture(
+            "Subaccount must be between 0 and 63.".into(),
+        ));
+    }
     if query.ticker.is_some() && !query.tickers.is_empty() {
         return Err(KalshiError::Fixture(
             "Specify either ticker or tickers, not both.".to_string(),

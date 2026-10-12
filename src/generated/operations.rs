@@ -10,6 +10,7 @@ pub struct KalshiOperation {
     pub path: &'static str,
     pub summary: Option<&'static str>,
     pub tags: &'static [&'static str],
+    pub repeated_query_parameters: &'static [&'static str],
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -36,6 +37,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/account/api_usage_level/upgrade",
         summary: Some("Upgrade Account API Usage Level"),
         tags: &["account"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetAccountApiUsageLevelVolumeProgress",
@@ -43,6 +45,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/account/api_usage_level/volume_progress",
         summary: Some("Get Account API Usage Level Volume Progress"),
         tags: &["account"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetAccountEndpointCosts",
@@ -50,6 +53,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/account/endpoint_costs",
         summary: Some("List Non-Default Endpoint Costs"),
         tags: &["account"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetAccountApiLimits",
@@ -57,6 +61,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/account/limits",
         summary: Some("Get Account API Limits"),
         tags: &["account"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetApiKeys",
@@ -64,6 +69,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/api_keys",
         summary: Some("Get API Keys"),
         tags: &["api-keys"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateApiKey",
@@ -71,6 +77,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/api_keys",
         summary: Some("Create API Key"),
         tags: &["api-keys"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DeleteApiKey",
@@ -78,6 +85,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/api_keys/{api_key}",
         summary: Some("Delete API Key"),
         tags: &["api-keys"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GenerateApiKey",
@@ -85,6 +93,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/api_keys/generate",
         summary: Some("Generate API Key"),
         tags: &["api-keys"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetBlockTradeProposals",
@@ -92,6 +101,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/block-trade-proposals",
         summary: Some("Get Block Trade Proposals"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "ProposeBlockTrade",
@@ -99,6 +109,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/block-trade-proposals",
         summary: Some("Propose Block Trade"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "AcceptBlockTradeProposal",
@@ -106,6 +117,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/block-trade-proposals/{block_trade_proposal_id}/accept",
         summary: Some("Accept Block Trade Proposal"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetCommunicationsID",
@@ -113,6 +125,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/id",
         summary: Some("Get Communications ID"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetQuotes",
@@ -120,6 +133,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/quotes",
         summary: Some("Get Quotes"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateQuote",
@@ -127,6 +141,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/quotes",
         summary: Some("Create Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DeleteQuote",
@@ -134,6 +149,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/quotes/{quote_id}",
         summary: Some("Delete Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetQuote",
@@ -141,6 +157,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/quotes/{quote_id}",
         summary: Some("Get Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "AcceptQuote",
@@ -148,6 +165,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/quotes/{quote_id}/accept",
         summary: Some("Accept Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "ConfirmQuote",
@@ -155,6 +173,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/quotes/{quote_id}/confirm",
         summary: Some("Confirm Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetRFQs",
@@ -162,6 +181,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs",
         summary: Some("Get RFQs"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateRFQ",
@@ -169,6 +189,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs",
         summary: Some("Create RFQ"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DeleteRFQ",
@@ -176,6 +197,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs/{rfq_id}",
         summary: Some("Delete RFQ"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetRFQ",
@@ -183,6 +205,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs/{rfq_id}",
         summary: Some("Get RFQ"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DeleteRFQQuote",
@@ -190,6 +213,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs/{rfq_id}/quotes/{quote_id}",
         summary: Some("Delete RFQ Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetRFQQuote",
@@ -197,6 +221,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs/{rfq_id}/quotes/{quote_id}",
         summary: Some("Get RFQ Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "AcceptRFQQuote",
@@ -204,6 +229,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs/{rfq_id}/quotes/{quote_id}/accept",
         summary: Some("Accept RFQ Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "ConfirmRFQQuote",
@@ -211,6 +237,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/communications/rfqs/{rfq_id}/quotes/{quote_id}/confirm",
         summary: Some("Confirm RFQ Quote"),
         tags: &["communications"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetEvents",
@@ -218,6 +245,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/events",
         summary: Some("Get Events"),
         tags: &["events"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetEvent",
@@ -225,6 +253,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/events/{event_ticker}",
         summary: Some("Get Event"),
         tags: &["events"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetEventMetadata",
@@ -232,6 +261,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/events/{event_ticker}/metadata",
         summary: Some("Get Event Metadata"),
         tags: &["events"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetEventFeeChanges",
@@ -239,6 +269,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/events/fee_changes",
         summary: Some("Get Event Fee Changes"),
         tags: &["events"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMultivariateEvents",
@@ -246,6 +277,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/events/multivariate",
         summary: Some("Get Multivariate Events"),
         tags: &["events"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetExchangeSchedule",
@@ -253,6 +285,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/exchange/schedule",
         summary: Some("Get Exchange Schedule"),
         tags: &["exchange"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetExchangeStatus",
@@ -260,6 +293,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/exchange/status",
         summary: Some("Get Exchange Status"),
         tags: &["exchange"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetUserDataTimestamp",
@@ -267,6 +301,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/exchange/user_data_timestamp",
         summary: Some("Get User Data Timestamp"),
         tags: &["exchange"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFCMFills",
@@ -274,6 +309,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/fills",
         summary: Some("Get FCM Fills"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFCMOrders",
@@ -281,6 +317,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/orders",
         summary: Some("Get FCM Orders"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFCMPositions",
@@ -288,6 +325,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/positions",
         summary: Some("Get FCM Positions"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateFCMPositionTransfer",
@@ -295,6 +333,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/positions/transfers",
         summary: Some("Create FCM Position Transfer"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "ListFCMSubtraders",
@@ -302,6 +341,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders",
         summary: Some("List FCM Subtraders"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateFCMSubtrader",
@@ -309,6 +349,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders",
         summary: Some("Create FCM Subtrader"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFCMSubtraderBlockedCategories",
@@ -316,6 +357,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders/blocked_categories",
         summary: Some("Get FCM Subtrader Blocked Categories"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "UpdateFCMSubtraderBlockedCategories",
@@ -323,6 +365,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders/blocked_categories",
         summary: Some("Update FCM Subtrader Blocked Categories"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DeleteFCMEventContractDailyCap",
@@ -330,6 +373,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders/event_contract_daily_cap",
         summary: Some("Delete FCM Subtrader Event Contract Daily Cap"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFCMEventContractDailyCap",
@@ -337,6 +381,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders/event_contract_daily_cap",
         summary: Some("Get FCM Subtrader Event Contract Daily Cap"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "UpdateFCMEventContractDailyCap",
@@ -344,6 +389,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/fcm/subtraders/event_contract_daily_cap",
         summary: Some("Update FCM Subtrader Event Contract Daily Cap"),
         tags: &["fcm"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetHistoricalCutoff",
@@ -351,6 +397,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/cutoff",
         summary: Some("Get Historical Cutoff Timestamps"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFillsHistorical",
@@ -358,6 +405,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/fills",
         summary: Some("Get Historical Fills"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetHistoricalMarkets",
@@ -365,6 +413,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/markets",
         summary: Some("Get Historical Markets"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetHistoricalMarket",
@@ -372,6 +421,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/markets/{ticker}",
         summary: Some("Get Historical Market"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMarketCandlesticksHistorical",
@@ -379,6 +429,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/markets/{ticker}/candlesticks",
         summary: Some("Get Historical Market Candlesticks"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetHistoricalOrders",
@@ -386,6 +437,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/orders",
         summary: Some("Get Historical Orders"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetHistoricalPositions",
@@ -393,6 +445,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/positions",
         summary: Some("Get Historical Positions"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetTradesHistorical",
@@ -400,6 +453,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/historical/trades",
         summary: Some("Get Historical Trades"),
         tags: &["historical"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetIncentivePrograms",
@@ -407,6 +461,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/incentive_programs",
         summary: Some("Get Incentives"),
         tags: &["incentive-programs"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetLiveData",
@@ -414,6 +469,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/{type}/milestone/{milestone_id}",
         summary: Some("Get Live Data (with type)"),
         tags: &["live-data"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetLiveDatas",
@@ -421,6 +477,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/batch",
         summary: Some("Get Multiple Live Data"),
         tags: &["live-data"],
+        repeated_query_parameters: &["milestone_ids"],
     },
     KalshiOperation {
         operation_id: "GetEventLiveData",
@@ -428,6 +485,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/events/{event_ticker}",
         summary: Some("Get Event Live Data"),
         tags: &["live-data"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetLiveDataByMilestone",
@@ -435,6 +493,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/milestone/{milestone_id}",
         summary: Some("Get Live Data"),
         tags: &["live-data"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetGameStats",
@@ -442,6 +501,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/milestone/{milestone_id}/game_stats",
         summary: Some("Get Game Stats"),
         tags: &["live-data"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetWeatherIndex",
@@ -449,6 +509,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/weather/{city}",
         summary: Some("Get Weather Index"),
         tags: &["live-data"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetWeatherIndexCalibrations",
@@ -456,6 +517,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/live_data/weather/{city}/calibrations",
         summary: Some("Get Weather Index Calibrations"),
         tags: &["live-data"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMarkets",
@@ -463,6 +525,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/markets",
         summary: Some("Get Markets"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMarket",
@@ -470,6 +533,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/markets/{ticker}",
         summary: Some("Get Market"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMarketOrderbook",
@@ -477,6 +541,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/markets/{ticker}/orderbook",
         summary: Some("Get Market Orderbook"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "BatchGetMarketCandlesticks",
@@ -484,6 +549,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/markets/candlesticks",
         summary: Some("Batch Get Market Candlesticks"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMarketOrderbooks",
@@ -491,6 +557,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/markets/orderbooks",
         summary: Some("Get Multiple Market Orderbooks"),
         tags: &["market"],
+        repeated_query_parameters: &["tickers"],
     },
     KalshiOperation {
         operation_id: "GetTrades",
@@ -498,6 +565,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/markets/trades",
         summary: Some("Get Trades"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMilestones",
@@ -505,6 +573,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/milestones",
         summary: Some("Get Milestones"),
         tags: &["milestone"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMilestone",
@@ -512,6 +581,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/milestones/{milestone_id}",
         summary: Some("Get Milestone"),
         tags: &["milestone"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMultivariateEventCollections",
@@ -519,6 +589,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/multivariate_event_collections",
         summary: Some("Get Multivariate Event Collections"),
         tags: &["multivariate"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMultivariateEventCollection",
@@ -526,6 +597,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/multivariate_event_collections/{collection_ticker}",
         summary: Some("Get Multivariate Event Collection"),
         tags: &["multivariate"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateMarketInMultivariateEventCollection",
@@ -533,6 +605,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/multivariate_event_collections/{collection_ticker}",
         summary: Some("Create Market In Multivariate Event Collection"),
         tags: &["multivariate"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetBalance",
@@ -540,6 +613,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/balance",
         summary: Some("Get Balance"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetDeposits",
@@ -547,6 +621,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/deposits",
         summary: Some("Get Deposits"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CancelAllOrders",
@@ -554,6 +629,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders",
         summary: Some("Cancel All Orders"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateOrderV2",
@@ -561,6 +637,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders",
         summary: Some("Create Order (V2)"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CancelOrderV2",
@@ -568,6 +645,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders/{order_id}",
         summary: Some("Cancel Order (V2)"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "AmendOrderV2",
@@ -575,6 +653,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders/{order_id}/amend",
         summary: Some("Amend Order (V2)"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DecreaseOrderV2",
@@ -582,6 +661,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders/{order_id}/decrease",
         summary: Some("Decrease Order (V2)"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "BatchCancelOrdersV2",
@@ -589,6 +669,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders/batched",
         summary: Some("Batch Cancel Orders (V2)"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "BatchCreateOrdersV2",
@@ -596,6 +677,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/events/orders/batched",
         summary: Some("Batch Create Orders (V2)"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFills",
@@ -603,6 +685,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/fills",
         summary: Some("Get Fills"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "IntraExchangeInstanceTransfer",
@@ -610,6 +693,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/intra_exchange_instance_transfer",
         summary: Some("Intra Account Transfer"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetIntraExchangeInstanceTransfers",
@@ -617,6 +701,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/intra_exchange_instance_transfers",
         summary: Some("Get Intra Account Transfers"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetIntraExchangeInstanceTransfer",
@@ -624,6 +709,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/intra_exchange_instance_transfers/{transfer_id}",
         summary: Some("Get Intra Account Transfer"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetOrderGroups",
@@ -631,6 +717,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups",
         summary: Some("Get Order Groups"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "DeleteOrderGroup",
@@ -638,6 +725,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups/{order_group_id}",
         summary: Some("Delete Order Group"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetOrderGroup",
@@ -645,6 +733,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups/{order_group_id}",
         summary: Some("Get Order Group"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "UpdateOrderGroupLimit",
@@ -652,6 +741,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups/{order_group_id}/limit",
         summary: Some("Update Order Group Limit"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "ResetOrderGroup",
@@ -659,6 +749,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups/{order_group_id}/reset",
         summary: Some("Reset Order Group"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "TriggerOrderGroup",
@@ -666,6 +757,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups/{order_group_id}/trigger",
         summary: Some("Trigger Order Group"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateOrderGroup",
@@ -673,6 +765,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/order_groups/create",
         summary: Some("Create Order Group"),
         tags: &["order-groups"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetOrders",
@@ -680,6 +773,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/orders",
         summary: Some("Get Orders"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetOrder",
@@ -687,6 +781,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/orders/{order_id}",
         summary: Some("Get Order"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetOrderQueuePosition",
@@ -694,6 +789,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/orders/{order_id}/queue_position",
         summary: Some("Get Order Queue Position"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetOrderQueuePositions",
@@ -701,6 +797,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/orders/queue_positions",
         summary: Some("Get Queue Positions for Orders"),
         tags: &["orders"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetPositions",
@@ -708,6 +805,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/positions",
         summary: Some("Get Positions"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSettlements",
@@ -715,6 +813,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/settlements",
         summary: Some("Get Settlements"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "CreateSubaccount",
@@ -722,6 +821,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/subaccounts",
         summary: Some("Create Subaccount"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSubaccountBalances",
@@ -729,6 +829,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/subaccounts/balances",
         summary: Some("Get All Subaccount Balances"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSubaccountNetting",
@@ -736,6 +837,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/subaccounts/netting",
         summary: Some("Get Subaccount Netting"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "UpdateSubaccountNetting",
@@ -743,6 +845,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/subaccounts/netting",
         summary: Some("Update Subaccount Netting"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "ApplySubaccountTransfer",
@@ -750,6 +853,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/subaccounts/transfer",
         summary: Some("Transfer Between Subaccounts"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSubaccountTransfers",
@@ -757,6 +861,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/subaccounts/transfers",
         summary: Some("Get Subaccount Transfers"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetPortfolioRestingOrderTotalValue",
@@ -764,6 +869,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/summary/total_resting_order_value",
         summary: Some("Get Total Resting Order Value"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetTargetBalanceAllocation",
@@ -771,6 +877,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/target_balance_allocation",
         summary: Some("Get Target Balance Allocation"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "SetTargetBalanceAllocation",
@@ -778,6 +885,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/target_balance_allocation",
         summary: Some("Set Target Balance Allocation"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetWithdrawals",
@@ -785,6 +893,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/portfolio/withdrawals",
         summary: Some("Get Withdrawals"),
         tags: &["portfolio"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetFiltersForSports",
@@ -792,6 +901,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/search/filters_by_sport",
         summary: Some("Get Filters for Sports"),
         tags: &["search"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetTagsForSeriesCategories",
@@ -799,6 +909,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/search/tags_by_categories",
         summary: Some("Get Tags for Series Categories"),
         tags: &["search"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSeriesList",
@@ -806,6 +917,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/series",
         summary: Some("Get Series List"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSeries",
@@ -813,6 +925,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/series/{series_ticker}",
         summary: Some("Get Series"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetMarketCandlesticksByEvent",
@@ -820,6 +933,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/series/{series_ticker}/events/{ticker}/candlesticks",
         summary: Some("Get Event Candlesticks"),
         tags: &["events"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetEventForecastPercentilesHistory",
@@ -827,6 +941,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/series/{series_ticker}/events/{ticker}/forecast_percentile_history",
         summary: Some("Get Event Forecast Percentile History"),
         tags: &["events"],
+        repeated_query_parameters: &["percentiles"],
     },
     KalshiOperation {
         operation_id: "GetMarketCandlesticks",
@@ -834,6 +949,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/series/{series_ticker}/markets/{ticker}/candlesticks",
         summary: Some("Get Market Candlesticks"),
         tags: &["market"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetSeriesFeeChanges",
@@ -841,6 +957,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/series/fee_changes",
         summary: Some("Get Series Fee Changes"),
         tags: &["exchange"],
+        repeated_query_parameters: &[],
     },
     KalshiOperation {
         operation_id: "GetStructuredTargets",
@@ -848,6 +965,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/structured_targets",
         summary: Some("Get Structured Targets"),
         tags: &["structured-targets"],
+        repeated_query_parameters: &["ids"],
     },
     KalshiOperation {
         operation_id: "GetStructuredTarget",
@@ -855,6 +973,7 @@ pub const OPERATIONS: &[KalshiOperation] = &[
         path: "/structured_targets/{structured_target_id}",
         summary: Some("Get Structured Target"),
         tags: &["structured-targets"],
+        repeated_query_parameters: &[],
     },
 ];
 
