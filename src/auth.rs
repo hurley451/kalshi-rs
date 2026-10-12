@@ -1,6 +1,7 @@
 use std::collections::BTreeMap;
 
 use base64::Engine;
+use rand_core::{RngCore, SeedableRng};
 use rsa::RsaPrivateKey;
 use rsa::pkcs1::DecodeRsaPrivateKey;
 use rsa::pkcs8::DecodePrivateKey;
@@ -60,6 +61,18 @@ pub fn sign_kalshi_request(
     path_and_query: &str,
     timestamp_ms: &str,
 ) -> Result<SignedKalshiRequest, KalshiError> {
+    sign_with_entropy(auth, method, path_and_query, timestamp_ms, |seed| {
+        rand_core::OsRng.try_fill_bytes(seed).map_err(|_| ())
+    })
+}
+
+fn sign_with_entropy(
+    auth: &KalshiAuth,
+    method: &str,
+    path_and_query: &str,
+    timestamp_ms: &str,
+    entropy: impl FnOnce(&mut [u8]) -> Result<(), ()>,
+) -> Result<SignedKalshiRequest, KalshiError> {
     if auth.api_key_id.is_empty()
         || !auth
             .api_key_id
@@ -74,8 +87,12 @@ pub fn sign_kalshi_request(
     let signature = if let Ok(key) = RsaPrivateKey::from_pkcs8_pem(&auth.private_key_pem)
         .or_else(|_| RsaPrivateKey::from_pkcs1_pem(&auth.private_key_pem))
     {
+        // RSA uses infallible RNG methods; acquire OS entropy before signing.
+        let mut seed = [0; 32];
+        entropy(&mut seed).map_err(|_| KalshiError::SigningFailed)?;
+        let mut rng = rand_chacha::ChaCha20Rng::from_seed(seed);
         SigningKey::<Sha256>::new(key)
-            .try_sign_with_rng(&mut rand_core::OsRng, message.as_bytes())
+            .try_sign_with_rng(&mut rng, message.as_bytes())
             .map_err(|_| KalshiError::SigningFailed)?
             .to_bytes()
             .to_vec()
@@ -102,4 +119,40 @@ pub fn sign_kalshi_request(
         signature,
         headers,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rsa::pkcs8::EncodePrivateKey;
+
+    #[test]
+    fn entropy_failure_returns_a_sanitized_error_without_headers() {
+        let key = RsaPrivateKey::new(&mut rand_core::OsRng, 2048).unwrap();
+        let auth = KalshiAuth {
+            api_key_id: "SECRET_KEY_ID".into(),
+            private_key_pem: key.to_pkcs8_pem(Default::default()).unwrap().to_string(),
+        };
+        let error = sign_with_entropy(&auth, "GET", "/trade-api/v2/portfolio/balance", "1", |_| {
+            Err(())
+        })
+        .unwrap_err();
+        assert!(matches!(error, KalshiError::SigningFailed));
+        assert_eq!(error.to_string(), "Kalshi request signing failed");
+        assert!(!format!("{error:?}").contains("SECRET"));
+        assert!(std::error::Error::source(&error).is_none());
+    }
+
+    #[test]
+    fn ed25519_does_not_require_entropy_for_signing() {
+        let key = ed25519_dalek::SigningKey::from_bytes(&[42; 32]);
+        let auth = KalshiAuth {
+            api_key_id: "fixture-key".into(),
+            private_key_pem: key.to_pkcs8_pem(Default::default()).unwrap().to_string(),
+        };
+        sign_with_entropy(&auth, "GET", "/trade-api/v2/portfolio/balance", "1", |_| {
+            panic!("Ed25519 must not request entropy")
+        })
+        .unwrap();
+    }
 }

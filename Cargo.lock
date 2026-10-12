@@ -730,6 +730,7 @@ dependencies = [
  "chrono",
  "ed25519-dalek",
  "jsonschema",
+ "rand_chacha",
  "rand_core 0.6.4",
  "reqwest",
  "rsa",

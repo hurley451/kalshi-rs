@@ -21,6 +21,7 @@ chrono = { version = "0.4", default-features = false, features = ["clock", "std"
 jsonschema = { version = "0.33", default-features = false }
 uuid = { version = "1", features = ["serde"] }
 rand_core = { version = "0.6", features = ["getrandom"] }
+rand_chacha = "0.3"
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
 rsa = { version = "0.9", features = ["pem", "sha2"] }
 serde = { version = "1", features = ["derive"] }
