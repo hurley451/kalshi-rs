@@ -2,7 +2,7 @@
 name = "kalshi-client"
 version = "0.1.0"
 edition = "2024"
-description = "Rust SDK for the Kalshi prediction market API with async REST requests and RSA-PSS signing."
+description = "Rust SDK for the Kalshi prediction market API with typed async REST methods, schema validation and cursor pagination."
 license = "MIT"
 repository = "https://github.com/hurley451/kalshi-rs"
 homepage = "https://github.com/hurley451/kalshi-rs"
@@ -11,9 +11,15 @@ readme = "README.md"
 keywords = ["kalshi", "prediction-markets", "trading", "rest", "sdk"]
 categories = ["api-bindings", "asynchronous", "web-programming::http-client"]
 
+[package.metadata.kalshicore]
+ref = "da235871e8c55ca1f6bcc2020f5324e909f1998a"
+
 [dependencies]
 base64 = "0.22"
-chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+ed25519-dalek = { version = "2.2", features = ["pem"] }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std", "serde"] }
+jsonschema = { version = "0.33", default-features = false }
+uuid = { version = "1", features = ["serde"] }
 rand_core = { version = "0.6", features = ["getrandom"] }
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
 rsa = { version = "0.9", features = ["pem", "sha2"] }

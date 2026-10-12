@@ -1,0 +1,1797 @@
+{
+  "GetExchangeStatus": {
+    "response": {
+      "exchange_active": false,
+      "trading_active": false
+    },
+    "errors": {
+      "500": {
+        "exchange_active": false,
+        "trading_active": false
+      },
+      "503": {
+        "exchange_active": false,
+        "trading_active": false
+      },
+      "504": {
+        "exchange_active": false,
+        "trading_active": false
+      }
+    }
+  },
+  "GetSeriesFeeChanges": {
+    "parameters": {},
+    "response": {
+      "series_fee_change_arr": []
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetExchangeSchedule": {
+    "response": {
+      "schedule": {
+        "standard_hours": [],
+        "maintenance_windows": []
+      }
+    },
+    "errors": {
+      "500": null
+    }
+  },
+  "GetUserDataTimestamp": {
+    "response": {
+      "as_of_time": "1930-01-01T01:01:01.0Z"
+    },
+    "errors": {
+      "500": null
+    }
+  },
+  "GetMarketCandlesticks": {
+    "parameters": {
+      "series_ticker": "Lorem anim ipsum",
+      "ticker": "Lorem anim ipsum",
+      "start_ts": 0,
+      "end_ts": 0,
+      "period_interval": 60
+    },
+    "response": {
+      "ticker": "Lorem anim ipsum",
+      "candlesticks": []
+    },
+    "errors": {
+      "400": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetTrades": {
+    "parameters": {},
+    "response": {
+      "trades": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "500": null
+    }
+  },
+  "GetMarketOrderbook": {
+    "parameters": {
+      "ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "orderbook_fp": {
+        "yes_dollars": [],
+        "no_dollars": []
+      }
+    },
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetMarketOrderbooks": {
+    "parameters": {
+      "tickers": [
+        "Lorem anim ipsum"
+      ]
+    },
+    "response": {
+      "orderbooks": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetSeries": {
+    "parameters": {
+      "series_ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "series": {
+        "ticker": "Lorem anim ipsum",
+        "frequency": "Lorem anim ipsum",
+        "title": "Lorem anim ipsum",
+        "category": "Lorem anim ipsum",
+        "categories": [],
+        "tags": null,
+        "settlement_sources": null,
+        "contract_url": "Lorem anim ipsum",
+        "contract_terms_url": "Lorem anim ipsum",
+        "fee_type": "quadratic_with_combo_maker_fees",
+        "fee_multiplier": 0,
+        "additional_prohibitions": null
+      }
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetSeriesList": {
+    "parameters": {},
+    "response": {
+      "series": []
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetMarkets": {
+    "parameters": {},
+    "response": {
+      "markets": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetMarket": {
+    "parameters": {
+      "ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "market": {
+        "ticker": "Lorem anim ipsum",
+        "event_ticker": "Lorem anim ipsum",
+        "market_type": "scalar",
+        "yes_sub_title": "Lorem anim ipsum",
+        "no_sub_title": "Lorem anim ipsum",
+        "created_time": "1930-01-01T01:01:01.0Z",
+        "updated_time": "1930-01-01T01:01:01.0Z",
+        "open_time": "1930-01-01T01:01:01.0Z",
+        "close_time": "1930-01-01T01:01:01.0Z",
+        "latest_expiration_time": "1930-01-01T01:01:01.0Z",
+        "settlement_timer_seconds": 0,
+        "status": "determined",
+        "notional_value_dollars": "0.5600",
+        "yes_bid_dollars": "0.5600",
+        "yes_ask_dollars": "0.5600",
+        "no_bid_dollars": "0.5600",
+        "no_ask_dollars": "0.5600",
+        "yes_bid_size_fp": "10.00",
+        "yes_ask_size_fp": "10.00",
+        "last_price_dollars": "0.5600",
+        "previous_yes_bid_dollars": "0.5600",
+        "previous_yes_ask_dollars": "0.5600",
+        "previous_price_dollars": "0.5600",
+        "volume_fp": "10.00",
+        "volume_24h_fp": "10.00",
+        "open_interest_fp": "10.00",
+        "result": "scalar",
+        "can_close_early": false,
+        "expiration_value": "Lorem anim ipsum",
+        "rules_primary": "Lorem anim ipsum",
+        "rules_secondary": "Lorem anim ipsum",
+        "price_level_structure": "Lorem anim ipsum",
+        "price_ranges": [],
+        "settlement_bounds_type": "floor"
+      }
+    },
+    "errors": {
+      "401": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "BatchGetMarketCandlesticks": {
+    "parameters": {
+      "market_tickers": "Lorem anim ipsum",
+      "start_ts": 0,
+      "end_ts": 0,
+      "period_interval": 50000001
+    },
+    "response": {
+      "markets": []
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetMarketCandlesticksByEvent": {
+    "parameters": {
+      "ticker": "Lorem anim ipsum",
+      "series_ticker": "Lorem anim ipsum",
+      "start_ts": 0,
+      "end_ts": 0,
+      "period_interval": 60
+    },
+    "response": {
+      "market_tickers": [],
+      "market_candlesticks": [],
+      "adjusted_end_ts": 0
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetEvents": {
+    "parameters": {},
+    "response": {
+      "events": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetMultivariateEvents": {
+    "parameters": {},
+    "response": {
+      "events": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetEventFeeChanges": {
+    "parameters": {},
+    "response": {
+      "event_fee_changes": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetEvent": {
+    "parameters": {
+      "event_ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "event": {
+        "event_ticker": "Lorem anim ipsum",
+        "series_ticker": "Lorem anim ipsum",
+        "sub_title": "Lorem anim ipsum",
+        "title": "Lorem anim ipsum",
+        "collateral_return_type": "Lorem anim ipsum",
+        "mutually_exclusive": false,
+        "settlement_sources": null
+      },
+      "markets": []
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetEventMetadata": {
+    "parameters": {
+      "event_ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "image_url": "Lorem anim ipsum",
+      "settlement_sources": [],
+      "market_details": []
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetEventForecastPercentilesHistory": {
+    "parameters": {
+      "ticker": "Lorem anim ipsum",
+      "series_ticker": "Lorem anim ipsum",
+      "percentiles": [],
+      "start_ts": 0,
+      "end_ts": 0,
+      "period_interval": 60
+    },
+    "response": {
+      "forecast_history": []
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetOrders": {
+    "parameters": {},
+    "response": {
+      "orders": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetOrder": {
+    "parameters": {
+      "order_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "order": {
+        "order_id": "Lorem anim ipsum",
+        "user_id": "Lorem anim ipsum",
+        "client_order_id": "Lorem anim ipsum",
+        "ticker": "Lorem anim ipsum",
+        "outcome_side": "no",
+        "book_side": "ask",
+        "type": "market",
+        "status": "canceled",
+        "yes_price_dollars": "0.5600",
+        "no_price_dollars": "0.5600",
+        "fill_count_fp": "10.00",
+        "remaining_count_fp": "10.00",
+        "initial_count_fp": "10.00",
+        "taker_fees_dollars": "0.5600",
+        "maker_fees_dollars": "0.5600",
+        "taker_fill_cost_dollars": "0.5600",
+        "maker_fill_cost_dollars": "0.5600"
+      }
+    },
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetOrderQueuePositions": {
+    "parameters": {},
+    "response": {
+      "queue_positions": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetOrderQueuePosition": {
+    "parameters": {
+      "order_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "queue_position_fp": "10.00"
+    },
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "CreateOrderV2": {
+    "body": {
+      "ticker": "HIGHNY-24JAN01-T60",
+      "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+      "side": "bid",
+      "count": "10.00",
+      "price": "0.5600",
+      "time_in_force": "good_till_canceled",
+      "self_trade_prevention_type": "taker_at_cross",
+      "post_only": false,
+      "cancel_order_on_pause": false,
+      "reduce_only": false,
+      "subaccount": 0,
+      "exchange_index": 0
+    },
+    "response": {
+      "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+      "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+      "fill_count": "0.00",
+      "remaining_count": "10.00",
+      "ts_ms": 1715793600123
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "409": {},
+      "429": {},
+      "500": {},
+      "503": {}
+    }
+  },
+  "CancelAllOrders": {
+    "parameters": {},
+    "errors": {
+      "401": {},
+      "429": {},
+      "500": {}
+    }
+  },
+  "BatchCreateOrdersV2": {
+    "body": {
+      "orders": [
+        {
+          "ticker": "HIGHNY-24JAN01-T60",
+          "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+          "side": "bid",
+          "count": "10.00",
+          "price": "0.5600",
+          "time_in_force": "good_till_canceled",
+          "self_trade_prevention_type": "taker_at_cross",
+          "exchange_index": 0
+        },
+        {
+          "ticker": "HIGHNY-24JAN01-T60",
+          "client_order_id": "2a0e3fc9-b593-4aa3-96e5-82f7f7566c2a",
+          "side": "ask",
+          "count": "5.00",
+          "price": "0.5800",
+          "time_in_force": "immediate_or_cancel",
+          "self_trade_prevention_type": "maker",
+          "exchange_index": 0
+        }
+      ]
+    },
+    "response": {
+      "orders": [
+        {
+          "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+          "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+          "fill_count": "0.00",
+          "remaining_count": "10.00",
+          "ts_ms": 1715793600123
+        },
+        {
+          "order_id": "a6d6010d-6d5f-40a1-a7e7-5501386bb621",
+          "client_order_id": "2a0e3fc9-b593-4aa3-96e5-82f7f7566c2a",
+          "fill_count": "5.00",
+          "remaining_count": "0.00",
+          "average_fill_price": "0.5800",
+          "average_fee_paid": "0.0012",
+          "ts_ms": 1715793600456
+        }
+      ]
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "BatchCancelOrdersV2": {
+    "body": {
+      "orders": [
+        {
+          "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+          "subaccount": 0,
+          "exchange_index": 0
+        },
+        {
+          "order_id": "a6d6010d-6d5f-40a1-a7e7-5501386bb621",
+          "subaccount": 0,
+          "exchange_index": 0
+        }
+      ]
+    },
+    "response": {
+      "orders": [
+        {
+          "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+          "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+          "reduced_by": "10.00",
+          "ts_ms": 1715793660456
+        },
+        {
+          "order_id": "a6d6010d-6d5f-40a1-a7e7-5501386bb621",
+          "client_order_id": "2a0e3fc9-b593-4aa3-96e5-82f7f7566c2a",
+          "reduced_by": "5.00",
+          "ts_ms": 1715793660789
+        }
+      ]
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "CancelOrderV2": {
+    "parameters": {
+      "order_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+      "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+      "reduced_by": "10.00",
+      "ts_ms": 1715793660456
+    },
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "AmendOrderV2": {
+    "parameters": {
+      "order_id": "Lorem anim ipsum"
+    },
+    "body": {
+      "ticker": "HIGHNY-24JAN01-T60",
+      "side": "bid",
+      "price": "0.5700",
+      "count": "8.00",
+      "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+      "updated_client_order_id": "2a0e3fc9-b593-4aa3-96e5-82f7f7566c2a",
+      "exchange_index": 0
+    },
+    "response": {
+      "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+      "client_order_id": "2a0e3fc9-b593-4aa3-96e5-82f7f7566c2a",
+      "remaining_count": "8.00",
+      "fill_count": "0.00",
+      "ts_ms": 1715793690123
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "404": {},
+      "500": {},
+      "503": {}
+    }
+  },
+  "DecreaseOrderV2": {
+    "parameters": {
+      "order_id": "Lorem anim ipsum"
+    },
+    "body": {
+      "reduce_by": "2.00",
+      "exchange_index": 0
+    },
+    "response": {
+      "order_id": "3b23c1c7-f4ef-4f0d-8b9a-9e53c61f1a0d",
+      "client_order_id": "8c35ecb3-328f-4f52-8c7c-0f4b9862f8d1",
+      "remaining_count": "8.00",
+      "ts_ms": 1715793680789
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetOrderGroups": {
+    "parameters": {},
+    "response": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "CreateOrderGroup": {
+    "body": {},
+    "response": {
+      "order_group_id": "Lorem anim ipsum",
+      "subaccount": 50000000
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetOrderGroup": {
+    "parameters": {
+      "order_group_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "is_auto_cancel_enabled": false,
+      "orders": []
+    },
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "DeleteOrderGroup": {
+    "parameters": {
+      "order_group_id": "Lorem anim ipsum"
+    },
+    "response": {},
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "ResetOrderGroup": {
+    "parameters": {
+      "order_group_id": "Lorem anim ipsum"
+    },
+    "body": {},
+    "response": {},
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "TriggerOrderGroup": {
+    "parameters": {
+      "order_group_id": "Lorem anim ipsum"
+    },
+    "body": {},
+    "response": {},
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "UpdateOrderGroupLimit": {
+    "parameters": {
+      "order_group_id": "Lorem anim ipsum"
+    },
+    "body": {},
+    "response": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetBalance": {
+    "parameters": {},
+    "response": {
+      "balance": 0,
+      "balance_dollars": "0.5600",
+      "portfolio_value": 0,
+      "updated_ts": 0
+    },
+    "errors": {
+      "401": {},
+      "500": {}
+    }
+  },
+  "IntraExchangeInstanceTransfer": {
+    "body": {
+      "source": "margined",
+      "destination": "margined",
+      "amount": 0
+    },
+    "response": {
+      "transfer_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "GetIntraExchangeInstanceTransfers": {
+    "parameters": {},
+    "response": {
+      "transfers": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetIntraExchangeInstanceTransfer": {
+    "parameters": {
+      "transfer_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "transfer": {
+        "transfer_id": "Lorem anim ipsum",
+        "source": "margined",
+        "destination": "margined",
+        "source_exchange_shard": 0,
+        "destination_exchange_shard": 0,
+        "amount": "0.5600",
+        "status": "complete",
+        "created_ts": 0
+      }
+    },
+    "errors": {
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "CreateSubaccount": {
+    "body": {},
+    "response": {
+      "subaccount_number": 0
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "ApplySubaccountTransfer": {
+    "body": {
+      "client_transfer_id": "88888888-8888-8888-8888-888888888888",
+      "from_subaccount": 0,
+      "to_subaccount": 0,
+      "amount_cents": 0
+    },
+    "response": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetSubaccountBalances": {
+    "response": {
+      "subaccount_balances": []
+    },
+    "errors": {
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetSubaccountTransfers": {
+    "parameters": {},
+    "response": {
+      "transfers": []
+    },
+    "errors": {
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetSubaccountNetting": {
+    "response": {
+      "netting_configs": []
+    },
+    "errors": {
+      "401": {},
+      "500": {}
+    }
+  },
+  "UpdateSubaccountNetting": {
+    "body": {
+      "subaccount_number": 0,
+      "enabled": false
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetPositions": {
+    "parameters": {},
+    "response": {
+      "market_positions": [],
+      "event_positions": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetSettlements": {
+    "parameters": {},
+    "response": {
+      "settlements": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetDeposits": {
+    "parameters": {},
+    "response": {
+      "deposits": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetWithdrawals": {
+    "parameters": {},
+    "response": {
+      "withdrawals": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetPortfolioRestingOrderTotalValue": {
+    "response": {
+      "total_resting_order_value": 0,
+      "resting_order_value_breakdown": []
+    },
+    "errors": {
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetFills": {
+    "parameters": {},
+    "response": {
+      "fills": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetCommunicationsID": {
+    "response": {
+      "communications_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetBlockTradeProposals": {
+    "parameters": {},
+    "response": {
+      "block_trade_proposals": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "ProposeBlockTrade": {
+    "body": {
+      "buyer_user_id": "Lorem anim ipsum",
+      "seller_user_id": "Lorem anim ipsum",
+      "market_ticker": "Lorem anim ipsum",
+      "price_centi_cents": 50000001,
+      "centicount": 50000001,
+      "maker_side": "no",
+      "expiration_ts": "1930-01-01T01:01:01.0Z"
+    },
+    "response": {
+      "block_trade_proposal_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "AcceptBlockTradeProposal": {
+    "parameters": {
+      "block_trade_proposal_id": "Lorem anim ipsum"
+    },
+    "body": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetRFQs": {
+    "parameters": {},
+    "response": {
+      "rfqs": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "CreateRFQ": {
+    "body": {
+      "market_ticker": "Lorem anim ipsum",
+      "rest_remainder": false
+    },
+    "response": {
+      "id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "409": {},
+      "500": {}
+    }
+  },
+  "GetRFQ": {
+    "parameters": {
+      "rfq_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "rfq": {
+        "id": "Lorem anim ipsum",
+        "creator_id": "Lorem anim ipsum",
+        "contracts_fp": "10.00",
+        "market_ticker": "Lorem anim ipsum",
+        "status": "closed",
+        "created_ts": "1930-01-01T01:01:01.0Z"
+      }
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "DeleteRFQ": {
+    "parameters": {
+      "rfq_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetRFQQuote": {
+    "parameters": {
+      "rfq_id": "Lorem anim ipsum",
+      "quote_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "quote": {
+        "id": "Lorem anim ipsum",
+        "rfq_id": "Lorem anim ipsum",
+        "creator_id": "Lorem anim ipsum",
+        "rfq_creator_id": "Lorem anim ipsum",
+        "market_ticker": "Lorem anim ipsum",
+        "contracts_fp": "10.00",
+        "yes_bid_dollars": "0.5600",
+        "no_bid_dollars": "0.5600",
+        "created_ts": "1930-01-01T01:01:01.0Z",
+        "updated_ts": "1930-01-01T01:01:01.0Z",
+        "status": "confirmed"
+      }
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "DeleteRFQQuote": {
+    "parameters": {
+      "rfq_id": "Lorem anim ipsum",
+      "quote_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "AcceptRFQQuote": {
+    "parameters": {
+      "rfq_id": "Lorem anim ipsum",
+      "quote_id": "Lorem anim ipsum"
+    },
+    "body": {
+      "accepted_side": "no"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "ConfirmRFQQuote": {
+    "parameters": {
+      "rfq_id": "Lorem anim ipsum",
+      "quote_id": "Lorem anim ipsum"
+    },
+    "body": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetQuotes": {
+    "parameters": {},
+    "response": {
+      "quotes": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "CreateQuote": {
+    "body": {
+      "rfq_id": "Lorem anim ipsum",
+      "yes_bid": "0.5600",
+      "no_bid": "0.5600",
+      "rest_remainder": false
+    },
+    "response": {
+      "id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetQuote": {
+    "parameters": {
+      "quote_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "quote": {
+        "id": "Lorem anim ipsum",
+        "rfq_id": "Lorem anim ipsum",
+        "creator_id": "Lorem anim ipsum",
+        "rfq_creator_id": "Lorem anim ipsum",
+        "market_ticker": "Lorem anim ipsum",
+        "contracts_fp": "10.00",
+        "yes_bid_dollars": "0.5600",
+        "no_bid_dollars": "0.5600",
+        "created_ts": "1930-01-01T01:01:01.0Z",
+        "updated_ts": "1930-01-01T01:01:01.0Z",
+        "status": "confirmed"
+      }
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "DeleteQuote": {
+    "parameters": {
+      "quote_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "AcceptQuote": {
+    "parameters": {
+      "quote_id": "Lorem anim ipsum"
+    },
+    "body": {
+      "accepted_side": "no"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "ConfirmQuote": {
+    "parameters": {
+      "quote_id": "Lorem anim ipsum"
+    },
+    "body": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetApiKeys": {
+    "parameters": {},
+    "response": {
+      "api_keys": []
+    },
+    "errors": {
+      "401": null,
+      "500": null
+    }
+  },
+  "CreateApiKey": {
+    "body": {
+      "name": "Lorem anim ipsum",
+      "public_key": "Lorem anim ipsum"
+    },
+    "response": {
+      "api_key_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "403": null,
+      "409": null,
+      "500": null
+    }
+  },
+  "GenerateApiKey": {
+    "body": {
+      "name": "Lorem anim ipsum"
+    },
+    "response": {
+      "api_key_id": "Lorem anim ipsum",
+      "private_key": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "403": null,
+      "409": null,
+      "500": null
+    }
+  },
+  "DeleteApiKey": {
+    "parameters": {
+      "api_key": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetAccountApiLimits": {
+    "response": {
+      "usage_tier": "expert",
+      "read": {
+        "refill_rate": 0,
+        "bucket_capacity": 0
+      },
+      "write": {
+        "refill_rate": 0,
+        "bucket_capacity": 0
+      },
+      "grants": []
+    },
+    "errors": {
+      "401": null,
+      "500": null
+    }
+  },
+  "UpgradeAccountApiUsageLevel": {
+    "errors": {
+      "401": null,
+      "403": null,
+      "429": null,
+      "500": null
+    }
+  },
+  "GetAccountApiUsageLevelVolumeProgress": {
+    "response": {
+      "volume_progress": []
+    },
+    "errors": {
+      "401": null,
+      "500": null
+    }
+  },
+  "GetAccountEndpointCosts": {
+    "response": {
+      "default_cost": 0,
+      "endpoint_costs": []
+    },
+    "errors": {
+      "500": null
+    }
+  },
+  "GetTagsForSeriesCategories": {
+    "response": {
+      "tags_by_categories": {}
+    },
+    "errors": {
+      "401": null,
+      "500": null
+    }
+  },
+  "GetFiltersForSports": {
+    "response": {
+      "filters_by_sports": {},
+      "sport_ordering": []
+    },
+    "errors": {
+      "401": null,
+      "500": null
+    }
+  },
+  "GetLiveDataByMilestone": {
+    "parameters": {
+      "milestone_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "live_data": {
+        "type": "Lorem anim ipsum",
+        "details": {},
+        "milestone_id": "Lorem anim ipsum"
+      }
+    },
+    "errors": {
+      "404": null,
+      "500": null
+    }
+  },
+  "GetLiveData": {
+    "parameters": {
+      "type": "Lorem anim ipsum",
+      "milestone_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "live_data": {
+        "type": "Lorem anim ipsum",
+        "details": {},
+        "milestone_id": "Lorem anim ipsum"
+      }
+    },
+    "errors": {
+      "404": null,
+      "500": null
+    }
+  },
+  "GetLiveDatas": {
+    "parameters": {
+      "milestone_ids": []
+    },
+    "response": {
+      "live_datas": []
+    },
+    "errors": {
+      "500": null
+    }
+  },
+  "GetGameStats": {
+    "parameters": {
+      "milestone_id": "Lorem anim ipsum"
+    },
+    "response": {},
+    "errors": {
+      "404": null,
+      "500": null
+    }
+  },
+  "GetEventLiveData": {
+    "parameters": {
+      "event_ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "live_data": {
+        "type": "Lorem anim ipsum",
+        "details": {}
+      }
+    },
+    "errors": {
+      "404": null,
+      "500": null
+    }
+  },
+  "GetWeatherIndex": {
+    "parameters": {
+      "city": "Lorem anim ipsum"
+    },
+    "response": {
+      "city": "Lorem anim ipsum",
+      "units": "Lorem anim ipsum",
+      "timeseries": []
+    },
+    "errors": {
+      "400": null,
+      "500": null
+    }
+  },
+  "GetWeatherIndexCalibrations": {
+    "parameters": {
+      "city": "Lorem anim ipsum"
+    },
+    "response": {
+      "city": "Lorem anim ipsum",
+      "units": "Lorem anim ipsum",
+      "calibrations": []
+    },
+    "errors": {
+      "400": null,
+      "500": null
+    }
+  },
+  "GetStructuredTargets": {
+    "parameters": {},
+    "response": {},
+    "errors": {
+      "401": null,
+      "500": null
+    }
+  },
+  "GetStructuredTarget": {
+    "parameters": {
+      "structured_target_id": "Lorem anim ipsum"
+    },
+    "response": {},
+    "errors": {
+      "401": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetMilestone": {
+    "parameters": {
+      "milestone_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "milestone": {
+        "id": "Lorem anim ipsum",
+        "category": "Sports",
+        "type": "football_game",
+        "start_date": "1930-01-01T01:01:01.0Z",
+        "related_event_tickers": [],
+        "title": "Lorem anim ipsum",
+        "notification_message": "Lorem anim ipsum",
+        "details": {},
+        "primary_event_tickers": [],
+        "last_updated_ts": "1930-01-01T01:01:01.0Z"
+      }
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetMilestones": {
+    "parameters": {
+      "limit": 251
+    },
+    "response": {
+      "milestones": []
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "500": null
+    }
+  },
+  "GetMultivariateEventCollection": {
+    "parameters": {
+      "collection_ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "multivariate_contract": {
+        "collection_ticker": "Lorem anim ipsum",
+        "series_ticker": "Lorem anim ipsum",
+        "title": "Lorem anim ipsum",
+        "description": "Lorem anim ipsum",
+        "open_date": "1930-01-01T01:01:01.0Z",
+        "close_date": "1930-01-01T01:01:01.0Z",
+        "associated_events": [],
+        "associated_event_tickers": [],
+        "is_ordered": false,
+        "is_single_market_per_event": false,
+        "is_all_yes": false,
+        "size_min": 0,
+        "size_max": 0,
+        "functional_description": "Lorem anim ipsum",
+        "price_level_structure": "Lorem anim ipsum",
+        "price_ranges": []
+      }
+    },
+    "errors": {
+      "400": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "CreateMarketInMultivariateEventCollection": {
+    "parameters": {
+      "collection_ticker": "Lorem anim ipsum"
+    },
+    "body": {
+      "selected_markets": []
+    },
+    "response": {
+      "event_ticker": "Lorem anim ipsum",
+      "market_ticker": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "429": {},
+      "500": {}
+    }
+  },
+  "GetMultivariateEventCollections": {
+    "parameters": {},
+    "response": {
+      "multivariate_contracts": []
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetIncentivePrograms": {
+    "parameters": {},
+    "response": {
+      "incentive_programs": []
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetFCMFills": {
+    "parameters": {},
+    "response": {
+      "fills": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "403": null,
+      "500": null
+    }
+  },
+  "GetFCMOrders": {
+    "parameters": {},
+    "response": {
+      "orders": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "403": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "ListFCMSubtraders": {
+    "response": {
+      "subtraders": []
+    },
+    "errors": {
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "CreateFCMSubtrader": {
+    "body": {
+      "subtrader_suffix": "Lorem anim ipsum"
+    },
+    "response": {
+      "subtrader_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "409": {},
+      "500": {}
+    }
+  },
+  "GetFCMEventContractDailyCap": {
+    "parameters": {},
+    "response": {
+      "subtrader_id": "Lorem anim ipsum",
+      "limit": "0.5600",
+      "executed_utilization": "0.5600",
+      "resting_order_utilization": "0.5600",
+      "pending_order_utilization": "0.5600",
+      "cap_date": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "UpdateFCMEventContractDailyCap": {
+    "body": {
+      "subtrader_id": "Lorem anim ipsum",
+      "limit": "0.5600"
+    },
+    "response": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "DeleteFCMEventContractDailyCap": {
+    "parameters": {
+      "subtrader_id": "Lorem anim ipsum"
+    },
+    "response": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetFCMSubtraderBlockedCategories": {
+    "parameters": {
+      "subtrader_id": "Lorem anim ipsum"
+    },
+    "response": {
+      "categories": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "UpdateFCMSubtraderBlockedCategories": {
+    "body": {
+      "subtrader_id": "Lorem anim ipsum",
+      "category": "Lorem anim ipsum",
+      "blocked": false
+    },
+    "response": {
+      "categories": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetTargetBalanceAllocation": {
+    "response": {
+      "allocations": [],
+      "resting_margin_reservation": "max"
+    },
+    "errors": {
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "SetTargetBalanceAllocation": {
+    "body": {
+      "allocations": []
+    },
+    "response": {},
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "500": {}
+    }
+  },
+  "GetFCMPositions": {
+    "parameters": {},
+    "response": {
+      "market_positions": [],
+      "event_positions": []
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "403": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "CreateFCMPositionTransfer": {
+    "body": {
+      "source_subtrader_id": "Lorem anim ipsum",
+      "target_subtrader_id": "Lorem anim ipsum",
+      "market_ticker": "Lorem anim ipsum",
+      "position_centicount": 0,
+      "price_centicents": 5000
+    },
+    "response": {
+      "position_transfer_id": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "403": {},
+      "404": {},
+      "409": {},
+      "429": {},
+      "500": {}
+    }
+  },
+  "GetHistoricalCutoff": {
+    "response": {
+      "market_settled_ts": "1930-01-01T01:01:01.0Z",
+      "trades_created_ts": "1930-01-01T01:01:01.0Z",
+      "orders_updated_ts": "1930-01-01T01:01:01.0Z"
+    },
+    "errors": {
+      "500": null
+    }
+  },
+  "GetMarketCandlesticksHistorical": {
+    "parameters": {
+      "ticker": "Lorem anim ipsum",
+      "start_ts": 0,
+      "end_ts": 0,
+      "period_interval": 60
+    },
+    "response": {
+      "ticker": "Lorem anim ipsum",
+      "candlesticks": []
+    },
+    "errors": {
+      "400": null,
+      "404": null,
+      "500": null
+    }
+  },
+  "GetFillsHistorical": {
+    "parameters": {},
+    "response": {
+      "fills": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": null,
+      "401": null,
+      "404": {},
+      "500": null
+    }
+  },
+  "GetHistoricalOrders": {
+    "parameters": {},
+    "response": {
+      "orders": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetHistoricalPositions": {
+    "parameters": {},
+    "response": {
+      "market_positions": [],
+      "event_positions": []
+    },
+    "errors": {
+      "400": {},
+      "401": {},
+      "500": {}
+    }
+  },
+  "GetTradesHistorical": {
+    "parameters": {},
+    "response": {
+      "trades": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "404": {},
+      "500": {}
+    }
+  },
+  "GetHistoricalMarkets": {
+    "parameters": {},
+    "response": {
+      "markets": [],
+      "cursor": "Lorem anim ipsum"
+    },
+    "errors": {
+      "400": {},
+      "500": {}
+    }
+  },
+  "GetHistoricalMarket": {
+    "parameters": {
+      "ticker": "Lorem anim ipsum"
+    },
+    "response": {
+      "market": {
+        "ticker": "Lorem anim ipsum",
+        "event_ticker": "Lorem anim ipsum",
+        "market_type": "scalar",
+        "yes_sub_title": "Lorem anim ipsum",
+        "no_sub_title": "Lorem anim ipsum",
+        "created_time": "1930-01-01T01:01:01.0Z",
+        "updated_time": "1930-01-01T01:01:01.0Z",
+        "open_time": "1930-01-01T01:01:01.0Z",
+        "close_time": "1930-01-01T01:01:01.0Z",
+        "latest_expiration_time": "1930-01-01T01:01:01.0Z",
+        "settlement_timer_seconds": 0,
+        "status": "determined",
+        "notional_value_dollars": "0.5600",
+        "yes_bid_dollars": "0.5600",
+        "yes_ask_dollars": "0.5600",
+        "no_bid_dollars": "0.5600",
+        "no_ask_dollars": "0.5600",
+        "yes_bid_size_fp": "10.00",
+        "yes_ask_size_fp": "10.00",
+        "last_price_dollars": "0.5600",
+        "previous_yes_bid_dollars": "0.5600",
+        "previous_yes_ask_dollars": "0.5600",
+        "previous_price_dollars": "0.5600",
+        "volume_fp": "10.00",
+        "volume_24h_fp": "10.00",
+        "open_interest_fp": "10.00",
+        "result": "scalar",
+        "can_close_early": false,
+        "expiration_value": "Lorem anim ipsum",
+        "rules_primary": "Lorem anim ipsum",
+        "rules_secondary": "Lorem anim ipsum",
+        "price_level_structure": "Lorem anim ipsum",
+        "price_ranges": [],
+        "settlement_bounds_type": "floor"
+      }
+    },
+    "errors": {
+      "404": {},
+      "500": {}
+    }
+  }
+}

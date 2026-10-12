@@ -31,24 +31,51 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: hurley451/KalshiCore
+          ref: ${{ github.event_name == 'schedule' && 'main' || 'da235871e8c55ca1f6bcc2020f5324e909f1998a' }}
           path: KalshiCore
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
 
-      - name: Generate operations
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install locked generation dependencies
         working-directory: kalshi-rs
-        run: node tools/generate_operations.mjs --kalshicore-root "$GITHUB_WORKSPACE/KalshiCore"
+        run: |
+          npm ci --prefix tools/probe-fixtures
+          cargo fetch --locked --manifest-path tools/typed-generator/Cargo.toml
+          cargo fetch --locked
+
+      - name: Check generated operations
+        working-directory: kalshi-rs
+        run: |
+          staged_operations="$(mktemp)"
+          trap 'rm -f "$staged_operations"' EXIT
+          node tools/generate_operations.mjs --kalshicore-root "$GITHUB_WORKSPACE/KalshiCore" --out "$staged_operations"
+          cmp src/generated/operations.rs "$staged_operations"
+
+      - name: Check typed generation reproducibility and preservation
+        working-directory: kalshi-rs
+        env:
+          KALSHICORE_ROOT: ${{ github.workspace }}/KalshiCore
+        run: |
+          node tools/check_generated_typed.mjs
+          node --test tools/check_generated_typed.test.mjs
 
       - name: Test
         working-directory: kalshi-rs
-        run: cargo test
+        run: cargo test --locked
 
       - name: Run conformance adapter
         id: conformance
         working-directory: kalshi-rs
         run: >-
-          cargo run --bin kalshicore-conformance --
+          cargo run --locked --bin kalshicore-conformance --
           --kalshicore-root "$GITHUB_WORKSPACE/KalshiCore"
           --report artifacts/kalshicore-conformance/report.json
 
@@ -61,7 +88,7 @@ jobs:
           if-no-files-found: warn
 
       - name: File KalshiCore contract gap
-        if: always() && github.event_name == 'schedule' && steps.conformance.outcome == 'failure'
+        if: failure() && github.event_name == 'schedule'
         env:
           GH_TOKEN: ${{ secrets.KALSHICORE_ISSUE_TOKEN }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -76,7 +103,7 @@ jobs:
           body_file="$(mktemp)"
           {
             echo "## Summary"
-            echo "kalshi-rs scheduled conformance failed against KalshiCore."
+            echo "kalshi-rs scheduled generation or conformance checks failed against KalshiCore main."
             echo
             echo "## Source links"
             echo "- Run: $RUN_URL"

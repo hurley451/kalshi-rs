@@ -142,6 +142,38 @@ impl KalshiClient {
         operation_id: &str,
         request: KalshiRequest,
     ) -> Result<Value, KalshiError> {
+        let (_, _, bytes) = self.execute_request(operation_id, request).await?;
+        if bytes.is_empty() {
+            return Ok(Value::Null);
+        }
+        Ok(serde_json::from_slice(&bytes)?)
+    }
+
+    pub(crate) async fn request_unspecified(
+        &self,
+        operation_id: &str,
+        request: KalshiRequest,
+    ) -> Result<crate::typed::UnspecifiedResponse, KalshiError> {
+        let (status, headers, bytes) = self.execute_request(operation_id, request).await?;
+        let body = if bytes.is_empty() {
+            Value::Null
+        } else {
+            serde_json::from_slice(&bytes)
+                .unwrap_or_else(|_| Value::String(String::from_utf8_lossy(&bytes).into_owned()))
+        };
+        Ok(crate::typed::UnspecifiedResponse {
+            status,
+            headers,
+            body,
+            raw_body: bytes,
+        })
+    }
+
+    async fn execute_request(
+        &self,
+        operation_id: &str,
+        request: KalshiRequest,
+    ) -> Result<(reqwest::StatusCode, reqwest::header::HeaderMap, Vec<u8>), KalshiError> {
         let timestamp_ms = current_timestamp_ms();
         let prepared = self.prepare_request(operation_id, request, &timestamp_ms)?;
         let method = prepared
@@ -172,10 +204,7 @@ impl KalshiClient {
                 body,
             })));
         }
-        if bytes.is_empty() {
-            return Ok(Value::Null);
-        }
-        Ok(serde_json::from_slice(&bytes)?)
+        Ok((status, headers, bytes.to_vec()))
     }
 }
 

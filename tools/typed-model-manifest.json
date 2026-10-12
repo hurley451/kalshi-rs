@@ -1,0 +1,2963 @@
+{
+  "generator": "Typify 0.5.0",
+  "modelCount": 739,
+  "models": [
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalBody"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptBlockTradeProposalStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteBody"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteRequest"
+    },
+    {
+      "kind": "enum",
+      "name": "AcceptQuoteRequestAcceptedSide"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptRfqQuoteBody"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptRfqQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptRfqQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptRfqQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptRfqQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "AcceptRfqQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "AccountApiUsageLevelVolumeGoal"
+    },
+    {
+      "kind": "struct",
+      "name": "AccountApiUsageLevelVolumeProgress"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderRequest"
+    },
+    {
+      "kind": "enum",
+      "name": "AmendOrderRequestAction"
+    },
+    {
+      "kind": "enum",
+      "name": "AmendOrderRequestSide"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Body"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Parameters"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Request"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Response"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status200"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status400"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status401"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status403"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status404"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status500"
+    },
+    {
+      "kind": "struct",
+      "name": "AmendOrderV2Status503"
+    },
+    {
+      "kind": "struct",
+      "name": "ApiKey"
+    },
+    {
+      "kind": "enum",
+      "name": "ApiKeyScope"
+    },
+    {
+      "kind": "enum",
+      "name": "ApiKeyType"
+    },
+    {
+      "kind": "struct",
+      "name": "ApiUsageLevelGrant"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferBody"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "ApplySubaccountTransferStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "AssociatedEvent"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersIndividualResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersRequestOrder"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Body"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Request"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2RequestOrdersItem"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Response"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2ResponseOrdersItem"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Status200"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Status400"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Status401"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Status403"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCancelOrdersV2Status500"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersIndividualResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Body"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Request"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Response"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2ResponseOrdersItem"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Status201"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Status400"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Status401"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Status403"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchCreateOrdersV2Status500"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchGetMarketCandlesticksParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchGetMarketCandlesticksResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "BatchGetMarketCandlesticksStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "BidAskDistribution"
+    },
+    {
+      "kind": "struct",
+      "name": "BidAskDistributionHistorical"
+    },
+    {
+      "kind": "struct",
+      "name": "BlockTradeProposal"
+    },
+    {
+      "kind": "enum",
+      "name": "BlockTradeProposalMakerSide"
+    },
+    {
+      "kind": "enum",
+      "name": "BookSide"
+    },
+    {
+      "kind": "struct",
+      "name": "BucketLimit"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelAllOrdersParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelAllOrdersStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelAllOrdersStatus429"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelAllOrdersStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelOrderV2Parameters"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelOrderV2Response"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelOrderV2Status200"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelOrderV2Status401"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelOrderV2Status404"
+    },
+    {
+      "kind": "struct",
+      "name": "CancelOrderV2Status500"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmQuoteBody"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmRfqQuoteBody"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmRfqQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmRfqQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmRfqQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmRfqQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "ConfirmRfqQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateApiKeyBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateApiKeyRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateApiKeyResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateApiKeyStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus409"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus429"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmPositionTransferStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderStatus409"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateFcmSubtraderStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionStatus429"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateMarketInMultivariateEventCollectionStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderGroupStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderRequest"
+    },
+    {
+      "kind": "enum",
+      "name": "CreateOrderRequestAction"
+    },
+    {
+      "kind": "enum",
+      "name": "CreateOrderRequestSide"
+    },
+    {
+      "kind": "enum",
+      "name": "CreateOrderRequestTimeInForce"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Body"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Request"
+    },
+    {
+      "kind": "enum",
+      "name": "CreateOrderV2RequestTimeInForce"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Response"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status403"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status409"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status429"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateOrderV2Status503"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqStatus409"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateRfqStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountBody"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "CreateSubaccountStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "DailySchedule"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Body"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Parameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Request"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Response"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Status200"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Status400"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Status401"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Status404"
+    },
+    {
+      "kind": "struct",
+      "name": "DecreaseOrderV2Status500"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteApiKeyParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteFcmEventContractDailyCapStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteOrderGroupParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteOrderGroupStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteOrderGroupStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteOrderGroupStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteOrderGroupStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "DeleteRfqStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "Deposit"
+    },
+    {
+      "kind": "enum",
+      "name": "DepositStatus"
+    },
+    {
+      "kind": "enum",
+      "name": "DepositType"
+    },
+    {
+      "kind": "struct",
+      "name": "EmptyResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "EndpointTokenCost"
+    },
+    {
+      "kind": "struct",
+      "name": "ErrorResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "EventData"
+    },
+    {
+      "kind": "struct",
+      "name": "EventFeeChange"
+    },
+    {
+      "kind": "struct",
+      "name": "EventLiveData"
+    },
+    {
+      "kind": "struct",
+      "name": "EventPosition"
+    },
+    {
+      "kind": "struct",
+      "name": "ExchangeIndex"
+    },
+    {
+      "kind": "struct",
+      "name": "ExchangeIndexStatus"
+    },
+    {
+      "kind": "enum",
+      "name": "ExchangeInstance"
+    },
+    {
+      "kind": "struct",
+      "name": "ExchangeStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "FcmFill"
+    },
+    {
+      "kind": "struct",
+      "name": "FcmSubtrader"
+    },
+    {
+      "kind": "enum",
+      "name": "FeeType"
+    },
+    {
+      "kind": "struct",
+      "name": "Fill"
+    },
+    {
+      "kind": "enum",
+      "name": "FillAction"
+    },
+    {
+      "kind": "enum",
+      "name": "FillSide"
+    },
+    {
+      "kind": "struct",
+      "name": "FixedPointCount"
+    },
+    {
+      "kind": "struct",
+      "name": "FixedPointDollars"
+    },
+    {
+      "kind": "struct",
+      "name": "ForecastPercentilesPoint"
+    },
+    {
+      "kind": "struct",
+      "name": "GenerateApiKeyBody"
+    },
+    {
+      "kind": "struct",
+      "name": "GenerateApiKeyRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "GenerateApiKeyResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GenerateApiKeyStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "GetAccountApiLimitsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetAccountApiLimitsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetAccountApiUsageLevelVolumeProgressResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetAccountApiUsageLevelVolumeProgressStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetAccountEndpointCostsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetAccountEndpointCostsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetApiKeysParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetApiKeysResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetApiKeysStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBalanceParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBalanceResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBalanceStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBalanceStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBalanceStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBlockTradeProposalsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBlockTradeProposalsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBlockTradeProposalsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBlockTradeProposalsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBlockTradeProposalsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetBlockTradeProposalsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetCommunicationsIdResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetCommunicationsIdStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetCommunicationsIdStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetCommunicationsIdStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetDepositsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetDepositsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetDepositsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetDepositsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetDepositsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetDepositsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventCandlesticksResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventFeeChangesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventFeeChangesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventFeeChangesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventFeeChangesStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventFeeChangesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventForecastPercentilesHistoryParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventForecastPercentilesHistoryParametersPeriodInterval"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventForecastPercentilesHistoryResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventForecastPercentilesHistoryStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventLiveDataParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventLiveDataResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventLiveDataStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventMetadataParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventMetadataResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventMetadataStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetEventsParametersStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetEventsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetExchangeScheduleResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetExchangeScheduleStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetExchangeStatusStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetExchangeStatusStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetExchangeStatusStatus503"
+    },
+    {
+      "kind": "struct",
+      "name": "GetExchangeStatusStatus504"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmEventContractDailyCapStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmFillsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmFillsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmFillsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmOrdersParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetFcmOrdersParametersStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmOrdersStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmPositionsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetFcmPositionsParametersSettlementStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmPositionsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFcmSubtraderBlockedCategoriesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFillsHistoricalParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFillsHistoricalStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFillsHistoricalStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFillsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFillsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFillsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFiltersBySportsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetFiltersForSportsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetGameStatsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetGameStatsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetGameStatsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalCutoffResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalCutoffStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetHistoricalMarketsParametersMveFilter"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalMarketsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalOrdersParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalOrdersStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalOrdersStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalOrdersStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalOrdersStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalPositionsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalPositionsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalPositionsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalPositionsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetHistoricalPositionsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIncentiveProgramsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetIncentiveProgramsParametersStatus"
+    },
+    {
+      "kind": "enum",
+      "name": "GetIncentiveProgramsParametersType"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIncentiveProgramsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIncentiveProgramsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIncentiveProgramsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIncentiveProgramsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransferParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransferResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransferStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransferStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransferStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransferStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransfersParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransfersResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransfersStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransfersStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransfersStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetIntraExchangeInstanceTransfersStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDataByMilestoneParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDataByMilestoneStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDataParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDataResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDataStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDatasParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDatasResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetLiveDatasStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksByEventParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksByEventParametersPeriodInterval"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksByEventStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksHistoricalParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksHistoricalParametersPeriodInterval"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksHistoricalResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksHistoricalStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksParametersPeriodInterval"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketCandlesticksStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbookParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbookResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbookStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbookStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbookStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbookStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksParametersTickersItem"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketOrderbooksStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetMarketsParametersMveFilter"
+    },
+    {
+      "kind": "enum",
+      "name": "GetMarketsParametersStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMarketsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMilestoneParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMilestoneResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMilestoneStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMilestonesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMilestonesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMilestonesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetMultivariateEventCollectionsParametersStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventCollectionsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetMultivariateEventsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderGroupsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderQueuePositionsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrderStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrdersParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrdersResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrdersStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrdersStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrdersStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetOrdersStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPortfolioRestingOrderTotalValueResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPortfolioRestingOrderTotalValueStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPortfolioRestingOrderTotalValueStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPortfolioRestingOrderTotalValueStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPositionsParameters"
+    },
+    {
+      "kind": "enum",
+      "name": "GetPositionsParametersSettlementStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPositionsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPositionsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPositionsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPositionsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetPositionsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuotesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuotesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuotesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuotesStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuotesStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetQuotesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfQsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfQsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfQsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfQsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfQsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfQsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqQuoteParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqQuoteStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqQuoteStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqQuoteStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqQuoteStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqQuoteStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetRfqStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesFeeChangesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesFeeChangesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesFeeChangesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesFeeChangesStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesFeeChangesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesListParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesListResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesListStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesListStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesListStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSeriesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSettlementsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSettlementsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSettlementsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSettlementsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSettlementsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSettlementsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetStructuredTargetParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetStructuredTargetResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetStructuredTargetStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetStructuredTargetsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetStructuredTargetsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetStructuredTargetsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountBalancesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountBalancesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountBalancesStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountBalancesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountNettingResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountNettingStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountNettingStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountNettingStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountTransfersParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountTransfersResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountTransfersStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountTransfersStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetSubaccountTransfersStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTagsForSeriesCategoriesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTagsForSeriesCategoriesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTargetBalanceAllocationResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTargetBalanceAllocationStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTargetBalanceAllocationStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTargetBalanceAllocationStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTargetBalanceAllocationStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesHistoricalParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesHistoricalStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesHistoricalStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesHistoricalStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesHistoricalStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetTradesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetUserDataTimestampResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetUserDataTimestampStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWeatherIndexCalibrationsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWeatherIndexCalibrationsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWeatherIndexCalibrationsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWeatherIndexParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWeatherIndexResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWeatherIndexStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWithdrawalsParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWithdrawalsResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWithdrawalsStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWithdrawalsStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWithdrawalsStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "GetWithdrawalsStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "IncentiveProgram"
+    },
+    {
+      "kind": "enum",
+      "name": "IncentiveProgramIncentiveType"
+    },
+    {
+      "kind": "struct",
+      "name": "IndexedBalance"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransfer"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferBody"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferResponse"
+    },
+    {
+      "kind": "enum",
+      "name": "IntraExchangeInstanceTransferStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "IntraExchangeInstanceTransferStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "ListFcmSubtradersResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "ListFcmSubtradersStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "ListFcmSubtradersStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "ListFcmSubtradersStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "ListFcmSubtradersStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "LiveData"
+    },
+    {
+      "kind": "struct",
+      "name": "MaintenanceWindow"
+    },
+    {
+      "kind": "struct",
+      "name": "Market"
+    },
+    {
+      "kind": "struct",
+      "name": "MarketCandlestick"
+    },
+    {
+      "kind": "struct",
+      "name": "MarketCandlestickHistorical"
+    },
+    {
+      "kind": "struct",
+      "name": "MarketCandlesticksResponse"
+    },
+    {
+      "kind": "enum",
+      "name": "MarketMarketType"
+    },
+    {
+      "kind": "struct",
+      "name": "MarketMetadata"
+    },
+    {
+      "kind": "struct",
+      "name": "MarketOrderbookFp"
+    },
+    {
+      "kind": "struct",
+      "name": "MarketPosition"
+    },
+    {
+      "kind": "enum",
+      "name": "MarketResult"
+    },
+    {
+      "kind": "enum",
+      "name": "MarketSettlementBoundsType"
+    },
+    {
+      "kind": "enum",
+      "name": "MarketStatus"
+    },
+    {
+      "kind": "enum",
+      "name": "MarketStrikeType"
+    },
+    {
+      "kind": "struct",
+      "name": "Milestone"
+    },
+    {
+      "kind": "struct",
+      "name": "MultivariateEventCollection"
+    },
+    {
+      "kind": "struct",
+      "name": "MveSelectedLeg"
+    },
+    {
+      "kind": "struct",
+      "name": "Order"
+    },
+    {
+      "kind": "enum",
+      "name": "OrderAction"
+    },
+    {
+      "kind": "struct",
+      "name": "OrderGroup"
+    },
+    {
+      "kind": "enum",
+      "name": "OrderOutcomeSide"
+    },
+    {
+      "kind": "struct",
+      "name": "OrderQueuePosition"
+    },
+    {
+      "kind": "enum",
+      "name": "OrderSide"
+    },
+    {
+      "kind": "enum",
+      "name": "OrderStatus"
+    },
+    {
+      "kind": "enum",
+      "name": "OrderType"
+    },
+    {
+      "kind": "struct",
+      "name": "OrderbookCountFp"
+    },
+    {
+      "kind": "enum",
+      "name": "OutcomeSide"
+    },
+    {
+      "kind": "struct",
+      "name": "PercentilePoint"
+    },
+    {
+      "kind": "struct",
+      "name": "PlayByPlay"
+    },
+    {
+      "kind": "struct",
+      "name": "PlayByPlayPeriodsItem"
+    },
+    {
+      "kind": "struct",
+      "name": "PriceDistribution"
+    },
+    {
+      "kind": "struct",
+      "name": "PriceDistributionHistorical"
+    },
+    {
+      "kind": "struct",
+      "name": "PriceLevelDollarsCountFp"
+    },
+    {
+      "kind": "struct",
+      "name": "PriceRange"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeBody"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeRequest"
+    },
+    {
+      "kind": "enum",
+      "name": "ProposeBlockTradeRequestMakerSide"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeStatus201"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "ProposeBlockTradeStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "Quote"
+    },
+    {
+      "kind": "enum",
+      "name": "QuoteAcceptedSide"
+    },
+    {
+      "kind": "enum",
+      "name": "QuoteStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "ResetOrderGroupBody"
+    },
+    {
+      "kind": "struct",
+      "name": "ResetOrderGroupParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "ResetOrderGroupStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "ResetOrderGroupStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "ResetOrderGroupStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "ResetOrderGroupStatus500"
+    },
+    {
+      "kind": "enum",
+      "name": "RestingMarginReservation"
+    },
+    {
+      "kind": "struct",
+      "name": "Rfq"
+    },
+    {
+      "kind": "enum",
+      "name": "RfqStatus"
+    },
+    {
+      "kind": "struct",
+      "name": "Schedule"
+    },
+    {
+      "kind": "struct",
+      "name": "ScopeList"
+    },
+    {
+      "kind": "enum",
+      "name": "SelfTradePreventionType"
+    },
+    {
+      "kind": "struct",
+      "name": "Series"
+    },
+    {
+      "kind": "struct",
+      "name": "SeriesFeeChange"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationBody"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "SetTargetBalanceAllocationStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "Settlement"
+    },
+    {
+      "kind": "enum",
+      "name": "SettlementMarketResult"
+    },
+    {
+      "kind": "struct",
+      "name": "SettlementSource"
+    },
+    {
+      "kind": "struct",
+      "name": "SportFilterDetails"
+    },
+    {
+      "kind": "struct",
+      "name": "StructuredTarget"
+    },
+    {
+      "kind": "struct",
+      "name": "SubaccountBalance"
+    },
+    {
+      "kind": "struct",
+      "name": "SubaccountNettingConfig"
+    },
+    {
+      "kind": "struct",
+      "name": "SubaccountTransfer"
+    },
+    {
+      "kind": "struct",
+      "name": "TargetBalanceAllocation"
+    },
+    {
+      "kind": "struct",
+      "name": "TargetBalanceAllocationInput"
+    },
+    {
+      "kind": "struct",
+      "name": "TickerPair"
+    },
+    {
+      "kind": "enum",
+      "name": "TickerPairSide"
+    },
+    {
+      "kind": "struct",
+      "name": "Trade"
+    },
+    {
+      "kind": "enum",
+      "name": "TradeTakerOutcomeSide"
+    },
+    {
+      "kind": "enum",
+      "name": "TradeTakerSide"
+    },
+    {
+      "kind": "struct",
+      "name": "TriggerOrderGroupBody"
+    },
+    {
+      "kind": "struct",
+      "name": "TriggerOrderGroupParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "TriggerOrderGroupStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "TriggerOrderGroupStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "TriggerOrderGroupStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "TriggerOrderGroupStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapBody"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmEventContractDailyCapStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesBody"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesResponse"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesStatus403"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateFcmSubtraderBlockedCategoriesStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitBody"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitParameters"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitStatus200"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitStatus404"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateOrderGroupLimitStatus500"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateSubaccountNettingBody"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateSubaccountNettingRequest"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateSubaccountNettingStatus400"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateSubaccountNettingStatus401"
+    },
+    {
+      "kind": "struct",
+      "name": "UpdateSubaccountNettingStatus500"
+    },
+    {
+      "kind": "enum",
+      "name": "UserFilter"
+    },
+    {
+      "kind": "struct",
+      "name": "WeatherIndexCalibration"
+    },
+    {
+      "kind": "struct",
+      "name": "WeatherIndexCalibrationStation"
+    },
+    {
+      "kind": "struct",
+      "name": "WeatherIndexPoint"
+    },
+    {
+      "kind": "struct",
+      "name": "WeatherIndexStationReading"
+    },
+    {
+      "kind": "struct",
+      "name": "WeeklySchedule"
+    },
+    {
+      "kind": "struct",
+      "name": "Withdrawal"
+    },
+    {
+      "kind": "enum",
+      "name": "WithdrawalStatus"
+    },
+    {
+      "kind": "enum",
+      "name": "WithdrawalType"
+    }
+  ],
+  "typespaceCount": 872
+}
