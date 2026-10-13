@@ -155,15 +155,20 @@ async fn page_timeout_resumes_same_cursor_and_keeps_filters() {
     let parameters = serde_json::from_value(json!({"series_ticker":"SERIES","limit":2})).unwrap();
     let mut pager = client.markets().get_markets_pages(parameters);
     pager.next_page().await.unwrap();
+    let (timed_page, ()) = tokio::join!(
+        pager.next_page_with_options(RequestOptions {
+            timeout: Some(Duration::from_secs(1)),
+            ..Default::default()
+        }),
+        server.wait_for(2)
+    );
+    assert_eq!(
+        server.count(),
+        2,
+        "timed page must reach the scripted stalled response"
+    );
     assert!(matches!(
-        pager
-            .next_page_with_options(RequestOptions {
-                timeout: Some(Duration::from_millis(20)),
-                ..Default::default()
-            })
-            .await
-            .unwrap_err()
-            .source,
+        timed_page.unwrap_err().source,
         KalshiError::DeadlineExceeded
     ));
     pager.next_page().await.unwrap();
