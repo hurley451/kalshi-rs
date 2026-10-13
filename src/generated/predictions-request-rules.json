@@ -1,0 +1,34 @@
+{
+  "sourceId": "kalshi-openapi-rest",
+  "sourceSha256": "091f171718a0376b0c1a2e9348b02b1ce003d0786dd04d772dd11005ca414bf4",
+  "schemaPrerequisites": {
+    "CreateOrderV2Request": "42525b65074f223f677d484d70af0ab48b34e4700ead1938c23c4ad0e7a8a6da",
+    "BatchCreateOrdersV2Request": "8ed315f8761b4cf9a8205f1931cc8da41759cda093ba103171e5e710f10f4c0c"
+  },
+  "rules": [
+    {
+      "id": "ioc-excludes-expiry",
+      "descriptionSha256": "ca248a7305b84d6dfb5669451a0038b88606a3a4b75df0a544ff12ea4d7dca1e",
+      "pointer": "#/components/schemas/CreateOrderV2Request/properties/expiration_time/description"
+    },
+    {
+      "id": "reduce-only-requires-ioc",
+      "descriptionSha256": "0e369a2964e6e80ef7b6f5d70e9dff702ce7c3da0ab097a4264fdd13743927cf",
+      "pointer": "#/components/schemas/CreateOrderV2Request/properties/reduce_only/description"
+    }
+  ],
+  "bindings": [
+    {
+      "operationId": "CreateOrderV2",
+      "path": "/portfolio/events/orders",
+      "model": "CreateOrderV2Request",
+      "memberPointer": ""
+    },
+    {
+      "operationId": "BatchCreateOrdersV2",
+      "path": "/portfolio/events/orders/batched",
+      "model": "BatchCreateOrdersV2Request",
+      "memberPointer": "/orders/*"
+    }
+  ]
+}

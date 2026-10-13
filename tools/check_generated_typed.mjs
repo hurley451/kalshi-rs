@@ -8,6 +8,7 @@ import { spawnSync } from 'node:child_process';
 export const repositoryRoot = fileURLToPath(new URL('../', import.meta.url));
 export const generatedFiles = Object.freeze([
   'src/generated/typed-schema.json',
+  'src/generated/predictions-request-rules.json',
   'src/generated/models.rs',
   'src/generated/typed.rs',
   'src/generated/domains.rs',

@@ -2011,6 +2011,12 @@ impl KalshiClient {
                     let body = serde_json::to_value(body)?;
                     crate::typed::validate("CreateOrderV2Body", &body)?;
                     request.body = Some(body);
+                    crate::request_rules::validate_order_request(
+                        "CreateOrderV2",
+                        request.body.as_ref().ok_or_else(|| {
+                            crate::typed::contract_error("V2 order requires a body")
+                        })?,
+                    )?;
                     let response = self
                         .request_in_context("CreateOrderV2", request, &context)
                         .await?;
@@ -2164,6 +2170,12 @@ impl KalshiClient {
                     let body = serde_json::to_value(body)?;
                     crate::typed::validate("BatchCreateOrdersV2Body", &body)?;
                     request.body = Some(body);
+                    crate::request_rules::validate_order_request(
+                        "BatchCreateOrdersV2",
+                        request.body.as_ref().ok_or_else(|| {
+                            crate::typed::contract_error("V2 order requires a body")
+                        })?,
+                    )?;
                     let response = self
                         .request_in_context("BatchCreateOrdersV2", request, &context)
                         .await?;

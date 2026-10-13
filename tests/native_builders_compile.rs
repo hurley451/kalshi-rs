@@ -34,10 +34,18 @@ fn compiler_enforces_required_fields_single_assignment_and_builder_secrecy() {
         .arg(target.path())
         .output()
         .unwrap();
+    let diagnostics = String::from_utf8_lossy(&build.stdout)
+        .lines()
+        .filter_map(|line| serde_json::from_str::<serde_json::Value>(line).ok())
+        .filter(|message| message["reason"] == "compiler-message")
+        .filter_map(|message| message["message"]["rendered"].as_str().map(str::to_owned))
+        .collect::<Vec<_>>()
+        .join("\n");
     assert!(
         build.status.success(),
-        "consumer dependency build failed: {}",
-        String::from_utf8_lossy(&build.stderr)
+        "consumer dependency build failed: {}\n{}",
+        String::from_utf8_lossy(&build.stderr),
+        diagnostics
     );
     let libraries: Vec<std::path::PathBuf> = String::from_utf8(build.stdout)
         .unwrap()

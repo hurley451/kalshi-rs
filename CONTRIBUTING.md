@@ -31,7 +31,7 @@ node --test tools/check_generated_typed.test.mjs
 node --test tools/probe-fixtures/generate.test.mjs
 ```
 
-The checker generates all 14 typed Rust, schema, coverage, manifest, and fixture
+The checker generates all 15 typed Rust, schema, rule, coverage, manifest, and fixture
 outputs in a fresh temporary directory and compares every output byte-for-byte
 with its original. Missing or differing originals fail without being repaired.
 The tests run independent generations and check missing and tampered copies of

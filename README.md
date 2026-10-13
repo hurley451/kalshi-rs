@@ -309,8 +309,9 @@ fn prepare_demo_order(auth: KalshiAuth, ticker: &str) -> Result<(), Box<dyn std:
 ```
 
 To submit a native order, pass `CreateOrderV2Body(order)` to
-`client.portfolio().create_order_v2`. Named methods validate the wire schema;
-provider-enforced rules and account state can still reject the order. Optional
+`client.portfolio().create_order_v2`. Named methods validate the wire schema and
+reject IOC orders with expiry or reduce-only orders without IOC, including batch
+members. Other provider-enforced rules and account state can still reject the order. Optional
 fields default to absent. Use a field's `opt_` setter for a runtime `Option`, or
 its ordinary setter for a present value. Optional nullable fields retain absent,
 null and value separately. Builders do not make an order safe to trade.
