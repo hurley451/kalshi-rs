@@ -7,6 +7,7 @@ pub mod error;
 pub mod generated;
 pub mod operation;
 pub mod portfolio;
+mod request_rules;
 pub mod transport;
 pub mod typed;
 pub mod websocket;

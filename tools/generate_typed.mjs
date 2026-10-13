@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { qualifyPredictionsOrderRules } from './predictions_order_rules.mjs';
 
 const args = process.argv.slice(2);
 const outputIndex = args.indexOf('--out-dir');
@@ -22,6 +23,7 @@ process.chdir(outputRoot);
 await mkdir('tests', {recursive:true});
 await mkdir('tools', {recursive:true});
 const source = bundle.sources.openapi.document;
+const orderRules = qualifyPredictionsOrderRules(source, bundle.sources.openapi.sha256);
 const resolve = obj => obj?.$ref ? resolve(obj.$ref.slice(2).split('/').reduce((v,k) => v[k.replaceAll('~1','/').replaceAll('~0','~')], source)) : obj;
 const compat = [];
 function normalize(value, pointer) {
@@ -80,6 +82,7 @@ for (const [path, item] of Object.entries(source.paths)) {
 if (ops.length!==118 || ops.some(o=>!bundle.rest.some(r=>r.id===o.id && r.method===o.http && r.path===o.path))) throw Error('Contract operation mismatch');
 const schema={$schema:'http://json-schema.org/draft-07/schema#',definitions};
 await mkdir('src/generated',{recursive:true});
+await writeFile('src/generated/predictions-request-rules.json', JSON.stringify(orderRules,null,2)+'\n');
 await writeFile('src/generated/typed-schema.json',JSON.stringify(schema,null,2)+'\n');
 const run=spawnSync('cargo',['run','--locked','--manifest-path',generatorManifest,'--','src/generated/typed-schema.json','src/generated/models.rs'],{stdio:'inherit'});
 if(run.status!==0) process.exit(run.status??1);
@@ -101,6 +104,7 @@ for(const o of ops){
     code+=` if let Some(value) = parameters.get(${rust(p.name)}) { ${insert} }\n`;
   }
   if(o.bodyName) code+=o.bodyRequired?` let body = serde_json::to_value(body)?; crate::typed::validate(${rust(o.bodyName)}, &body)?; request.body = Some(body);\n`:` if let Some(body) = body { let body = serde_json::to_value(body)?; crate::typed::validate(${rust(o.bodyName)}, &body)?; request.body = Some(body); }\n`;
+  if(orderRules.bindings.some(binding => binding.operationId === o.id)) code+=` crate::request_rules::validate_order_request(${rust(o.id)}, request.body.as_ref().ok_or_else(|| crate::typed::contract_error("V2 order requires a body"))?)?;\n`;
   code+=o.unknownSuccess ? ` self.request_unspecified_in_context(${rust(o.id)}, request, &context).await\n` : ` let response = self.request_in_context(${rust(o.id)}, request, &context).await?;\n ${o.success?`crate::typed::decode_model(${rust(o.success)}, response)`:'if response.is_null() { Ok(()) } else { Err(crate::typed::contract_error("unexpected body on an empty response")) }'}\n`;
   code+=` }, ${error}::decode).await\n }\n`;
   if(o.paginated){

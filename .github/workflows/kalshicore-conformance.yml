@@ -68,6 +68,7 @@ jobs:
           node tools/check_generated_typed.mjs
           node --test tools/check_generated_typed.test.mjs
           node --test tools/probe-fixtures/generate.test.mjs
+          node --test tools/predictions_order_rules.test.mjs
 
       - name: Test
         working-directory: kalshi-rs

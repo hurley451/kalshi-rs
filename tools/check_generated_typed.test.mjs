@@ -27,7 +27,7 @@ test('real generation is deterministic and every missing/tampered output fails w
   try {
     stages.push(await stageGenerated(bundle));
     stages.push(await stageGenerated(bundle));
-    assert.equal(generatedFiles.length, 14);
+    assert.equal(generatedFiles.length, 15);
     await compareGenerated(stages[0], stages[1]);
     await compareGenerated(repositoryRoot, stages[0]);
     for (const file of generatedFiles) {
