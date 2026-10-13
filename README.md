@@ -30,6 +30,7 @@ and Rust imports use `kalshi_client`. The crate is not yet published.
 ## Features
 
 - 118 named async REST methods with domain facades and typed serde models.
+- Native model builders with required-field checks and optional-field setters.
 - Runtime validation of documented inputs, responses and error payloads.
 - 28 lazy cursor paginators preserving complete page shapes and filters.
 - Total request deadlines, cancellation, optional shared rate limiting, and bounded GET retries.
@@ -251,22 +252,24 @@ the client does not reroute live requests.
 ### Events, Series, and Discovery
 
 ```rust,no_run
-use kalshi_client::{KalshiClient, KalshiError, KalshiRequest};
+use kalshi_client::{KalshiClient, models::{
+    GetEventsParameters, GetSeriesListParameters, GetStructuredTargetsParameters,
+    GetMilestonesParameters, GetWeatherIndexParameters,
+}};
 
-async fn discovery(client: &KalshiClient) -> Result<(), KalshiError> {
-    for operation in ["GetEvents", "GetSeriesList", "GetStructuredTargets", "GetMilestones"] {
-        let mut request = KalshiRequest {
-            authenticated: false,
-            ..Default::default()
-        };
-        if operation == "GetMilestones" {
-            request.query.push(("limit".into(), kalshi_client::QueryValue::from(100_u32)));
-        }
-        println!("{}", client.request(operation, request).await?);
-    }
-    let mut weather = KalshiRequest { authenticated: false, ..Default::default() };
-    weather.path_parameters.insert("city".into(), "miami".into());
-    println!("{}", client.request("GetWeatherIndex", weather).await?);
+async fn discovery(client: &KalshiClient) -> Result<(), Box<dyn std::error::Error>> {
+    let events = client.events().get_events(&GetEventsParameters::builder().build()).await?;
+    let series = client.series().get_series_list(&GetSeriesListParameters::builder().build()).await?;
+    let targets = client.structured_targets().get_structured_targets(
+        &GetStructuredTargetsParameters::builder().build()
+    ).await?;
+    let milestones = client.milestones().get_milestones(
+        &GetMilestonesParameters::builder().limit(std::num::NonZeroU64::new(100).unwrap()).build()
+    ).await?;
+    let weather = client.live_data().get_weather_index(
+        &GetWeatherIndexParameters::builder().city("miami").build()
+    ).await?;
+    let _ = (events, series, targets, milestones, weather);
     Ok(())
 }
 ```
@@ -278,21 +281,26 @@ fixed-point strings and auto-routing by ticker. Verify the current
 [official OpenAPI](https://docs.kalshi.com/openapi.yaml) before executing mutations.
 
 ```rust,no_run
-use kalshi_client::{DEMO, KalshiAuth, KalshiClient, KalshiError, KalshiRequest};
+use kalshi_client::{DEMO, KalshiAuth, KalshiClient, KalshiRequest, models::{
+    BookSide, CreateOrderV2Request, CreateOrderV2RequestTimeInForce, SelfTradePreventionType,
+}};
 
-fn prepare_demo_order(auth: KalshiAuth, ticker: &str) -> Result<(), KalshiError> {
+fn prepare_demo_order(auth: KalshiAuth, ticker: &str) -> Result<(), Box<dyn std::error::Error>> {
     let client = KalshiClient::new(DEMO, Some(auth));
+    let order = CreateOrderV2Request::builder()
+        .ticker(ticker)
+        .side(BookSide::Bid)
+        .count("1.00".parse()?)
+        .price("0.0100".parse()?)
+        .time_in_force(CreateOrderV2RequestTimeInForce::GoodTillCanceled)
+        .self_trade_prevention_type(SelfTradePreventionType::TakerAtCross)
+        .build();
     let request = KalshiRequest {
-        body: Some(serde_json::json!({
-            "ticker": ticker, "side": "bid", "count": "1.00", "price": "0.0100",
-            "time_in_force": "good_till_canceled",
-            "self_trade_prevention_type": "taker_at_cross",
-            "exchange_index": -1
-        })),
+        body: Some(serde_json::to_value(order)?),
         ..Default::default()
     };
     let timestamp = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH).unwrap().as_millis().to_string();
+        .duration_since(std::time::UNIX_EPOCH)?.as_millis().to_string();
     let prepared = client.prepare_request("CreateOrderV2", request, &timestamp)?;
     println!("{} {}", prepared.method, prepared.url);
     // Do not log signed headers or private account payloads.
@@ -300,11 +308,16 @@ fn prepare_demo_order(auth: KalshiAuth, ticker: &str) -> Result<(), KalshiError>
 }
 ```
 
-To submit, use `client.request("CreateOrderV2", request).await` instead of
-`prepare_request`. A successful JSON response contains `order_id`; cancellation
-uses `CancelOrderV2` with path parameter `order_id` and queries `exchange_index`
-and `market_ticker`. Do not assume cancelling reverses fills. Generic mutation
-schemas are not validated locally. The read-only example runner below performs no mutations.
+To submit a native order, pass `CreateOrderV2Body(order)` to
+`client.portfolio().create_order_v2`. Named methods validate the wire schema;
+provider-enforced rules and account state can still reject the order. Optional
+fields default to absent. Use a field's `opt_` setter for a runtime `Option`, or
+its ordinary setter for a present value. Optional nullable fields retain absent,
+null and value separately. Builders do not make an order safe to trade.
+
+A successful response contains `order_id`. Use the typed `cancel_order_v2`
+method with its parameter model to cancel; cancellation does not reverse fills.
+The read-only example runner below performs no mutations.
 
 ## WebSocket Message Parsing
 

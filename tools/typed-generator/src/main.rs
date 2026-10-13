@@ -1,4 +1,7 @@
-use std::{collections::HashMap, env, fs};
+use std::{
+    collections::{HashMap, HashSet},
+    env, fs,
+};
 use syn::visit_mut::VisitMut;
 
 struct RedactDebug;
@@ -212,6 +215,88 @@ fn fix_models(ast: &mut syn::File) {
     ast.items.extend(debug);
 }
 
+fn add_builders(ast: &mut syn::File) {
+    let names: HashSet<String> = ast
+        .items
+        .iter()
+        .filter_map(|item| match item {
+            syn::Item::Struct(model) => Some(model.ident.to_string()),
+            syn::Item::Enum(model) => Some(model.ident.to_string()),
+            _ => None,
+        })
+        .collect();
+    for item in &mut ast.items {
+        let syn::Item::Struct(model) = item else {
+            continue;
+        };
+        if !matches!(model.fields, syn::Fields::Named(_)) {
+            continue;
+        }
+        assert!(
+            !names.contains(&format!("{}Builder", model.ident)),
+            "builder type name collision"
+        );
+        let schema = model_schema(model);
+        let field_names: HashSet<String> = model
+            .fields
+            .iter()
+            .filter_map(|field| field.ident.as_ref())
+            .map(|name| name.to_string().trim_start_matches("r#").to_owned())
+            .collect();
+        model
+            .attrs
+            .push(syn::parse_quote!(#[derive(::typed_builder::TypedBuilder)]));
+        model.attrs.push(syn::parse_quote!(#[builder(doc)]));
+        for field in &mut model.fields {
+            let ident = field.ident.as_ref().expect("named field");
+            let name = ident.to_string();
+            let wire = name.trim_start_matches("r#").trim_end_matches('_');
+            let flattened = field.attrs.iter().any(|attr| {
+                attr.path().is_ident("serde") && attr.parse_args_with(
+                    syn::punctuated::Punctuated::<syn::Meta, syn::Token![,]>::parse_terminated,
+                ).expect("serde attributes").iter().any(|meta| meta.path().is_ident("flatten"))
+            });
+            if flattened {
+                field.attrs.push(syn::parse_quote!(#[builder(default)]));
+                continue;
+            }
+            let required = schema
+                .get("required")
+                .and_then(|value| value.as_array())
+                .is_some_and(|properties| properties.iter().any(|property| property == wire));
+            let optional = schema
+                .get("properties")
+                .and_then(|value| value.get(wire))
+                .is_some()
+                && !required;
+            let setter_type = if optional {
+                inner_option(&field.ty).expect("presence-aware optional field")
+            } else {
+                field.ty.clone()
+            };
+            let string = matches!(&setter_type, syn::Type::Path(path)
+                if path.path.segments.last().is_some_and(|segment| segment.ident == "String"));
+            if optional {
+                let fallback_name = format!("opt_{}", name.trim_start_matches("r#"));
+                assert!(
+                    !field_names.contains(&fallback_name),
+                    "optional builder setter name collision"
+                );
+                let fallback = syn::Ident::new(&fallback_name, ident.span());
+                field.attrs.push(if string {
+                    syn::parse_quote!(#[builder(default, setter(strip_option(fallback = #fallback), into))])
+                } else {
+                    syn::parse_quote!(#[builder(default, setter(strip_option(fallback = #fallback)))])
+                });
+            } else if string {
+                field
+                    .attrs
+                    .push(syn::parse_quote!(#[builder(setter(into))]));
+            }
+        }
+    }
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = env::args().collect();
     let raw: serde_json::Value = serde_json::from_str(&fs::read_to_string(&args[1])?)?;
@@ -259,6 +344,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut ast = syn::parse2::<syn::File>(space.to_stream())?;
     RedactDebug.visit_file_mut(&mut ast);
     fix_models(&mut ast);
+    add_builders(&mut ast);
     ast.attrs
         .push(syn::parse_quote!(#![allow(clippy::clone_on_copy, clippy::derivable_impls)]));
     let models: Vec<_> = ast
@@ -286,4 +372,74 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         space.iter_types().count()
     );
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn generate(properties: serde_json::Value) -> syn::File {
+        let schema: schemars::schema::RootSchema = serde_json::from_value(serde_json::json!({
+            "definitions": { "Example": { "type": "object", "properties": properties,
+                "required": ["required_nullable", "required_defaulted"], "additionalProperties": {} } }
+        })).unwrap();
+        let mut settings = typify::TypeSpaceSettings::default();
+        settings.with_struct_builder(false);
+        let mut space = typify::TypeSpace::new(&settings);
+        space.add_ref_types(schema.definitions).unwrap();
+        let mut ast = syn::parse2::<syn::File>(space.to_stream()).unwrap();
+        RedactDebug.visit_file_mut(&mut ast);
+        fix_models(&mut ast);
+        add_builders(&mut ast);
+        ast
+    }
+
+    fn properties() -> serde_json::Value {
+        serde_json::json!({
+            "required_nullable": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+            "required_defaulted": {"type": "integer", "default": 7},
+            "optional_nullable": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+            "optional_text": {"type": "string", "default": "annotation"},
+            "optional_list": {"type": "array", "items": {"type": "string"}}
+        })
+    }
+
+    #[test]
+    fn builders_follow_final_presence_not_rust_option_or_source_defaults() {
+        let ast = generate(properties());
+        let model = ast
+            .items
+            .iter()
+            .find_map(|item| match item {
+                syn::Item::Struct(model) if model.ident == "Example" => Some(model),
+                _ => None,
+            })
+            .unwrap();
+        for field in &model.fields {
+            let name = field.ident.as_ref().unwrap().to_string();
+            let defaults = field
+                .attrs
+                .iter()
+                .filter(|attr| attr.path().is_ident("builder"))
+                .flat_map(|attr| {
+                    attr.parse_args_with(
+                        syn::punctuated::Punctuated::<syn::Meta, syn::Token![,]>::parse_terminated,
+                    )
+                    .unwrap()
+                })
+                .any(|meta| meta.path().is_ident("default"));
+            assert_eq!(defaults, !name.starts_with("required_"), "{name}");
+            if name == "optional_nullable" {
+                assert!(inner_option(&inner_option(&field.ty).unwrap()).is_some());
+            }
+        }
+    }
+
+    #[test]
+    #[should_panic(expected = "optional builder setter name collision")]
+    fn fallback_collisions_fail_generation() {
+        let mut schema = properties();
+        schema["opt_optional_text"] = serde_json::json!({"type": "string"});
+        generate(schema);
+    }
 }
