@@ -49,19 +49,24 @@ impl KalshiClient {
     pub async fn get_exchange_status(
         &self,
     ) -> Result<GetExchangeStatusStatus200, TypedError<GetExchangeStatusError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetExchangeStatus", request).await?;
-            crate::typed::decode_model("GetExchangeStatusStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetExchangeStatusError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetExchangeStatus", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetExchangeStatusStatus200", response)
+                },
+                GetExchangeStatusError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -102,31 +107,36 @@ impl KalshiClient {
         &self,
         parameters: &GetSeriesFeeChangesParameters,
     ) -> Result<GetSeriesFeeChangesStatus200, TypedError<GetSeriesFeeChangesError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetSeriesFeeChangesParameters", &parameters)?;
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .query
-                    .push(("series_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("show_historical") {
-                request
-                    .query
-                    .push(("show_historical".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetSeriesFeeChanges", request).await?;
-            crate::typed::decode_model("GetSeriesFeeChangesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSeriesFeeChangesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetSeriesFeeChangesParameters", &parameters)?;
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .query
+                            .push(("series_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("show_historical") {
+                        request
+                            .query
+                            .push(("show_historical".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetSeriesFeeChanges", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSeriesFeeChangesStatus200", response)
+                },
+                GetSeriesFeeChangesError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -154,19 +164,24 @@ impl KalshiClient {
     pub async fn get_exchange_schedule(
         &self,
     ) -> Result<GetExchangeScheduleStatus200, TypedError<GetExchangeScheduleError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetExchangeSchedule", request).await?;
-            crate::typed::decode_model("GetExchangeScheduleStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetExchangeScheduleError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetExchangeSchedule", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetExchangeScheduleStatus200", response)
+                },
+                GetExchangeScheduleError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -194,19 +209,24 @@ impl KalshiClient {
     pub async fn get_user_data_timestamp(
         &self,
     ) -> Result<GetUserDataTimestampStatus200, TypedError<GetUserDataTimestampError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetUserDataTimestamp", request).await?;
-            crate::typed::decode_model("GetUserDataTimestampStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetUserDataTimestampError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetUserDataTimestamp", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetUserDataTimestampStatus200", response)
+                },
+                GetUserDataTimestampError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -239,52 +259,57 @@ impl KalshiClient {
         &self,
         parameters: &GetMarketCandlesticksParameters,
     ) -> Result<GetMarketCandlesticksStatus200, TypedError<GetMarketCandlesticksError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketCandlesticksParameters", &parameters)?;
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .path_parameters
-                    .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("start_ts") {
-                request
-                    .query
-                    .push(("start_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("end_ts") {
-                request
-                    .query
-                    .push(("end_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("period_interval") {
-                request
-                    .query
-                    .push(("period_interval".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("include_latest_before_start") {
-                request.query.push((
-                    "include_latest_before_start".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("GetMarketCandlesticks", request).await?;
-            crate::typed::decode_model("GetMarketCandlesticksStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketCandlesticksError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMarketCandlesticksParameters", &parameters)?;
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .path_parameters
+                            .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("start_ts") {
+                        request
+                            .query
+                            .push(("start_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("end_ts") {
+                        request
+                            .query
+                            .push(("end_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("period_interval") {
+                        request
+                            .query
+                            .push(("period_interval".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("include_latest_before_start") {
+                        request.query.push((
+                            "include_latest_before_start".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("GetMarketCandlesticks", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketCandlesticksStatus200", response)
+                },
+                GetMarketCandlesticksError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -315,51 +340,56 @@ impl KalshiClient {
         &self,
         parameters: &GetTradesParameters,
     ) -> Result<GetTradesStatus200, TypedError<GetTradesError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetTradesParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("is_block_trade") {
-                request
-                    .query
-                    .push(("is_block_trade".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetTrades", request).await?;
-            crate::typed::decode_model("GetTradesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetTradesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetTradesParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("is_block_trade") {
+                        request
+                            .query
+                            .push(("is_block_trade".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetTrades", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetTradesStatus200", response)
+                },
+                GetTradesError::decode,
+            )
+            .await
     }
     pub fn get_trades_pages(
         &self,
@@ -419,31 +449,36 @@ impl KalshiClient {
         &self,
         parameters: &GetMarketOrderbookParameters,
     ) -> Result<GetMarketOrderbookStatus200, TypedError<GetMarketOrderbookError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketOrderbookParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("depth") {
-                request
-                    .query
-                    .push(("depth".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetMarketOrderbook", request).await?;
-            crate::typed::decode_model("GetMarketOrderbookStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketOrderbookError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMarketOrderbookParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("depth") {
+                        request
+                            .query
+                            .push(("depth".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMarketOrderbook", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketOrderbookStatus200", response)
+                },
+                GetMarketOrderbookError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -491,26 +526,31 @@ impl KalshiClient {
         &self,
         parameters: &GetMarketOrderbooksParameters,
     ) -> Result<GetMarketOrderbooksStatus200, TypedError<GetMarketOrderbooksError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketOrderbooksParameters", &parameters)?;
-            if let Some(value) = parameters.get("tickers") {
-                request
-                    .query
-                    .push(("tickers".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetMarketOrderbooks", request).await?;
-            crate::typed::decode_model("GetMarketOrderbooksStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketOrderbooksError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMarketOrderbooksParameters", &parameters)?;
+                    if let Some(value) = parameters.get("tickers") {
+                        request
+                            .query
+                            .push(("tickers".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMarketOrderbooks", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketOrderbooksStatus200", response)
+                },
+                GetMarketOrderbooksError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -551,31 +591,36 @@ impl KalshiClient {
         &self,
         parameters: &GetSeriesParameters,
     ) -> Result<GetSeriesStatus200, TypedError<GetSeriesError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetSeriesParameters", &parameters)?;
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .path_parameters
-                    .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("include_volume") {
-                request
-                    .query
-                    .push(("include_volume".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetSeries", request).await?;
-            crate::typed::decode_model("GetSeriesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSeriesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetSeriesParameters", &parameters)?;
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .path_parameters
+                            .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("include_volume") {
+                        request
+                            .query
+                            .push(("include_volume".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetSeries", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSeriesStatus200", response)
+                },
+                GetSeriesError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -616,47 +661,52 @@ impl KalshiClient {
         &self,
         parameters: &GetSeriesListParameters,
     ) -> Result<GetSeriesListStatus200, TypedError<GetSeriesListError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetSeriesListParameters", &parameters)?;
-            if let Some(value) = parameters.get("category") {
-                request
-                    .query
-                    .push(("category".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("tags") {
-                request
-                    .query
-                    .push(("tags".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("include_product_metadata") {
-                request.query.push((
-                    "include_product_metadata".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("include_volume") {
-                request
-                    .query
-                    .push(("include_volume".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_updated_ts") {
-                request
-                    .query
-                    .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetSeriesList", request).await?;
-            crate::typed::decode_model("GetSeriesListStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSeriesListError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetSeriesListParameters", &parameters)?;
+                    if let Some(value) = parameters.get("category") {
+                        request
+                            .query
+                            .push(("category".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("tags") {
+                        request
+                            .query
+                            .push(("tags".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("include_product_metadata") {
+                        request.query.push((
+                            "include_product_metadata".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("include_volume") {
+                        request
+                            .query
+                            .push(("include_volume".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_updated_ts") {
+                        request
+                            .query
+                            .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetSeriesList", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSeriesListStatus200", response)
+                },
+                GetSeriesListError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -689,96 +739,101 @@ impl KalshiClient {
         &self,
         parameters: &GetMarketsParameters,
     ) -> Result<GetMarketsStatus200, TypedError<GetMarketsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .query
-                    .push(("series_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_created_ts") {
-                request
-                    .query
-                    .push(("min_created_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_created_ts") {
-                request
-                    .query
-                    .push(("max_created_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_updated_ts") {
-                request
-                    .query
-                    .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_updated_ts") {
-                request
-                    .query
-                    .push(("max_updated_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_close_ts") {
-                request
-                    .query
-                    .push(("max_close_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_close_ts") {
-                request
-                    .query
-                    .push(("min_close_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_settled_ts") {
-                request
-                    .query
-                    .push(("min_settled_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_settled_ts") {
-                request
-                    .query
-                    .push(("max_settled_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("tickers") {
-                request
-                    .query
-                    .push(("tickers".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("mve_filter") {
-                request
-                    .query
-                    .push(("mve_filter".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetMarkets", request).await?;
-            crate::typed::decode_model("GetMarketsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMarketsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .query
+                            .push(("series_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_created_ts") {
+                        request
+                            .query
+                            .push(("min_created_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_created_ts") {
+                        request
+                            .query
+                            .push(("max_created_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_updated_ts") {
+                        request
+                            .query
+                            .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_updated_ts") {
+                        request
+                            .query
+                            .push(("max_updated_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_close_ts") {
+                        request
+                            .query
+                            .push(("max_close_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_close_ts") {
+                        request
+                            .query
+                            .push(("min_close_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_settled_ts") {
+                        request
+                            .query
+                            .push(("min_settled_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_settled_ts") {
+                        request
+                            .query
+                            .push(("max_settled_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("tickers") {
+                        request
+                            .query
+                            .push(("tickers".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("mve_filter") {
+                        request
+                            .query
+                            .push(("mve_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMarkets", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketsStatus200", response)
+                },
+                GetMarketsError::decode,
+            )
+            .await
     }
     pub fn get_markets_pages(
         &self,
@@ -823,26 +878,31 @@ impl KalshiClient {
         &self,
         parameters: &GetMarketParameters,
     ) -> Result<GetMarketStatus200, TypedError<GetMarketError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetMarket", request).await?;
-            crate::typed::decode_model("GetMarketStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMarketParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetMarket", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketStatus200", response)
+                },
+                GetMarketError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -876,47 +936,52 @@ impl KalshiClient {
         parameters: &BatchGetMarketCandlesticksParameters,
     ) -> Result<BatchGetMarketCandlesticksStatus200, TypedError<BatchGetMarketCandlesticksError>>
     {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("BatchGetMarketCandlesticksParameters", &parameters)?;
-            if let Some(value) = parameters.get("market_tickers") {
-                request
-                    .query
-                    .push(("market_tickers".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("start_ts") {
-                request
-                    .query
-                    .push(("start_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("end_ts") {
-                request
-                    .query
-                    .push(("end_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("period_interval") {
-                request
-                    .query
-                    .push(("period_interval".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("include_latest_before_start") {
-                request.query.push((
-                    "include_latest_before_start".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("BatchGetMarketCandlesticks", request).await?;
-            crate::typed::decode_model("BatchGetMarketCandlesticksStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = BatchGetMarketCandlesticksError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("BatchGetMarketCandlesticksParameters", &parameters)?;
+                    if let Some(value) = parameters.get("market_tickers") {
+                        request
+                            .query
+                            .push(("market_tickers".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("start_ts") {
+                        request
+                            .query
+                            .push(("start_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("end_ts") {
+                        request
+                            .query
+                            .push(("end_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("period_interval") {
+                        request
+                            .query
+                            .push(("period_interval".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("include_latest_before_start") {
+                        request.query.push((
+                            "include_latest_before_start".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("BatchGetMarketCandlesticks", request, &context)
+                        .await?;
+                    crate::typed::decode_model("BatchGetMarketCandlesticksStatus200", response)
+                },
+                BatchGetMarketCandlesticksError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -950,48 +1015,51 @@ impl KalshiClient {
         parameters: &GetMarketCandlesticksByEventParameters,
     ) -> Result<GetMarketCandlesticksByEventStatus200, TypedError<GetMarketCandlesticksByEventError>>
     {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketCandlesticksByEventParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .path_parameters
-                    .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("start_ts") {
-                request
-                    .query
-                    .push(("start_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("end_ts") {
-                request
-                    .query
-                    .push(("end_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("period_interval") {
-                request
-                    .query
-                    .push(("period_interval".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("GetMarketCandlesticksByEvent", request)
-                .await?;
-            crate::typed::decode_model("GetMarketCandlesticksByEventStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketCandlesticksByEventError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMarketCandlesticksByEventParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .path_parameters
+                            .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("start_ts") {
+                        request
+                            .query
+                            .push(("start_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("end_ts") {
+                        request
+                            .query
+                            .push(("end_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("period_interval") {
+                        request
+                            .query
+                            .push(("period_interval".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMarketCandlesticksByEvent", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketCandlesticksByEventStatus200", response)
+                },
+                GetMarketCandlesticksByEventError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1024,67 +1092,72 @@ impl KalshiClient {
         &self,
         parameters: &GetEventsParameters,
     ) -> Result<GetEventsStatus200, TypedError<GetEventsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetEventsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("with_nested_markets") {
-                request.query.push((
-                    "with_nested_markets".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("with_milestones") {
-                request
-                    .query
-                    .push(("with_milestones".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .query
-                    .push(("series_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("tickers") {
-                request
-                    .query
-                    .push(("tickers".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_close_ts") {
-                request
-                    .query
-                    .push(("min_close_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_updated_ts") {
-                request
-                    .query
-                    .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetEvents", request).await?;
-            crate::typed::decode_model("GetEventsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetEventsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetEventsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("with_nested_markets") {
+                        request.query.push((
+                            "with_nested_markets".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("with_milestones") {
+                        request
+                            .query
+                            .push(("with_milestones".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .query
+                            .push(("series_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("tickers") {
+                        request
+                            .query
+                            .push(("tickers".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_close_ts") {
+                        request
+                            .query
+                            .push(("min_close_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_updated_ts") {
+                        request
+                            .query
+                            .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetEvents", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetEventsStatus200", response)
+                },
+                GetEventsError::decode,
+            )
+            .await
     }
     pub fn get_events_pages(
         &self,
@@ -1129,48 +1202,53 @@ impl KalshiClient {
         &self,
         parameters: &GetMultivariateEventsParameters,
     ) -> Result<GetMultivariateEventsStatus200, TypedError<GetMultivariateEventsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMultivariateEventsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .query
-                    .push(("series_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("collection_ticker") {
-                request.query.push((
-                    "collection_ticker".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("with_nested_markets") {
-                request.query.push((
-                    "with_nested_markets".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("GetMultivariateEvents", request).await?;
-            crate::typed::decode_model("GetMultivariateEventsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMultivariateEventsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMultivariateEventsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .query
+                            .push(("series_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("collection_ticker") {
+                        request.query.push((
+                            "collection_ticker".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("with_nested_markets") {
+                        request.query.push((
+                            "with_nested_markets".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("GetMultivariateEvents", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMultivariateEventsStatus200", response)
+                },
+                GetMultivariateEventsError::decode,
+            )
+            .await
     }
     pub fn get_multivariate_events_pages(
         &self,
@@ -1230,36 +1308,41 @@ impl KalshiClient {
         &self,
         parameters: &GetEventFeeChangesParameters,
     ) -> Result<GetEventFeeChangesStatus200, TypedError<GetEventFeeChangesError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetEventFeeChangesParameters", &parameters)?;
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetEventFeeChanges", request).await?;
-            crate::typed::decode_model("GetEventFeeChangesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetEventFeeChangesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetEventFeeChangesParameters", &parameters)?;
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetEventFeeChanges", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetEventFeeChangesStatus200", response)
+                },
+                GetEventFeeChangesError::decode,
+            )
+            .await
     }
     pub fn get_event_fee_changes_pages(
         &self,
@@ -1309,32 +1392,37 @@ impl KalshiClient {
         &self,
         parameters: &GetEventParameters,
     ) -> Result<GetEventStatus200, TypedError<GetEventError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetEventParameters", &parameters)?;
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .path_parameters
-                    .insert("event_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("with_nested_markets") {
-                request.query.push((
-                    "with_nested_markets".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("GetEvent", request).await?;
-            crate::typed::decode_model("GetEventStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetEventError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetEventParameters", &parameters)?;
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .path_parameters
+                            .insert("event_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("with_nested_markets") {
+                        request.query.push((
+                            "with_nested_markets".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("GetEvent", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetEventStatus200", response)
+                },
+                GetEventError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1369,26 +1457,31 @@ impl KalshiClient {
         &self,
         parameters: &GetEventMetadataParameters,
     ) -> Result<GetEventMetadataStatus200, TypedError<GetEventMetadataError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetEventMetadataParameters", &parameters)?;
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .path_parameters
-                    .insert("event_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetEventMetadata", request).await?;
-            crate::typed::decode_model("GetEventMetadataStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetEventMetadataError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetEventMetadataParameters", &parameters)?;
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .path_parameters
+                            .insert("event_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetEventMetadata", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetEventMetadataStatus200", response)
+                },
+                GetEventMetadataError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1424,53 +1517,62 @@ impl KalshiClient {
         GetEventForecastPercentilesHistoryStatus200,
         TypedError<GetEventForecastPercentilesHistoryError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetEventForecastPercentilesHistoryParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .path_parameters
-                    .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("percentiles") {
-                request
-                    .query
-                    .push(("percentiles".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("start_ts") {
-                request
-                    .query
-                    .push(("start_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("end_ts") {
-                request
-                    .query
-                    .push(("end_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("period_interval") {
-                request
-                    .query
-                    .push(("period_interval".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("GetEventForecastPercentilesHistory", request)
-                .await?;
-            crate::typed::decode_model("GetEventForecastPercentilesHistoryStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetEventForecastPercentilesHistoryError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetEventForecastPercentilesHistoryParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .path_parameters
+                            .insert("series_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("percentiles") {
+                        request
+                            .query
+                            .push(("percentiles".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("start_ts") {
+                        request
+                            .query
+                            .push(("start_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("end_ts") {
+                        request
+                            .query
+                            .push(("end_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("period_interval") {
+                        request
+                            .query
+                            .push(("period_interval".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetEventForecastPercentilesHistory", request, &context)
+                        .await?;
+                    crate::typed::decode_model(
+                        "GetEventForecastPercentilesHistoryStatus200",
+                        response,
+                    )
+                },
+                GetEventForecastPercentilesHistoryError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1518,66 +1620,71 @@ impl KalshiClient {
         &self,
         parameters: &GetOrdersParameters,
     ) -> Result<GetOrdersStatus200, TypedError<GetOrdersError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetOrdersParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetOrders", request).await?;
-            crate::typed::decode_model("GetOrdersStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetOrdersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetOrdersParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetOrders", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetOrdersStatus200", response)
+                },
+                GetOrdersError::decode,
+            )
+            .await
     }
     pub fn get_orders_pages(
         &self,
@@ -1637,26 +1744,31 @@ impl KalshiClient {
         &self,
         parameters: &GetOrderParameters,
     ) -> Result<GetOrderStatus200, TypedError<GetOrderError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetOrderParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_id") {
-                request
-                    .path_parameters
-                    .insert("order_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetOrder", request).await?;
-            crate::typed::decode_model("GetOrderStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetOrderError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetOrderParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_id") {
+                        request
+                            .path_parameters
+                            .insert("order_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetOrder", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetOrderStatus200", response)
+                },
+                GetOrderError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1704,36 +1816,41 @@ impl KalshiClient {
         &self,
         parameters: &GetOrderQueuePositionsParameters,
     ) -> Result<GetOrderQueuePositionsStatus200, TypedError<GetOrderQueuePositionsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetOrderQueuePositionsParameters", &parameters)?;
-            if let Some(value) = parameters.get("market_tickers") {
-                request
-                    .query
-                    .push(("market_tickers".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetOrderQueuePositions", request).await?;
-            crate::typed::decode_model("GetOrderQueuePositionsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetOrderQueuePositionsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetOrderQueuePositionsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("market_tickers") {
+                        request
+                            .query
+                            .push(("market_tickers".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetOrderQueuePositions", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetOrderQueuePositionsStatus200", response)
+                },
+                GetOrderQueuePositionsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1781,26 +1898,31 @@ impl KalshiClient {
         &self,
         parameters: &GetOrderQueuePositionParameters,
     ) -> Result<GetOrderQueuePositionStatus200, TypedError<GetOrderQueuePositionError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetOrderQueuePositionParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_id") {
-                request
-                    .path_parameters
-                    .insert("order_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetOrderQueuePosition", request).await?;
-            crate::typed::decode_model("GetOrderQueuePositionStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetOrderQueuePositionError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetOrderQueuePositionParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_id") {
+                        request
+                            .path_parameters
+                            .insert("order_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetOrderQueuePosition", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetOrderQueuePositionStatus200", response)
+                },
+                GetOrderQueuePositionError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1876,22 +1998,27 @@ impl KalshiClient {
         &self,
         body: &CreateOrderV2Body,
     ) -> Result<CreateOrderV2Status201, TypedError<CreateOrderV2Error>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateOrderV2Body", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateOrderV2", request).await?;
-            crate::typed::decode_model("CreateOrderV2Status201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateOrderV2Error::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateOrderV2Body", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateOrderV2", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateOrderV2Status201", response)
+                },
+                CreateOrderV2Error::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -1939,32 +2066,37 @@ impl KalshiClient {
         &self,
         parameters: &CancelAllOrdersParameters,
     ) -> Result<(), TypedError<CancelAllOrdersError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("CancelAllOrdersParameters", &parameters)?;
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("CancelAllOrders", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CancelAllOrdersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("CancelAllOrdersParameters", &parameters)?;
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("CancelAllOrders", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                CancelAllOrdersError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2019,22 +2151,27 @@ impl KalshiClient {
         &self,
         body: &BatchCreateOrdersV2Body,
     ) -> Result<BatchCreateOrdersV2Status201, TypedError<BatchCreateOrdersV2Error>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("BatchCreateOrdersV2Body", &body)?;
-            request.body = Some(body);
-            let response = self.request("BatchCreateOrdersV2", request).await?;
-            crate::typed::decode_model("BatchCreateOrdersV2Status201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = BatchCreateOrdersV2Error::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("BatchCreateOrdersV2Body", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("BatchCreateOrdersV2", request, &context)
+                        .await?;
+                    crate::typed::decode_model("BatchCreateOrdersV2Status201", response)
+                },
+                BatchCreateOrdersV2Error::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2089,22 +2226,27 @@ impl KalshiClient {
         &self,
         body: &BatchCancelOrdersV2Body,
     ) -> Result<BatchCancelOrdersV2Status200, TypedError<BatchCancelOrdersV2Error>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("BatchCancelOrdersV2Body", &body)?;
-            request.body = Some(body);
-            let response = self.request("BatchCancelOrdersV2", request).await?;
-            crate::typed::decode_model("BatchCancelOrdersV2Status200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = BatchCancelOrdersV2Error::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("BatchCancelOrdersV2Body", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("BatchCancelOrdersV2", request, &context)
+                        .await?;
+                    crate::typed::decode_model("BatchCancelOrdersV2Status200", response)
+                },
+                BatchCancelOrdersV2Error::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2152,41 +2294,46 @@ impl KalshiClient {
         &self,
         parameters: &CancelOrderV2Parameters,
     ) -> Result<CancelOrderV2Status200, TypedError<CancelOrderV2Error>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("CancelOrderV2Parameters", &parameters)?;
-            if let Some(value) = parameters.get("order_id") {
-                request
-                    .path_parameters
-                    .insert("order_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("market_ticker") {
-                request
-                    .query
-                    .push(("market_ticker".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("CancelOrderV2", request).await?;
-            crate::typed::decode_model("CancelOrderV2Status200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CancelOrderV2Error::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("CancelOrderV2Parameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_id") {
+                        request
+                            .path_parameters
+                            .insert("order_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("market_ticker") {
+                        request
+                            .query
+                            .push(("market_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("CancelOrderV2", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CancelOrderV2Status200", response)
+                },
+                CancelOrderV2Error::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2256,34 +2403,39 @@ impl KalshiClient {
         parameters: &AmendOrderV2Parameters,
         body: &AmendOrderV2Body,
     ) -> Result<AmendOrderV2Status200, TypedError<AmendOrderV2Error>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("AmendOrderV2Parameters", &parameters)?;
-            if let Some(value) = parameters.get("order_id") {
-                request
-                    .path_parameters
-                    .insert("order_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("AmendOrderV2Body", &body)?;
-            request.body = Some(body);
-            let response = self.request("AmendOrderV2", request).await?;
-            crate::typed::decode_model("AmendOrderV2Status200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = AmendOrderV2Error::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("AmendOrderV2Parameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_id") {
+                        request
+                            .path_parameters
+                            .insert("order_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("AmendOrderV2Body", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("AmendOrderV2", request, &context)
+                        .await?;
+                    crate::typed::decode_model("AmendOrderV2Status200", response)
+                },
+                AmendOrderV2Error::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2339,34 +2491,39 @@ impl KalshiClient {
         parameters: &DecreaseOrderV2Parameters,
         body: &DecreaseOrderV2Body,
     ) -> Result<DecreaseOrderV2Status200, TypedError<DecreaseOrderV2Error>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DecreaseOrderV2Parameters", &parameters)?;
-            if let Some(value) = parameters.get("order_id") {
-                request
-                    .path_parameters
-                    .insert("order_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("DecreaseOrderV2Body", &body)?;
-            request.body = Some(body);
-            let response = self.request("DecreaseOrderV2", request).await?;
-            crate::typed::decode_model("DecreaseOrderV2Status200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DecreaseOrderV2Error::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("DecreaseOrderV2Parameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_id") {
+                        request
+                            .path_parameters
+                            .insert("order_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("DecreaseOrderV2Body", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("DecreaseOrderV2", request, &context)
+                        .await?;
+                    crate::typed::decode_model("DecreaseOrderV2Status200", response)
+                },
+                DecreaseOrderV2Error::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2414,26 +2571,31 @@ impl KalshiClient {
         &self,
         parameters: &GetOrderGroupsParameters,
     ) -> Result<GetOrderGroupsStatus200, TypedError<GetOrderGroupsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetOrderGroupsParameters", &parameters)?;
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetOrderGroups", request).await?;
-            crate::typed::decode_model("GetOrderGroupsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetOrderGroupsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetOrderGroupsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetOrderGroups", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetOrderGroupsStatus200", response)
+                },
+                GetOrderGroupsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2481,22 +2643,27 @@ impl KalshiClient {
         &self,
         body: &CreateOrderGroupBody,
     ) -> Result<CreateOrderGroupStatus201, TypedError<CreateOrderGroupError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateOrderGroupBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateOrderGroup", request).await?;
-            crate::typed::decode_model("CreateOrderGroupStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateOrderGroupError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateOrderGroupBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateOrderGroup", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateOrderGroupStatus201", response)
+                },
+                CreateOrderGroupError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2544,32 +2711,37 @@ impl KalshiClient {
         &self,
         parameters: &GetOrderGroupParameters,
     ) -> Result<GetOrderGroupStatus200, TypedError<GetOrderGroupError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetOrderGroupParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_group_id") {
-                request.path_parameters.insert(
-                    "order_group_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetOrderGroup", request).await?;
-            crate::typed::decode_model("GetOrderGroupStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetOrderGroupError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetOrderGroupParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_group_id") {
+                        request.path_parameters.insert(
+                            "order_group_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetOrderGroup", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetOrderGroupStatus200", response)
+                },
+                GetOrderGroupError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2617,37 +2789,42 @@ impl KalshiClient {
         &self,
         parameters: &DeleteOrderGroupParameters,
     ) -> Result<DeleteOrderGroupStatus200, TypedError<DeleteOrderGroupError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DeleteOrderGroupParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_group_id") {
-                request.path_parameters.insert(
-                    "order_group_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("DeleteOrderGroup", request).await?;
-            crate::typed::decode_model("DeleteOrderGroupStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DeleteOrderGroupError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("DeleteOrderGroupParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_group_id") {
+                        request.path_parameters.insert(
+                            "order_group_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("DeleteOrderGroup", request, &context)
+                        .await?;
+                    crate::typed::decode_model("DeleteOrderGroupStatus200", response)
+                },
+                DeleteOrderGroupError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2696,42 +2873,47 @@ impl KalshiClient {
         parameters: &ResetOrderGroupParameters,
         body: Option<&ResetOrderGroupBody>,
     ) -> Result<ResetOrderGroupStatus200, TypedError<ResetOrderGroupError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("ResetOrderGroupParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_group_id") {
-                request.path_parameters.insert(
-                    "order_group_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(body) = body {
-                let body = serde_json::to_value(body)?;
-                crate::typed::validate("ResetOrderGroupBody", &body)?;
-                request.body = Some(body);
-            }
-            let response = self.request("ResetOrderGroup", request).await?;
-            crate::typed::decode_model("ResetOrderGroupStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = ResetOrderGroupError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("ResetOrderGroupParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_group_id") {
+                        request.path_parameters.insert(
+                            "order_group_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(body) = body {
+                        let body = serde_json::to_value(body)?;
+                        crate::typed::validate("ResetOrderGroupBody", &body)?;
+                        request.body = Some(body);
+                    }
+                    let response = self
+                        .request_in_context("ResetOrderGroup", request, &context)
+                        .await?;
+                    crate::typed::decode_model("ResetOrderGroupStatus200", response)
+                },
+                ResetOrderGroupError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2780,42 +2962,47 @@ impl KalshiClient {
         parameters: &TriggerOrderGroupParameters,
         body: Option<&TriggerOrderGroupBody>,
     ) -> Result<TriggerOrderGroupStatus200, TypedError<TriggerOrderGroupError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("TriggerOrderGroupParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_group_id") {
-                request.path_parameters.insert(
-                    "order_group_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(body) = body {
-                let body = serde_json::to_value(body)?;
-                crate::typed::validate("TriggerOrderGroupBody", &body)?;
-                request.body = Some(body);
-            }
-            let response = self.request("TriggerOrderGroup", request).await?;
-            crate::typed::decode_model("TriggerOrderGroupStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = TriggerOrderGroupError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("TriggerOrderGroupParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_group_id") {
+                        request.path_parameters.insert(
+                            "order_group_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(body) = body {
+                        let body = serde_json::to_value(body)?;
+                        crate::typed::validate("TriggerOrderGroupBody", &body)?;
+                        request.body = Some(body);
+                    }
+                    let response = self
+                        .request_in_context("TriggerOrderGroup", request, &context)
+                        .await?;
+                    crate::typed::decode_model("TriggerOrderGroupStatus200", response)
+                },
+                TriggerOrderGroupError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2871,40 +3058,45 @@ impl KalshiClient {
         parameters: &UpdateOrderGroupLimitParameters,
         body: &UpdateOrderGroupLimitBody,
     ) -> Result<UpdateOrderGroupLimitStatus200, TypedError<UpdateOrderGroupLimitError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("UpdateOrderGroupLimitParameters", &parameters)?;
-            if let Some(value) = parameters.get("order_group_id") {
-                request.path_parameters.insert(
-                    "order_group_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("UpdateOrderGroupLimitBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("UpdateOrderGroupLimit", request).await?;
-            crate::typed::decode_model("UpdateOrderGroupLimitStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = UpdateOrderGroupLimitError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("UpdateOrderGroupLimitParameters", &parameters)?;
+                    if let Some(value) = parameters.get("order_group_id") {
+                        request.path_parameters.insert(
+                            "order_group_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("UpdateOrderGroupLimitBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("UpdateOrderGroupLimit", request, &context)
+                        .await?;
+                    crate::typed::decode_model("UpdateOrderGroupLimitStatus200", response)
+                },
+                UpdateOrderGroupLimitError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -2945,31 +3137,36 @@ impl KalshiClient {
         &self,
         parameters: &GetBalanceParameters,
     ) -> Result<GetBalanceStatus200, TypedError<GetBalanceError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetBalanceParameters", &parameters)?;
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetBalance", request).await?;
-            crate::typed::decode_model("GetBalanceStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetBalanceError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetBalanceParameters", &parameters)?;
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetBalance", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetBalanceStatus200", response)
+                },
+                GetBalanceError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3027,24 +3224,27 @@ impl KalshiClient {
         IntraExchangeInstanceTransferStatus200,
         TypedError<IntraExchangeInstanceTransferError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("IntraExchangeInstanceTransferBody", &body)?;
-            request.body = Some(body);
-            let response = self
-                .request("IntraExchangeInstanceTransfer", request)
-                .await?;
-            crate::typed::decode_model("IntraExchangeInstanceTransferStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = IntraExchangeInstanceTransferError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("IntraExchangeInstanceTransferBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("IntraExchangeInstanceTransfer", request, &context)
+                        .await?;
+                    crate::typed::decode_model("IntraExchangeInstanceTransferStatus200", response)
+                },
+                IntraExchangeInstanceTransferError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3095,33 +3295,42 @@ impl KalshiClient {
         GetIntraExchangeInstanceTransfersStatus200,
         TypedError<GetIntraExchangeInstanceTransfersError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetIntraExchangeInstanceTransfersParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("GetIntraExchangeInstanceTransfers", request)
-                .await?;
-            crate::typed::decode_model("GetIntraExchangeInstanceTransfersStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetIntraExchangeInstanceTransfersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetIntraExchangeInstanceTransfersParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetIntraExchangeInstanceTransfers", request, &context)
+                        .await?;
+                    crate::typed::decode_model(
+                        "GetIntraExchangeInstanceTransfersStatus200",
+                        response,
+                    )
+                },
+                GetIntraExchangeInstanceTransfersError::decode,
+            )
+            .await
     }
     pub fn get_intra_exchange_instance_transfers_pages(
         &self,
@@ -3195,28 +3404,37 @@ impl KalshiClient {
         GetIntraExchangeInstanceTransferStatus200,
         TypedError<GetIntraExchangeInstanceTransferError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetIntraExchangeInstanceTransferParameters", &parameters)?;
-            if let Some(value) = parameters.get("transfer_id") {
-                request
-                    .path_parameters
-                    .insert("transfer_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self
-                .request("GetIntraExchangeInstanceTransfer", request)
-                .await?;
-            crate::typed::decode_model("GetIntraExchangeInstanceTransferStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetIntraExchangeInstanceTransferError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetIntraExchangeInstanceTransferParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("transfer_id") {
+                        request
+                            .path_parameters
+                            .insert("transfer_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetIntraExchangeInstanceTransfer", request, &context)
+                        .await?;
+                    crate::typed::decode_model(
+                        "GetIntraExchangeInstanceTransferStatus200",
+                        response,
+                    )
+                },
+                GetIntraExchangeInstanceTransferError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3264,24 +3482,29 @@ impl KalshiClient {
         &self,
         body: Option<&CreateSubaccountBody>,
     ) -> Result<CreateSubaccountStatus201, TypedError<CreateSubaccountError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            if let Some(body) = body {
-                let body = serde_json::to_value(body)?;
-                crate::typed::validate("CreateSubaccountBody", &body)?;
-                request.body = Some(body);
-            }
-            let response = self.request("CreateSubaccount", request).await?;
-            crate::typed::decode_model("CreateSubaccountStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateSubaccountError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    if let Some(body) = body {
+                        let body = serde_json::to_value(body)?;
+                        crate::typed::validate("CreateSubaccountBody", &body)?;
+                        request.body = Some(body);
+                    }
+                    let response = self
+                        .request_in_context("CreateSubaccount", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateSubaccountStatus201", response)
+                },
+                CreateSubaccountError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3329,22 +3552,27 @@ impl KalshiClient {
         &self,
         body: &ApplySubaccountTransferBody,
     ) -> Result<ApplySubaccountTransferStatus200, TypedError<ApplySubaccountTransferError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("ApplySubaccountTransferBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("ApplySubaccountTransfer", request).await?;
-            crate::typed::decode_model("ApplySubaccountTransferStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = ApplySubaccountTransferError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("ApplySubaccountTransferBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("ApplySubaccountTransfer", request, &context)
+                        .await?;
+                    crate::typed::decode_model("ApplySubaccountTransferStatus200", response)
+                },
+                ApplySubaccountTransferError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3384,19 +3612,24 @@ impl KalshiClient {
     pub async fn get_subaccount_balances(
         &self,
     ) -> Result<GetSubaccountBalancesStatus200, TypedError<GetSubaccountBalancesError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self.request("GetSubaccountBalances", request).await?;
-            crate::typed::decode_model("GetSubaccountBalancesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSubaccountBalancesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetSubaccountBalances", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSubaccountBalancesStatus200", response)
+                },
+                GetSubaccountBalancesError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3437,31 +3670,36 @@ impl KalshiClient {
         &self,
         parameters: &GetSubaccountTransfersParameters,
     ) -> Result<GetSubaccountTransfersStatus200, TypedError<GetSubaccountTransfersError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetSubaccountTransfersParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetSubaccountTransfers", request).await?;
-            crate::typed::decode_model("GetSubaccountTransfersStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSubaccountTransfersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetSubaccountTransfersParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetSubaccountTransfers", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSubaccountTransfersStatus200", response)
+                },
+                GetSubaccountTransfersError::decode,
+            )
+            .await
     }
     pub fn get_subaccount_transfers_pages(
         &self,
@@ -3520,19 +3758,24 @@ impl KalshiClient {
     pub async fn get_subaccount_netting(
         &self,
     ) -> Result<GetSubaccountNettingStatus200, TypedError<GetSubaccountNettingError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self.request("GetSubaccountNetting", request).await?;
-            crate::typed::decode_model("GetSubaccountNettingStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSubaccountNettingError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetSubaccountNetting", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSubaccountNettingStatus200", response)
+                },
+                GetSubaccountNettingError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3580,22 +3823,29 @@ impl KalshiClient {
         &self,
         body: &UpdateSubaccountNettingBody,
     ) -> Result<UnspecifiedResponse, TypedError<UpdateSubaccountNettingError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("UpdateSubaccountNettingBody", &body)?;
-            request.body = Some(body);
-            self.request_unspecified("UpdateSubaccountNetting", request)
-                .await
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = UpdateSubaccountNettingError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("UpdateSubaccountNettingBody", &body)?;
+                    request.body = Some(body);
+                    self.request_unspecified_in_context(
+                        "UpdateSubaccountNetting",
+                        request,
+                        &context,
+                    )
+                    .await
+                },
+                UpdateSubaccountNettingError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -3643,62 +3893,67 @@ impl KalshiClient {
         &self,
         parameters: &GetPositionsParameters,
     ) -> Result<GetPositionsStatus200, TypedError<GetPositionsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetPositionsParameters", &parameters)?;
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("count_filter") {
-                request
-                    .query
-                    .push(("count_filter".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("settlement_status") {
-                request.query.push((
-                    "settlement_status".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetPositions", request).await?;
-            crate::typed::decode_model("GetPositionsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetPositionsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetPositionsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("count_filter") {
+                        request
+                            .query
+                            .push(("count_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("settlement_status") {
+                        request.query.push((
+                            "settlement_status".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetPositions", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetPositionsStatus200", response)
+                },
+                GetPositionsError::decode,
+            )
+            .await
     }
     pub fn get_positions_pages(
         &self,
@@ -3758,56 +4013,61 @@ impl KalshiClient {
         &self,
         parameters: &GetSettlementsParameters,
     ) -> Result<GetSettlementsStatus200, TypedError<GetSettlementsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetSettlementsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetSettlements", request).await?;
-            crate::typed::decode_model("GetSettlementsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetSettlementsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetSettlementsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetSettlements", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetSettlementsStatus200", response)
+                },
+                GetSettlementsError::decode,
+            )
+            .await
     }
     pub fn get_settlements_pages(
         &self,
@@ -3867,31 +4127,36 @@ impl KalshiClient {
         &self,
         parameters: &GetDepositsParameters,
     ) -> Result<GetDepositsStatus200, TypedError<GetDepositsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetDepositsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetDeposits", request).await?;
-            crate::typed::decode_model("GetDepositsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetDepositsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetDepositsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetDeposits", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetDepositsStatus200", response)
+                },
+                GetDepositsError::decode,
+            )
+            .await
     }
     pub fn get_deposits_pages(
         &self,
@@ -3951,31 +4216,36 @@ impl KalshiClient {
         &self,
         parameters: &GetWithdrawalsParameters,
     ) -> Result<GetWithdrawalsStatus200, TypedError<GetWithdrawalsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetWithdrawalsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetWithdrawals", request).await?;
-            crate::typed::decode_model("GetWithdrawalsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetWithdrawalsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetWithdrawalsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetWithdrawals", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetWithdrawalsStatus200", response)
+                },
+                GetWithdrawalsError::decode,
+            )
+            .await
     }
     pub fn get_withdrawals_pages(
         &self,
@@ -4030,21 +4300,27 @@ impl KalshiClient {
         GetPortfolioRestingOrderTotalValueStatus200,
         TypedError<GetPortfolioRestingOrderTotalValueError>,
     > {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self
-                .request("GetPortfolioRestingOrderTotalValue", request)
-                .await?;
-            crate::typed::decode_model("GetPortfolioRestingOrderTotalValueStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetPortfolioRestingOrderTotalValueError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetPortfolioRestingOrderTotalValue", request, &context)
+                        .await?;
+                    crate::typed::decode_model(
+                        "GetPortfolioRestingOrderTotalValueStatus200",
+                        response,
+                    )
+                },
+                GetPortfolioRestingOrderTotalValueError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4077,61 +4353,66 @@ impl KalshiClient {
         &self,
         parameters: &GetFillsParameters,
     ) -> Result<GetFillsStatus200, TypedError<GetFillsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFillsParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("order_id") {
-                request
-                    .query
-                    .push(("order_id".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("exchange_index") {
-                request
-                    .query
-                    .push(("exchange_index".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetFills", request).await?;
-            crate::typed::decode_model("GetFillsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFillsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetFillsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("order_id") {
+                        request
+                            .query
+                            .push(("order_id".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("exchange_index") {
+                        request
+                            .query
+                            .push(("exchange_index".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFills", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFillsStatus200", response)
+                },
+                GetFillsError::decode,
+            )
+            .await
     }
     pub fn get_fills_pages(
         &self,
@@ -4183,19 +4464,24 @@ impl KalshiClient {
     pub async fn get_communications_id(
         &self,
     ) -> Result<GetCommunicationsIdStatus200, TypedError<GetCommunicationsIdError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self.request("GetCommunicationsID", request).await?;
-            crate::typed::decode_model("GetCommunicationsIdStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetCommunicationsIdError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetCommunicationsID", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetCommunicationsIdStatus200", response)
+                },
+                GetCommunicationsIdError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4243,41 +4529,46 @@ impl KalshiClient {
         &self,
         parameters: &GetBlockTradeProposalsParameters,
     ) -> Result<GetBlockTradeProposalsStatus200, TypedError<GetBlockTradeProposalsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetBlockTradeProposalsParameters", &parameters)?;
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("market_ticker") {
-                request
-                    .query
-                    .push(("market_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetBlockTradeProposals", request).await?;
-            crate::typed::decode_model("GetBlockTradeProposalsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetBlockTradeProposalsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetBlockTradeProposalsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("market_ticker") {
+                        request
+                            .query
+                            .push(("market_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetBlockTradeProposals", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetBlockTradeProposalsStatus200", response)
+                },
+                GetBlockTradeProposalsError::decode,
+            )
+            .await
     }
     pub fn get_block_trade_proposals_pages(
         &self,
@@ -4351,22 +4642,27 @@ impl KalshiClient {
         &self,
         body: &ProposeBlockTradeBody,
     ) -> Result<ProposeBlockTradeStatus201, TypedError<ProposeBlockTradeError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("ProposeBlockTradeBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("ProposeBlockTrade", request).await?;
-            crate::typed::decode_model("ProposeBlockTradeStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = ProposeBlockTradeError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("ProposeBlockTradeBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("ProposeBlockTrade", request, &context)
+                        .await?;
+                    crate::typed::decode_model("ProposeBlockTradeStatus201", response)
+                },
+                ProposeBlockTradeError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4422,38 +4718,43 @@ impl KalshiClient {
         parameters: &AcceptBlockTradeProposalParameters,
         body: Option<&AcceptBlockTradeProposalBody>,
     ) -> Result<(), TypedError<AcceptBlockTradeProposalError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("AcceptBlockTradeProposalParameters", &parameters)?;
-            if let Some(value) = parameters.get("block_trade_proposal_id") {
-                request.path_parameters.insert(
-                    "block_trade_proposal_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            if let Some(body) = body {
-                let body = serde_json::to_value(body)?;
-                crate::typed::validate("AcceptBlockTradeProposalBody", &body)?;
-                request.body = Some(body);
-            }
-            let response = self.request("AcceptBlockTradeProposal", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = AcceptBlockTradeProposalError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("AcceptBlockTradeProposalParameters", &parameters)?;
+                    if let Some(value) = parameters.get("block_trade_proposal_id") {
+                        request.path_parameters.insert(
+                            "block_trade_proposal_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    if let Some(body) = body {
+                        let body = serde_json::to_value(body)?;
+                        crate::typed::validate("AcceptBlockTradeProposalBody", &body)?;
+                        request.body = Some(body);
+                    }
+                    let response = self
+                        .request_in_context("AcceptBlockTradeProposal", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                AcceptBlockTradeProposalError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4501,61 +4802,66 @@ impl KalshiClient {
         &self,
         parameters: &GetRfQsParameters,
     ) -> Result<GetRfQsStatus200, TypedError<GetRfQsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetRfQsParameters", &parameters)?;
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("market_ticker") {
-                request
-                    .query
-                    .push(("market_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("creator_user_id") {
-                request
-                    .query
-                    .push(("creator_user_id".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("user_filter") {
-                request
-                    .query
-                    .push(("user_filter".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetRFQs", request).await?;
-            crate::typed::decode_model("GetRfQsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetRfQsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetRfQsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("market_ticker") {
+                        request
+                            .query
+                            .push(("market_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("creator_user_id") {
+                        request
+                            .query
+                            .push(("creator_user_id".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("user_filter") {
+                        request
+                            .query
+                            .push(("user_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetRFQs", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetRfQsStatus200", response)
+                },
+                GetRfQsError::decode,
+            )
+            .await
     }
     pub fn get_rf_qs_pages(
         &self,
@@ -4622,22 +4928,27 @@ impl KalshiClient {
         &self,
         body: &CreateRfqBody,
     ) -> Result<CreateRfqStatus201, TypedError<CreateRfqError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateRfqBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateRFQ", request).await?;
-            crate::typed::decode_model("CreateRfqStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateRfqError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateRfqBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateRFQ", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateRfqStatus201", response)
+                },
+                CreateRfqError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4692,26 +5003,29 @@ impl KalshiClient {
         &self,
         parameters: &GetRfqParameters,
     ) -> Result<GetRfqStatus200, TypedError<GetRfqError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetRfqParameters", &parameters)?;
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .path_parameters
-                    .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetRFQ", request).await?;
-            crate::typed::decode_model("GetRfqStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetRfqError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetRfqParameters", &parameters)?;
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .path_parameters
+                            .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self.request_in_context("GetRFQ", request, &context).await?;
+                    crate::typed::decode_model("GetRfqStatus200", response)
+                },
+                GetRfqError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4766,32 +5080,37 @@ impl KalshiClient {
         &self,
         parameters: &DeleteRfqParameters,
     ) -> Result<(), TypedError<DeleteRfqError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DeleteRfqParameters", &parameters)?;
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .path_parameters
-                    .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("DeleteRFQ", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DeleteRfqError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("DeleteRfqParameters", &parameters)?;
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .path_parameters
+                            .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("DeleteRFQ", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                DeleteRfqError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4846,31 +5165,36 @@ impl KalshiClient {
         &self,
         parameters: &GetRfqQuoteParameters,
     ) -> Result<GetRfqQuoteStatus200, TypedError<GetRfqQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetRfqQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .path_parameters
-                    .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetRFQQuote", request).await?;
-            crate::typed::decode_model("GetRfqQuoteStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetRfqQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetRfqQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .path_parameters
+                            .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetRFQQuote", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetRfqQuoteStatus200", response)
+                },
+                GetRfqQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -4925,37 +5249,42 @@ impl KalshiClient {
         &self,
         parameters: &DeleteRfqQuoteParameters,
     ) -> Result<(), TypedError<DeleteRfqQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DeleteRfqQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .path_parameters
-                    .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("DeleteRFQQuote", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DeleteRfqQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("DeleteRfqQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .path_parameters
+                            .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("DeleteRFQQuote", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                DeleteRfqQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5011,40 +5340,45 @@ impl KalshiClient {
         parameters: &AcceptRfqQuoteParameters,
         body: &AcceptRfqQuoteBody,
     ) -> Result<(), TypedError<AcceptRfqQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("AcceptRfqQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .path_parameters
-                    .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("AcceptRfqQuoteBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("AcceptRFQQuote", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = AcceptRfqQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("AcceptRfqQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .path_parameters
+                            .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("AcceptRfqQuoteBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("AcceptRFQQuote", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                AcceptRfqQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5100,42 +5434,47 @@ impl KalshiClient {
         parameters: &ConfirmRfqQuoteParameters,
         body: Option<&ConfirmRfqQuoteBody>,
     ) -> Result<(), TypedError<ConfirmRfqQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("ConfirmRfqQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .path_parameters
-                    .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(body) = body {
-                let body = serde_json::to_value(body)?;
-                crate::typed::validate("ConfirmRfqQuoteBody", &body)?;
-                request.body = Some(body);
-            }
-            let response = self.request("ConfirmRFQQuote", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = ConfirmRfqQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("ConfirmRfqQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .path_parameters
+                            .insert("rfq_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(body) = body {
+                        let body = serde_json::to_value(body)?;
+                        crate::typed::validate("ConfirmRfqQuoteBody", &body)?;
+                        request.body = Some(body);
+                    }
+                    let response = self
+                        .request_in_context("ConfirmRFQQuote", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                ConfirmRfqQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5183,79 +5522,84 @@ impl KalshiClient {
         &self,
         parameters: &GetQuotesParameters,
     ) -> Result<GetQuotesStatus200, TypedError<GetQuotesError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetQuotesParameters", &parameters)?;
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("quote_creator_user_id") {
-                request.query.push((
-                    "quote_creator_user_id".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("user_filter") {
-                request
-                    .query
-                    .push(("user_filter".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("rfq_user_filter") {
-                request
-                    .query
-                    .push(("rfq_user_filter".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("rfq_creator_user_id") {
-                request.query.push((
-                    "rfq_creator_user_id".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("rfq_creator_subtrader_id") {
-                request.query.push((
-                    "rfq_creator_subtrader_id".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("rfq_id") {
-                request
-                    .query
-                    .push(("rfq_id".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetQuotes", request).await?;
-            crate::typed::decode_model("GetQuotesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetQuotesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetQuotesParameters", &parameters)?;
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("quote_creator_user_id") {
+                        request.query.push((
+                            "quote_creator_user_id".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("user_filter") {
+                        request
+                            .query
+                            .push(("user_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("rfq_user_filter") {
+                        request
+                            .query
+                            .push(("rfq_user_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("rfq_creator_user_id") {
+                        request.query.push((
+                            "rfq_creator_user_id".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("rfq_creator_subtrader_id") {
+                        request.query.push((
+                            "rfq_creator_subtrader_id".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("rfq_id") {
+                        request
+                            .query
+                            .push(("rfq_id".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetQuotes", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetQuotesStatus200", response)
+                },
+                GetQuotesError::decode,
+            )
+            .await
     }
     pub fn get_quotes_pages(
         &self,
@@ -5315,22 +5659,27 @@ impl KalshiClient {
         &self,
         body: &CreateQuoteBody,
     ) -> Result<CreateQuoteStatus201, TypedError<CreateQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateQuoteBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateQuote", request).await?;
-            crate::typed::decode_model("CreateQuoteStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateQuoteBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateQuote", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateQuoteStatus201", response)
+                },
+                CreateQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5385,26 +5734,31 @@ impl KalshiClient {
         &self,
         parameters: &GetQuoteParameters,
     ) -> Result<GetQuoteStatus200, TypedError<GetQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetQuote", request).await?;
-            crate::typed::decode_model("GetQuoteStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetQuote", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetQuoteStatus200", response)
+                },
+                GetQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5459,32 +5813,37 @@ impl KalshiClient {
         &self,
         parameters: &DeleteQuoteParameters,
     ) -> Result<(), TypedError<DeleteQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DeleteQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("DeleteQuote", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DeleteQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("DeleteQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("DeleteQuote", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                DeleteQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5540,35 +5899,40 @@ impl KalshiClient {
         parameters: &AcceptQuoteParameters,
         body: &AcceptQuoteBody,
     ) -> Result<(), TypedError<AcceptQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("AcceptQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("AcceptQuoteBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("AcceptQuote", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = AcceptQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("AcceptQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("AcceptQuoteBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("AcceptQuote", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                AcceptQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5624,37 +5988,42 @@ impl KalshiClient {
         parameters: &ConfirmQuoteParameters,
         body: Option<&ConfirmQuoteBody>,
     ) -> Result<(), TypedError<ConfirmQuoteError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("ConfirmQuoteParameters", &parameters)?;
-            if let Some(value) = parameters.get("quote_id") {
-                request
-                    .path_parameters
-                    .insert("quote_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(body) = body {
-                let body = serde_json::to_value(body)?;
-                crate::typed::validate("ConfirmQuoteBody", &body)?;
-                request.body = Some(body);
-            }
-            let response = self.request("ConfirmQuote", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = ConfirmQuoteError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("ConfirmQuoteParameters", &parameters)?;
+                    if let Some(value) = parameters.get("quote_id") {
+                        request
+                            .path_parameters
+                            .insert("quote_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(body) = body {
+                        let body = serde_json::to_value(body)?;
+                        crate::typed::validate("ConfirmQuoteBody", &body)?;
+                        request.body = Some(body);
+                    }
+                    let response = self
+                        .request_in_context("ConfirmQuote", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                ConfirmQuoteError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5685,26 +6054,31 @@ impl KalshiClient {
         &self,
         parameters: &GetApiKeysParameters,
     ) -> Result<GetApiKeysStatus200, TypedError<GetApiKeysError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetApiKeysParameters", &parameters)?;
-            if let Some(value) = parameters.get("fcm_subtrader_id") {
-                request
-                    .query
-                    .push(("fcm_subtrader_id".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetApiKeys", request).await?;
-            crate::typed::decode_model("GetApiKeysStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetApiKeysError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetApiKeysParameters", &parameters)?;
+                    if let Some(value) = parameters.get("fcm_subtrader_id") {
+                        request
+                            .query
+                            .push(("fcm_subtrader_id".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetApiKeys", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetApiKeysStatus200", response)
+                },
+                GetApiKeysError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5741,22 +6115,27 @@ impl KalshiClient {
         &self,
         body: &CreateApiKeyBody,
     ) -> Result<CreateApiKeyStatus201, TypedError<CreateApiKeyError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateApiKeyBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateApiKey", request).await?;
-            crate::typed::decode_model("CreateApiKeyStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateApiKeyError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateApiKeyBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateApiKey", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateApiKeyStatus201", response)
+                },
+                CreateApiKeyError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5793,22 +6172,27 @@ impl KalshiClient {
         &self,
         body: &GenerateApiKeyBody,
     ) -> Result<GenerateApiKeyStatus201, TypedError<GenerateApiKeyError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("GenerateApiKeyBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("GenerateApiKey", request).await?;
-            crate::typed::decode_model("GenerateApiKeyStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GenerateApiKeyError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("GenerateApiKeyBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("GenerateApiKey", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GenerateApiKeyStatus201", response)
+                },
+                GenerateApiKeyError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5843,32 +6227,37 @@ impl KalshiClient {
         &self,
         parameters: &DeleteApiKeyParameters,
     ) -> Result<(), TypedError<DeleteApiKeyError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DeleteApiKeyParameters", &parameters)?;
-            if let Some(value) = parameters.get("api_key") {
-                request
-                    .path_parameters
-                    .insert("api_key".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("DeleteApiKey", request).await?;
-            if response.is_null() {
-                Ok(())
-            } else {
-                Err(crate::typed::contract_error(
-                    "unexpected body on an empty response",
-                ))
-            }
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DeleteApiKeyError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("DeleteApiKeyParameters", &parameters)?;
+                    if let Some(value) = parameters.get("api_key") {
+                        request
+                            .path_parameters
+                            .insert("api_key".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("DeleteApiKey", request, &context)
+                        .await?;
+                    if response.is_null() {
+                        Ok(())
+                    } else {
+                        Err(crate::typed::contract_error(
+                            "unexpected body on an empty response",
+                        ))
+                    }
+                },
+                DeleteApiKeyError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5898,19 +6287,24 @@ impl KalshiClient {
     pub async fn get_account_api_limits(
         &self,
     ) -> Result<GetAccountApiLimitsStatus200, TypedError<GetAccountApiLimitsError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self.request("GetAccountApiLimits", request).await?;
-            crate::typed::decode_model("GetAccountApiLimitsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetAccountApiLimitsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetAccountApiLimits", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetAccountApiLimitsStatus200", response)
+                },
+                GetAccountApiLimitsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5944,19 +6338,26 @@ impl KalshiClient {
     pub async fn upgrade_account_api_usage_level(
         &self,
     ) -> Result<UnspecifiedResponse, TypedError<UpgradeAccountApiUsageLevelError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            self.request_unspecified("UpgradeAccountApiUsageLevel", request)
-                .await
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = UpgradeAccountApiUsageLevelError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    self.request_unspecified_in_context(
+                        "UpgradeAccountApiUsageLevel",
+                        request,
+                        &context,
+                    )
+                    .await
+                },
+                UpgradeAccountApiUsageLevelError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -5989,21 +6390,31 @@ impl KalshiClient {
         GetAccountApiUsageLevelVolumeProgressStatus200,
         TypedError<GetAccountApiUsageLevelVolumeProgressError>,
     > {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self
-                .request("GetAccountApiUsageLevelVolumeProgress", request)
-                .await?;
-            crate::typed::decode_model("GetAccountApiUsageLevelVolumeProgressStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetAccountApiUsageLevelVolumeProgressError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context(
+                            "GetAccountApiUsageLevelVolumeProgress",
+                            request,
+                            &context,
+                        )
+                        .await?;
+                    crate::typed::decode_model(
+                        "GetAccountApiUsageLevelVolumeProgressStatus200",
+                        response,
+                    )
+                },
+                GetAccountApiUsageLevelVolumeProgressError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6031,19 +6442,24 @@ impl KalshiClient {
     pub async fn get_account_endpoint_costs(
         &self,
     ) -> Result<GetAccountEndpointCostsStatus200, TypedError<GetAccountEndpointCostsError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetAccountEndpointCosts", request).await?;
-            crate::typed::decode_model("GetAccountEndpointCostsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetAccountEndpointCostsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetAccountEndpointCosts", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetAccountEndpointCostsStatus200", response)
+                },
+                GetAccountEndpointCostsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6074,19 +6490,24 @@ impl KalshiClient {
         &self,
     ) -> Result<GetTagsForSeriesCategoriesStatus200, TypedError<GetTagsForSeriesCategoriesError>>
     {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetTagsForSeriesCategories", request).await?;
-            crate::typed::decode_model("GetTagsForSeriesCategoriesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetTagsForSeriesCategoriesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetTagsForSeriesCategories", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetTagsForSeriesCategoriesStatus200", response)
+                },
+                GetTagsForSeriesCategoriesError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6116,19 +6537,24 @@ impl KalshiClient {
     pub async fn get_filters_for_sports(
         &self,
     ) -> Result<GetFiltersForSportsStatus200, TypedError<GetFiltersForSportsError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetFiltersForSports", request).await?;
-            crate::typed::decode_model("GetFiltersForSportsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFiltersForSportsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetFiltersForSports", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFiltersForSportsStatus200", response)
+                },
+                GetFiltersForSportsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6159,32 +6585,37 @@ impl KalshiClient {
         &self,
         parameters: &GetLiveDataByMilestoneParameters,
     ) -> Result<GetLiveDataByMilestoneStatus200, TypedError<GetLiveDataByMilestoneError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetLiveDataByMilestoneParameters", &parameters)?;
-            if let Some(value) = parameters.get("milestone_id") {
-                request
-                    .path_parameters
-                    .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("include_player_stats") {
-                request.query.push((
-                    "include_player_stats".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("GetLiveDataByMilestone", request).await?;
-            crate::typed::decode_model("GetLiveDataByMilestoneStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetLiveDataByMilestoneError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetLiveDataByMilestoneParameters", &parameters)?;
+                    if let Some(value) = parameters.get("milestone_id") {
+                        request
+                            .path_parameters
+                            .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("include_player_stats") {
+                        request.query.push((
+                            "include_player_stats".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("GetLiveDataByMilestone", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetLiveDataByMilestoneStatus200", response)
+                },
+                GetLiveDataByMilestoneError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6215,37 +6646,42 @@ impl KalshiClient {
         &self,
         parameters: &GetLiveDataParameters,
     ) -> Result<GetLiveDataStatus200, TypedError<GetLiveDataError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetLiveDataParameters", &parameters)?;
-            if let Some(value) = parameters.get("type") {
-                request
-                    .path_parameters
-                    .insert("type".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("milestone_id") {
-                request
-                    .path_parameters
-                    .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("include_player_stats") {
-                request.query.push((
-                    "include_player_stats".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("GetLiveData", request).await?;
-            crate::typed::decode_model("GetLiveDataStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetLiveDataError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetLiveDataParameters", &parameters)?;
+                    if let Some(value) = parameters.get("type") {
+                        request
+                            .path_parameters
+                            .insert("type".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("milestone_id") {
+                        request
+                            .path_parameters
+                            .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("include_player_stats") {
+                        request.query.push((
+                            "include_player_stats".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("GetLiveData", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetLiveDataStatus200", response)
+                },
+                GetLiveDataError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6274,32 +6710,37 @@ impl KalshiClient {
         &self,
         parameters: &GetLiveDatasParameters,
     ) -> Result<GetLiveDatasStatus200, TypedError<GetLiveDatasError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetLiveDatasParameters", &parameters)?;
-            if let Some(value) = parameters.get("milestone_ids") {
-                request
-                    .query
-                    .push(("milestone_ids".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("include_player_stats") {
-                request.query.push((
-                    "include_player_stats".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            let response = self.request("GetLiveDatas", request).await?;
-            crate::typed::decode_model("GetLiveDatasStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetLiveDatasError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetLiveDatasParameters", &parameters)?;
+                    if let Some(value) = parameters.get("milestone_ids") {
+                        request
+                            .query
+                            .push(("milestone_ids".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("include_player_stats") {
+                        request.query.push((
+                            "include_player_stats".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    let response = self
+                        .request_in_context("GetLiveDatas", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetLiveDatasStatus200", response)
+                },
+                GetLiveDatasError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6330,26 +6771,31 @@ impl KalshiClient {
         &self,
         parameters: &GetGameStatsParameters,
     ) -> Result<GetGameStatsStatus200, TypedError<GetGameStatsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetGameStatsParameters", &parameters)?;
-            if let Some(value) = parameters.get("milestone_id") {
-                request
-                    .path_parameters
-                    .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetGameStats", request).await?;
-            crate::typed::decode_model("GetGameStatsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetGameStatsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetGameStatsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("milestone_id") {
+                        request
+                            .path_parameters
+                            .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetGameStats", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetGameStatsStatus200", response)
+                },
+                GetGameStatsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6380,31 +6826,36 @@ impl KalshiClient {
         &self,
         parameters: &GetEventLiveDataParameters,
     ) -> Result<GetEventLiveDataStatus200, TypedError<GetEventLiveDataError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetEventLiveDataParameters", &parameters)?;
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .path_parameters
-                    .insert("event_ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("range") {
-                request
-                    .query
-                    .push(("range".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetEventLiveData", request).await?;
-            crate::typed::decode_model("GetEventLiveDataStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetEventLiveDataError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetEventLiveDataParameters", &parameters)?;
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .path_parameters
+                            .insert("event_ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("range") {
+                        request
+                            .query
+                            .push(("range".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetEventLiveData", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetEventLiveDataStatus200", response)
+                },
+                GetEventLiveDataError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6435,46 +6886,51 @@ impl KalshiClient {
         &self,
         parameters: &GetWeatherIndexParameters,
     ) -> Result<GetWeatherIndexStatus200, TypedError<GetWeatherIndexError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetWeatherIndexParameters", &parameters)?;
-            if let Some(value) = parameters.get("city") {
-                request
-                    .path_parameters
-                    .insert("city".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("from") {
-                request
-                    .query
-                    .push(("from".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("to") {
-                request
-                    .query
-                    .push(("to".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("last_sec") {
-                request
-                    .query
-                    .push(("last_sec".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("detailed") {
-                request
-                    .query
-                    .push(("detailed".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetWeatherIndex", request).await?;
-            crate::typed::decode_model("GetWeatherIndexStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetWeatherIndexError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetWeatherIndexParameters", &parameters)?;
+                    if let Some(value) = parameters.get("city") {
+                        request
+                            .path_parameters
+                            .insert("city".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("from") {
+                        request
+                            .query
+                            .push(("from".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("to") {
+                        request
+                            .query
+                            .push(("to".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("last_sec") {
+                        request
+                            .query
+                            .push(("last_sec".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("detailed") {
+                        request
+                            .query
+                            .push(("detailed".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetWeatherIndex", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetWeatherIndexStatus200", response)
+                },
+                GetWeatherIndexError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6506,26 +6962,31 @@ impl KalshiClient {
         parameters: &GetWeatherIndexCalibrationsParameters,
     ) -> Result<GetWeatherIndexCalibrationsStatus200, TypedError<GetWeatherIndexCalibrationsError>>
     {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetWeatherIndexCalibrationsParameters", &parameters)?;
-            if let Some(value) = parameters.get("city") {
-                request
-                    .path_parameters
-                    .insert("city".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetWeatherIndexCalibrations", request).await?;
-            crate::typed::decode_model("GetWeatherIndexCalibrationsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetWeatherIndexCalibrationsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetWeatherIndexCalibrationsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("city") {
+                        request
+                            .path_parameters
+                            .insert("city".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetWeatherIndexCalibrations", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetWeatherIndexCalibrationsStatus200", response)
+                },
+                GetWeatherIndexCalibrationsError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6556,46 +7017,51 @@ impl KalshiClient {
         &self,
         parameters: &GetStructuredTargetsParameters,
     ) -> Result<GetStructuredTargetsStatus200, TypedError<GetStructuredTargetsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetStructuredTargetsParameters", &parameters)?;
-            if let Some(value) = parameters.get("ids") {
-                request
-                    .query
-                    .push(("ids".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("type") {
-                request
-                    .query
-                    .push(("type".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("competition") {
-                request
-                    .query
-                    .push(("competition".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("page_size") {
-                request
-                    .query
-                    .push(("page_size".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetStructuredTargets", request).await?;
-            crate::typed::decode_model("GetStructuredTargetsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetStructuredTargetsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetStructuredTargetsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ids") {
+                        request
+                            .query
+                            .push(("ids".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("type") {
+                        request
+                            .query
+                            .push(("type".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("competition") {
+                        request
+                            .query
+                            .push(("competition".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("page_size") {
+                        request
+                            .query
+                            .push(("page_size".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetStructuredTargets", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetStructuredTargetsStatus200", response)
+                },
+                GetStructuredTargetsError::decode,
+            )
+            .await
     }
     pub fn get_structured_targets_pages(
         &self,
@@ -6647,27 +7113,32 @@ impl KalshiClient {
         &self,
         parameters: &GetStructuredTargetParameters,
     ) -> Result<GetStructuredTargetStatus200, TypedError<GetStructuredTargetError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetStructuredTargetParameters", &parameters)?;
-            if let Some(value) = parameters.get("structured_target_id") {
-                request.path_parameters.insert(
-                    "structured_target_id".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            let response = self.request("GetStructuredTarget", request).await?;
-            crate::typed::decode_model("GetStructuredTargetStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetStructuredTargetError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetStructuredTargetParameters", &parameters)?;
+                    if let Some(value) = parameters.get("structured_target_id") {
+                        request.path_parameters.insert(
+                            "structured_target_id".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    let response = self
+                        .request_in_context("GetStructuredTarget", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetStructuredTargetStatus200", response)
+                },
+                GetStructuredTargetError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6702,26 +7173,31 @@ impl KalshiClient {
         &self,
         parameters: &GetMilestoneParameters,
     ) -> Result<GetMilestoneStatus200, TypedError<GetMilestoneError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMilestoneParameters", &parameters)?;
-            if let Some(value) = parameters.get("milestone_id") {
-                request
-                    .path_parameters
-                    .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetMilestone", request).await?;
-            crate::typed::decode_model("GetMilestoneStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMilestoneError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMilestoneParameters", &parameters)?;
+                    if let Some(value) = parameters.get("milestone_id") {
+                        request
+                            .path_parameters
+                            .insert("milestone_id".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetMilestone", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMilestoneStatus200", response)
+                },
+                GetMilestoneError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6754,68 +7230,73 @@ impl KalshiClient {
         &self,
         parameters: &GetMilestonesParameters,
     ) -> Result<GetMilestonesStatus200, TypedError<GetMilestonesError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMilestonesParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("minimum_start_date") {
-                request.query.push((
-                    "minimum_start_date".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("category") {
-                request
-                    .query
-                    .push(("category".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("competition") {
-                request
-                    .query
-                    .push(("competition".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("source_id") {
-                request
-                    .query
-                    .push(("source_id".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("type") {
-                request
-                    .query
-                    .push(("type".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("related_event_ticker") {
-                request.query.push((
-                    "related_event_ticker".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_updated_ts") {
-                request
-                    .query
-                    .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetMilestones", request).await?;
-            crate::typed::decode_model("GetMilestonesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMilestonesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetMilestonesParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("minimum_start_date") {
+                        request.query.push((
+                            "minimum_start_date".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("category") {
+                        request
+                            .query
+                            .push(("category".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("competition") {
+                        request
+                            .query
+                            .push(("competition".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("source_id") {
+                        request
+                            .query
+                            .push(("source_id".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("type") {
+                        request
+                            .query
+                            .push(("type".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("related_event_ticker") {
+                        request.query.push((
+                            "related_event_ticker".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_updated_ts") {
+                        request
+                            .query
+                            .push(("min_updated_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMilestones", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMilestonesStatus200", response)
+                },
+                GetMilestonesError::decode,
+            )
+            .await
     }
     pub fn get_milestones_pages(
         &self,
@@ -6878,29 +7359,35 @@ impl KalshiClient {
         GetMultivariateEventCollectionStatus200,
         TypedError<GetMultivariateEventCollectionError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMultivariateEventCollectionParameters", &parameters)?;
-            if let Some(value) = parameters.get("collection_ticker") {
-                request.path_parameters.insert(
-                    "collection_ticker".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            let response = self
-                .request("GetMultivariateEventCollection", request)
-                .await?;
-            crate::typed::decode_model("GetMultivariateEventCollectionStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMultivariateEventCollectionError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetMultivariateEventCollectionParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("collection_ticker") {
+                        request.path_parameters.insert(
+                            "collection_ticker".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    let response = self
+                        .request_in_context("GetMultivariateEventCollection", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMultivariateEventCollectionStatus200", response)
+                },
+                GetMultivariateEventCollectionError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -6967,38 +7454,45 @@ impl KalshiClient {
         CreateMarketInMultivariateEventCollectionStatus200,
         TypedError<CreateMarketInMultivariateEventCollectionError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate(
-                "CreateMarketInMultivariateEventCollectionParameters",
-                &parameters,
-            )?;
-            if let Some(value) = parameters.get("collection_ticker") {
-                request.path_parameters.insert(
-                    "collection_ticker".into(),
-                    crate::typed::parameter_text(value)?,
-                );
-            }
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateMarketInMultivariateEventCollectionBody", &body)?;
-            request.body = Some(body);
-            let response = self
-                .request("CreateMarketInMultivariateEventCollection", request)
-                .await?;
-            crate::typed::decode_model(
-                "CreateMarketInMultivariateEventCollectionStatus200",
-                response,
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "CreateMarketInMultivariateEventCollectionParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("collection_ticker") {
+                        request.path_parameters.insert(
+                            "collection_ticker".into(),
+                            crate::typed::parameter_text(value)?,
+                        );
+                    }
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateMarketInMultivariateEventCollectionBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context(
+                            "CreateMarketInMultivariateEventCollection",
+                            request,
+                            &context,
+                        )
+                        .await?;
+                    crate::typed::decode_model(
+                        "CreateMarketInMultivariateEventCollectionStatus200",
+                        response,
+                    )
+                },
+                CreateMarketInMultivariateEventCollectionError::decode,
             )
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateMarketInMultivariateEventCollectionError::decode(&source);
-            TypedError::new(source, payload)
-        })
+            .await
     }
 }
 #[derive(Clone)]
@@ -7042,49 +7536,55 @@ impl KalshiClient {
         GetMultivariateEventCollectionsStatus200,
         TypedError<GetMultivariateEventCollectionsError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMultivariateEventCollectionsParameters", &parameters)?;
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("associated_event_ticker") {
-                request.query.push((
-                    "associated_event_ticker".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .query
-                    .push(("series_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("GetMultivariateEventCollections", request)
-                .await?;
-            crate::typed::decode_model("GetMultivariateEventCollectionsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMultivariateEventCollectionsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetMultivariateEventCollectionsParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("associated_event_ticker") {
+                        request.query.push((
+                            "associated_event_ticker".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .query
+                            .push(("series_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMultivariateEventCollections", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMultivariateEventCollectionsStatus200", response)
+                },
+                GetMultivariateEventCollectionsError::decode,
+            )
+            .await
     }
     pub fn get_multivariate_event_collections_pages(
         &self,
@@ -7146,47 +7646,52 @@ impl KalshiClient {
         &self,
         parameters: &GetIncentiveProgramsParameters,
     ) -> Result<GetIncentiveProgramsStatus200, TypedError<GetIncentiveProgramsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetIncentiveProgramsParameters", &parameters)?;
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("type") {
-                request
-                    .query
-                    .push(("type".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("incentive_description") {
-                request.query.push((
-                    "incentive_description".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetIncentivePrograms", request).await?;
-            crate::typed::decode_model("GetIncentiveProgramsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetIncentiveProgramsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetIncentiveProgramsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("type") {
+                        request
+                            .query
+                            .push(("type".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("incentive_description") {
+                        request.query.push((
+                            "incentive_description".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetIncentivePrograms", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetIncentiveProgramsStatus200", response)
+                },
+                GetIncentiveProgramsError::decode,
+            )
+            .await
     }
     pub fn get_incentive_programs_pages(
         &self,
@@ -7240,36 +7745,41 @@ impl KalshiClient {
         &self,
         parameters: &GetFcmFillsParameters,
     ) -> Result<GetFcmFillsStatus200, TypedError<GetFcmFillsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFcmFillsParameters", &parameters)?;
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetFCMFills", request).await?;
-            crate::typed::decode_model("GetFcmFillsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFcmFillsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetFcmFillsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFCMFills", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFcmFillsStatus200", response)
+                },
+                GetFcmFillsError::decode,
+            )
+            .await
     }
     pub fn get_fcm_fills_pages(
         &self,
@@ -7318,66 +7828,71 @@ impl KalshiClient {
         &self,
         parameters: &GetFcmOrdersParameters,
     ) -> Result<GetFcmOrdersStatus200, TypedError<GetFcmOrdersError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFcmOrdersParameters", &parameters)?;
-            if let Some(value) = parameters.get("subtrader_id") {
-                request
-                    .query
-                    .push(("subtrader_id".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("client_order_ids") {
-                request
-                    .query
-                    .push(("client_order_ids".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("status") {
-                request
-                    .query
-                    .push(("status".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetFCMOrders", request).await?;
-            crate::typed::decode_model("GetFcmOrdersStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFcmOrdersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetFcmOrdersParameters", &parameters)?;
+                    if let Some(value) = parameters.get("subtrader_id") {
+                        request
+                            .query
+                            .push(("subtrader_id".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("client_order_ids") {
+                        request
+                            .query
+                            .push(("client_order_ids".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("status") {
+                        request
+                            .query
+                            .push(("status".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFCMOrders", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFcmOrdersStatus200", response)
+                },
+                GetFcmOrdersError::decode,
+            )
+            .await
     }
     pub fn get_fcm_orders_pages(
         &self,
@@ -7436,19 +7951,24 @@ impl KalshiClient {
     pub async fn list_fcm_subtraders(
         &self,
     ) -> Result<ListFcmSubtradersStatus200, TypedError<ListFcmSubtradersError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self.request("ListFCMSubtraders", request).await?;
-            crate::typed::decode_model("ListFcmSubtradersStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = ListFcmSubtradersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("ListFCMSubtraders", request, &context)
+                        .await?;
+                    crate::typed::decode_model("ListFcmSubtradersStatus200", response)
+                },
+                ListFcmSubtradersError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7510,22 +8030,27 @@ impl KalshiClient {
         &self,
         body: &CreateFcmSubtraderBody,
     ) -> Result<CreateFcmSubtraderStatus201, TypedError<CreateFcmSubtraderError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateFcmSubtraderBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateFCMSubtrader", request).await?;
-            crate::typed::decode_model("CreateFcmSubtraderStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateFcmSubtraderError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateFcmSubtraderBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateFCMSubtrader", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateFcmSubtraderStatus201", response)
+                },
+                CreateFcmSubtraderError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7588,26 +8113,31 @@ impl KalshiClient {
         parameters: &GetFcmEventContractDailyCapParameters,
     ) -> Result<GetFcmEventContractDailyCapStatus200, TypedError<GetFcmEventContractDailyCapError>>
     {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFcmEventContractDailyCapParameters", &parameters)?;
-            if let Some(value) = parameters.get("subtrader_id") {
-                request
-                    .query
-                    .push(("subtrader_id".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetFCMEventContractDailyCap", request).await?;
-            crate::typed::decode_model("GetFcmEventContractDailyCapStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFcmEventContractDailyCapError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetFcmEventContractDailyCapParameters", &parameters)?;
+                    if let Some(value) = parameters.get("subtrader_id") {
+                        request
+                            .query
+                            .push(("subtrader_id".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFCMEventContractDailyCap", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFcmEventContractDailyCapStatus200", response)
+                },
+                GetFcmEventContractDailyCapError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7672,24 +8202,27 @@ impl KalshiClient {
         UpdateFcmEventContractDailyCapStatus200,
         TypedError<UpdateFcmEventContractDailyCapError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("UpdateFcmEventContractDailyCapBody", &body)?;
-            request.body = Some(body);
-            let response = self
-                .request("UpdateFCMEventContractDailyCap", request)
-                .await?;
-            crate::typed::decode_model("UpdateFcmEventContractDailyCapStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = UpdateFcmEventContractDailyCapError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("UpdateFcmEventContractDailyCapBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("UpdateFCMEventContractDailyCap", request, &context)
+                        .await?;
+                    crate::typed::decode_model("UpdateFcmEventContractDailyCapStatus200", response)
+                },
+                UpdateFcmEventContractDailyCapError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7754,28 +8287,34 @@ impl KalshiClient {
         DeleteFcmEventContractDailyCapStatus200,
         TypedError<DeleteFcmEventContractDailyCapError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("DeleteFcmEventContractDailyCapParameters", &parameters)?;
-            if let Some(value) = parameters.get("subtrader_id") {
-                request
-                    .query
-                    .push(("subtrader_id".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("DeleteFCMEventContractDailyCap", request)
-                .await?;
-            crate::typed::decode_model("DeleteFcmEventContractDailyCapStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = DeleteFcmEventContractDailyCapError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "DeleteFcmEventContractDailyCapParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("subtrader_id") {
+                        request
+                            .query
+                            .push(("subtrader_id".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("DeleteFCMEventContractDailyCap", request, &context)
+                        .await?;
+                    crate::typed::decode_model("DeleteFcmEventContractDailyCapStatus200", response)
+                },
+                DeleteFcmEventContractDailyCapError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7833,28 +8372,37 @@ impl KalshiClient {
         GetFcmSubtraderBlockedCategoriesStatus200,
         TypedError<GetFcmSubtraderBlockedCategoriesError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFcmSubtraderBlockedCategoriesParameters", &parameters)?;
-            if let Some(value) = parameters.get("subtrader_id") {
-                request
-                    .query
-                    .push(("subtrader_id".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("GetFCMSubtraderBlockedCategories", request)
-                .await?;
-            crate::typed::decode_model("GetFcmSubtraderBlockedCategoriesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFcmSubtraderBlockedCategoriesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetFcmSubtraderBlockedCategoriesParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("subtrader_id") {
+                        request
+                            .query
+                            .push(("subtrader_id".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFCMSubtraderBlockedCategories", request, &context)
+                        .await?;
+                    crate::typed::decode_model(
+                        "GetFcmSubtraderBlockedCategoriesStatus200",
+                        response,
+                    )
+                },
+                GetFcmSubtraderBlockedCategoriesError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7919,24 +8467,34 @@ impl KalshiClient {
         UpdateFcmSubtraderBlockedCategoriesStatus200,
         TypedError<UpdateFcmSubtraderBlockedCategoriesError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("UpdateFcmSubtraderBlockedCategoriesBody", &body)?;
-            request.body = Some(body);
-            let response = self
-                .request("UpdateFCMSubtraderBlockedCategories", request)
-                .await?;
-            crate::typed::decode_model("UpdateFcmSubtraderBlockedCategoriesStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = UpdateFcmSubtraderBlockedCategoriesError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("UpdateFcmSubtraderBlockedCategoriesBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context(
+                            "UpdateFCMSubtraderBlockedCategories",
+                            request,
+                            &context,
+                        )
+                        .await?;
+                    crate::typed::decode_model(
+                        "UpdateFcmSubtraderBlockedCategoriesStatus200",
+                        response,
+                    )
+                },
+                UpdateFcmSubtraderBlockedCategoriesError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -7984,19 +8542,24 @@ impl KalshiClient {
         &self,
     ) -> Result<GetTargetBalanceAllocationStatus200, TypedError<GetTargetBalanceAllocationError>>
     {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let response = self.request("GetTargetBalanceAllocation", request).await?;
-            crate::typed::decode_model("GetTargetBalanceAllocationStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetTargetBalanceAllocationError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetTargetBalanceAllocation", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetTargetBalanceAllocationStatus200", response)
+                },
+                GetTargetBalanceAllocationError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -8052,22 +8615,27 @@ impl KalshiClient {
         body: &SetTargetBalanceAllocationBody,
     ) -> Result<SetTargetBalanceAllocationStatus200, TypedError<SetTargetBalanceAllocationError>>
     {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("SetTargetBalanceAllocationBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("SetTargetBalanceAllocation", request).await?;
-            crate::typed::decode_model("SetTargetBalanceAllocationStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = SetTargetBalanceAllocationError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("SetTargetBalanceAllocationBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("SetTargetBalanceAllocation", request, &context)
+                        .await?;
+                    crate::typed::decode_model("SetTargetBalanceAllocationStatus200", response)
+                },
+                SetTargetBalanceAllocationError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -8104,57 +8672,62 @@ impl KalshiClient {
         &self,
         parameters: &GetFcmPositionsParameters,
     ) -> Result<GetFcmPositionsStatus200, TypedError<GetFcmPositionsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFcmPositionsParameters", &parameters)?;
-            if let Some(value) = parameters.get("subtrader_id") {
-                request
-                    .query
-                    .push(("subtrader_id".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("count_filter") {
-                request
-                    .query
-                    .push(("count_filter".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("settlement_status") {
-                request.query.push((
-                    "settlement_status".into(),
-                    crate::typed::query_value(value)?,
-                ));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetFCMPositions", request).await?;
-            crate::typed::decode_model("GetFcmPositionsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFcmPositionsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetFcmPositionsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("subtrader_id") {
+                        request
+                            .query
+                            .push(("subtrader_id".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("count_filter") {
+                        request
+                            .query
+                            .push(("count_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("settlement_status") {
+                        request.query.push((
+                            "settlement_status".into(),
+                            crate::typed::query_value(value)?,
+                        ));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFCMPositions", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFcmPositionsStatus200", response)
+                },
+                GetFcmPositionsError::decode,
+            )
+            .await
     }
     pub fn get_fcm_positions_pages(
         &self,
@@ -8245,22 +8818,27 @@ impl KalshiClient {
         body: &CreateFcmPositionTransferBody,
     ) -> Result<CreateFcmPositionTransferStatus201, TypedError<CreateFcmPositionTransferError>>
     {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let body = serde_json::to_value(body)?;
-            crate::typed::validate("CreateFcmPositionTransferBody", &body)?;
-            request.body = Some(body);
-            let response = self.request("CreateFCMPositionTransfer", request).await?;
-            crate::typed::decode_model("CreateFcmPositionTransferStatus201", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = CreateFcmPositionTransferError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let body = serde_json::to_value(body)?;
+                    crate::typed::validate("CreateFcmPositionTransferBody", &body)?;
+                    request.body = Some(body);
+                    let response = self
+                        .request_in_context("CreateFCMPositionTransfer", request, &context)
+                        .await?;
+                    crate::typed::decode_model("CreateFcmPositionTransferStatus201", response)
+                },
+                CreateFcmPositionTransferError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -8288,19 +8866,24 @@ impl KalshiClient {
     pub async fn get_historical_cutoff(
         &self,
     ) -> Result<GetHistoricalCutoffStatus200, TypedError<GetHistoricalCutoffError>> {
-        let result = async {
-            let request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let response = self.request("GetHistoricalCutoff", request).await?;
-            crate::typed::decode_model("GetHistoricalCutoffStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetHistoricalCutoffError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let response = self
+                        .request_in_context("GetHistoricalCutoff", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetHistoricalCutoffStatus200", response)
+                },
+                GetHistoricalCutoffError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -8336,43 +8919,49 @@ impl KalshiClient {
         GetMarketCandlesticksHistoricalStatus200,
         TypedError<GetMarketCandlesticksHistoricalError>,
     > {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetMarketCandlesticksHistoricalParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            if let Some(value) = parameters.get("start_ts") {
-                request
-                    .query
-                    .push(("start_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("end_ts") {
-                request
-                    .query
-                    .push(("end_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("period_interval") {
-                request
-                    .query
-                    .push(("period_interval".into(), crate::typed::query_value(value)?));
-            }
-            let response = self
-                .request("GetMarketCandlesticksHistorical", request)
-                .await?;
-            crate::typed::decode_model("GetMarketCandlesticksHistoricalStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetMarketCandlesticksHistoricalError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate(
+                        "GetMarketCandlesticksHistoricalParameters",
+                        &parameters,
+                    )?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    if let Some(value) = parameters.get("start_ts") {
+                        request
+                            .query
+                            .push(("start_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("end_ts") {
+                        request
+                            .query
+                            .push(("end_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("period_interval") {
+                        request
+                            .query
+                            .push(("period_interval".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetMarketCandlesticksHistorical", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetMarketCandlesticksHistoricalStatus200", response)
+                },
+                GetMarketCandlesticksHistoricalError::decode,
+            )
+            .await
     }
 }
 #[derive(Clone)]
@@ -8412,51 +9001,56 @@ impl KalshiClient {
         &self,
         parameters: &GetFillsHistoricalParameters,
     ) -> Result<GetFillsHistoricalStatus200, TypedError<GetFillsHistoricalError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetFillsHistoricalParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetFillsHistorical", request).await?;
-            crate::typed::decode_model("GetFillsHistoricalStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetFillsHistoricalError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetFillsHistoricalParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetFillsHistorical", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetFillsHistoricalStatus200", response)
+                },
+                GetFillsHistoricalError::decode,
+            )
+            .await
     }
     pub fn get_fills_historical_pages(
         &self,
@@ -8519,51 +9113,56 @@ impl KalshiClient {
         &self,
         parameters: &GetHistoricalOrdersParameters,
     ) -> Result<GetHistoricalOrdersStatus200, TypedError<GetHistoricalOrdersError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetHistoricalOrdersParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetHistoricalOrders", request).await?;
-            crate::typed::decode_model("GetHistoricalOrdersStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetHistoricalOrdersError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetHistoricalOrdersParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetHistoricalOrders", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetHistoricalOrdersStatus200", response)
+                },
+                GetHistoricalOrdersError::decode,
+            )
+            .await
     }
     pub fn get_historical_orders_pages(
         &self,
@@ -8630,46 +9229,51 @@ impl KalshiClient {
         &self,
         parameters: &GetHistoricalPositionsParameters,
     ) -> Result<GetHistoricalPositionsStatus200, TypedError<GetHistoricalPositionsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: true,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetHistoricalPositionsParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("subaccount") {
-                request
-                    .query
-                    .push(("subaccount".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetHistoricalPositions", request).await?;
-            crate::typed::decode_model("GetHistoricalPositionsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetHistoricalPositionsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: true,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetHistoricalPositionsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("subaccount") {
+                        request
+                            .query
+                            .push(("subaccount".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetHistoricalPositions", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetHistoricalPositionsStatus200", response)
+                },
+                GetHistoricalPositionsError::decode,
+            )
+            .await
     }
     pub fn get_historical_positions_pages(
         &self,
@@ -8736,51 +9340,56 @@ impl KalshiClient {
         &self,
         parameters: &GetTradesHistoricalParameters,
     ) -> Result<GetTradesHistoricalStatus200, TypedError<GetTradesHistoricalError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetTradesHistoricalParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .query
-                    .push(("ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("min_ts") {
-                request
-                    .query
-                    .push(("min_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("max_ts") {
-                request
-                    .query
-                    .push(("max_ts".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("is_block_trade") {
-                request
-                    .query
-                    .push(("is_block_trade".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetTradesHistorical", request).await?;
-            crate::typed::decode_model("GetTradesHistoricalStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetTradesHistoricalError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetTradesHistoricalParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .query
+                            .push(("ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("min_ts") {
+                        request
+                            .query
+                            .push(("min_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("max_ts") {
+                        request
+                            .query
+                            .push(("max_ts".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("is_block_trade") {
+                        request
+                            .query
+                            .push(("is_block_trade".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetTradesHistorical", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetTradesHistoricalStatus200", response)
+                },
+                GetTradesHistoricalError::decode,
+            )
+            .await
     }
     pub fn get_trades_historical_pages(
         &self,
@@ -8840,51 +9449,56 @@ impl KalshiClient {
         &self,
         parameters: &GetHistoricalMarketsParameters,
     ) -> Result<GetHistoricalMarketsStatus200, TypedError<GetHistoricalMarketsError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetHistoricalMarketsParameters", &parameters)?;
-            if let Some(value) = parameters.get("limit") {
-                request
-                    .query
-                    .push(("limit".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("cursor") {
-                request
-                    .query
-                    .push(("cursor".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("tickers") {
-                request
-                    .query
-                    .push(("tickers".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("event_ticker") {
-                request
-                    .query
-                    .push(("event_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("series_ticker") {
-                request
-                    .query
-                    .push(("series_ticker".into(), crate::typed::query_value(value)?));
-            }
-            if let Some(value) = parameters.get("mve_filter") {
-                request
-                    .query
-                    .push(("mve_filter".into(), crate::typed::query_value(value)?));
-            }
-            let response = self.request("GetHistoricalMarkets", request).await?;
-            crate::typed::decode_model("GetHistoricalMarketsStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetHistoricalMarketsError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetHistoricalMarketsParameters", &parameters)?;
+                    if let Some(value) = parameters.get("limit") {
+                        request
+                            .query
+                            .push(("limit".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("cursor") {
+                        request
+                            .query
+                            .push(("cursor".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("tickers") {
+                        request
+                            .query
+                            .push(("tickers".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("event_ticker") {
+                        request
+                            .query
+                            .push(("event_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("series_ticker") {
+                        request
+                            .query
+                            .push(("series_ticker".into(), crate::typed::query_value(value)?));
+                    }
+                    if let Some(value) = parameters.get("mve_filter") {
+                        request
+                            .query
+                            .push(("mve_filter".into(), crate::typed::query_value(value)?));
+                    }
+                    let response = self
+                        .request_in_context("GetHistoricalMarkets", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetHistoricalMarketsStatus200", response)
+                },
+                GetHistoricalMarketsError::decode,
+            )
+            .await
     }
     pub fn get_historical_markets_pages(
         &self,
@@ -8944,25 +9558,30 @@ impl KalshiClient {
         &self,
         parameters: &GetHistoricalMarketParameters,
     ) -> Result<GetHistoricalMarketStatus200, TypedError<GetHistoricalMarketError>> {
-        let result = async {
-            let mut request = KalshiRequest {
-                authenticated: false,
-                ..Default::default()
-            };
-            let parameters = serde_json::to_value(parameters)?;
-            crate::typed::validate("GetHistoricalMarketParameters", &parameters)?;
-            if let Some(value) = parameters.get("ticker") {
-                request
-                    .path_parameters
-                    .insert("ticker".into(), crate::typed::parameter_text(value)?);
-            }
-            let response = self.request("GetHistoricalMarket", request).await?;
-            crate::typed::decode_model("GetHistoricalMarketStatus200", response)
-        }
-        .await;
-        result.map_err(|source| {
-            let payload = GetHistoricalMarketError::decode(&source);
-            TypedError::new(source, payload)
-        })
+        let context = self
+            .request_context()
+            .map_err(|source| TypedError::new(source, None))?;
+        context
+            .run_typed(
+                async {
+                    let mut request = KalshiRequest {
+                        authenticated: false,
+                        ..Default::default()
+                    };
+                    let parameters = serde_json::to_value(parameters)?;
+                    crate::typed::validate("GetHistoricalMarketParameters", &parameters)?;
+                    if let Some(value) = parameters.get("ticker") {
+                        request
+                            .path_parameters
+                            .insert("ticker".into(), crate::typed::parameter_text(value)?);
+                    }
+                    let response = self
+                        .request_in_context("GetHistoricalMarket", request, &context)
+                        .await?;
+                    crate::typed::decode_model("GetHistoricalMarketStatus200", response)
+                },
+                GetHistoricalMarketError::decode,
+            )
+            .await
     }
 }

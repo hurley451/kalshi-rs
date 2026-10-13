@@ -33,6 +33,7 @@ and Rust imports use `kalshi_client`. The crate is not yet published.
 - Native model builders with required-field checks and optional-field setters.
 - Runtime validation of documented inputs, responses and error payloads.
 - 28 lazy cursor paginators preserving complete page shapes and filters.
+- Total request deadlines, cancellation, optional shared rate limiting, and bounded GET retries.
 - Async HTTP requests with production and demo environment constants.
 - RSA-PSS or Ed25519 signing with API-key headers and canonical signing helpers.
 - Encoded path/query values and JSON request bodies.
@@ -69,8 +70,9 @@ The predictions snapshot contains 118 operations. Named methods, schema tests an
 wire tests cover that snapshot, not universal live compatibility. See [API coverage and gaps](https://github.com/hurley451/kalshi-rs/blob/main/docs/API_COVERAGE.md)
 and [official API docs](https://docs.kalshi.com).
 
-Automatic retries, rate limiting and WebSocket connection management are not
-implemented. HTTP transport can be configured with `KalshiClient::with_http_client`.
+WebSocket connection management is not implemented in this version.
+HTTP transport can be configured with `KalshiClient::builder` or
+`KalshiClient::with_http_client_builder`.
 Generic empty successes return JSON null; typed HTTP 204 operations return `()`.
 
 ## Requirements
@@ -384,9 +386,13 @@ async fn inspect_errors(client: &KalshiClient) {
 
 `KalshiError` also distinguishes missing/unused path parameters, JSON decoding,
 I/O, and helper validation errors. `KalshiError::Api` retains status, response
-headers and the JSON or text error body. Debug formatting omits credentials and
+headers, the JSON or text error body, and exact encoded `raw_body` bytes.
+`KalshiError::Response` retains bounded bytes and `raw_body_complete` when a body
+cannot be completely read or decoded. Cancellation and deadline errors do not
+claim a complete response. Debug formatting omits credentials and
 account payloads; do not log those fields directly.
-Retry policy belongs to the application. Never blindly replay a failed mutation.
+Retries are disabled by default. Configured retries apply only to GET requests;
+POST, PUT, PATCH, DELETE and other methods are never replayed by the SDK.
 
 ## Configuration
 
@@ -394,6 +400,13 @@ Retry policy belongs to the application. Never blindly replay a failed mutation.
 |---------|---------|----------|
 | `KalshiClient::new(environment, auth)` | Explicit arguments | Select environment and optional authentication |
 | `KalshiClient::production(auth)` | `PRODUCTION` | Production with required credentials |
+| `KalshiClient::builder(environment)` | Default transport | Configure authentication, HTTP builder, transport and shared limiter |
+| `TransportOptions::total_timeout` | 30 seconds | Total budget across admission, attempts, body reads and backoff; `None` disables it |
+| `TransportOptions::attempt_timeout` | None | Optional per-attempt budget |
+| `TransportOptions::retry` | One attempt | Bounded GET-only attempts; mutations always have one attempt |
+| `TransportOptions::max_response_bytes` | 64 MiB | Limit encoded bytes and each decoded content layer |
+| `RequestOptions` | Inherit client settings | Override timeout/retry and add an absolute deadline or cancellation token |
+| `LocalRateLimiter` | None | Shared, configurable read/write quotas and per-operation costs |
 | `PRODUCTION` / `DEMO` | Constants | REST and WebSocket URLs |
 | `KalshiRequest::authenticated` | `true` | False for unsigned public calls |
 | Request `path_parameters` | Empty BTreeMap | Path-template values |
@@ -404,10 +417,69 @@ Retry policy belongs to the application. Never blindly replay a failed mutation.
 | `request` timestamp | Current system time | Signing time supplied internally |
 
 Custom environments use `KalshiEnvironment` with `name`, `rest_base_url`, and
-`websocket_url`, each a static string. Use a configured reqwest client with
-`KalshiClient::with_http_client` to set transport timeouts. A caller can bound
-an async wait using its runtime, but dropping a request does not prove that a
-mutation was never accepted.
+`websocket_url`, each a static string. Customize the reqwest builder before the
+SDK applies its guards. Already-built reqwest clients are not accepted. Redirects,
+native HTTP retries and automatic content decoding remain disabled, including
+when another dependency enables reqwest's compression features.
+
+```rust,no_run
+use std::{num::NonZeroU32, time::Duration};
+use kalshi_client::{
+    DEMO, KalshiAuth, KalshiClient, KalshiError, LocalRateLimiter,
+    RateLimitOptions, RateQuota, RetryPolicy, TransportOptions,
+};
+
+fn configured_client(auth: KalshiAuth) -> Result<KalshiClient, KalshiError> {
+    let limiter = LocalRateLimiter::new(RateLimitOptions {
+        read: Some(RateQuota::per_second(NonZeroU32::new(10).unwrap())),
+        write: Some(RateQuota::per_second(NonZeroU32::new(2).unwrap())),
+        ..Default::default()
+    })?;
+    KalshiClient::builder(DEMO)
+        .auth(auth)
+        .http_builder(|http| http.connect_timeout(Duration::from_secs(5)))
+        .transport_options(TransportOptions {
+            total_timeout: Some(Duration::from_secs(20)),
+            retry: RetryPolicy::safe_get(3),
+            ..Default::default()
+        })
+        .rate_limiter(limiter)
+        .build()
+}
+```
+
+The example quotas are local application settings, not exchange account limits.
+Configure `RateLimitOptions::costs` when an endpoint costs more than the default
+one token. Client clones share the same limiter.
+
+```rust,no_run
+use std::time::Duration;
+use kalshi_client::{CancellationToken, KalshiClient, RequestOptions};
+
+fn request_scope(client: &KalshiClient, cancellation: CancellationToken) -> KalshiClient {
+    client.with_request_options(RequestOptions {
+        timeout: Some(Duration::from_secs(5)),
+        cancellation: Some(cancellation),
+        ..Default::default()
+    })
+}
+```
+
+Use the scoped client's ordinary typed methods. A retained cancellation-token
+clone cancels its requests without cancelling unrelated client calls. Inherited
+cancellation tokens and earlier absolute deadlines cannot be removed by a child
+scope. Pagers provide `with_deadline`, `with_cancellation` and
+`next_page_with_options` for traversal-wide and per-page controls.
+
+Enabled GET retries cover transient transport failures and HTTP 429, 502, 503
+and 504. They respect valid `Retry-After` values and stop when the total budget
+cannot accommodate the wait. Each physical attempt is signed and admitted again.
+Unsupported or malformed content encoding is not retried. Gzip, zlib deflate,
+Brotli and Zstandard decoding is bounded while original encoded bytes and
+response headers are retained.
+
+Cancellation or timeout does not prove that a submitted mutation was rejected
+by the exchange. Reconcile its state rather than automatically replaying it.
 
 ## Operation Lookup
 
