@@ -51,6 +51,7 @@ fn private_keys_nested_models_and_errors_redact_fake_markers() {
     let payload: ErrorResponse=serde_json::from_value(json!({"code":"FAKE_SECRET_MARKER_CODE","message":"FAKE_SECRET_MARKER_MESSAGE","details":"FAKE_SECRET_MARKER_PEM"})).unwrap();
     assert!(!format!("{payload:?}").contains("FAKE_SECRET_MARKER"));
     let api = KalshiApiError {
+        raw_body: b"FAKE_SECRET_MARKER_RAW".to_vec(),
         status: reqwest::StatusCode::BAD_REQUEST,
         headers: Default::default(),
         body: json!({"private_key":"FAKE_SECRET_MARKER_PEM"}),

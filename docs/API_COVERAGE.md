@@ -11,6 +11,8 @@ Snapshot verification is not a claim of live compatibility with later changes.
 | REST methods | 118 named async methods and domain facades |
 | Models | Complete declared inputs, responses/errors and source optionality |
 | Pagination | 28 lazy page iterators preserving filters and full page shapes |
+| Transport | Guarded HTTP builder, total/attempt budgets, cancellation and byte limits |
+| Resilience | Optional shared read/write admission and bounded GET-only retries |
 | Authentication | RSA-PSS and Ed25519 signing, API-key headers, canonical signing paths |
 | Environments | Production and demo |
 | Portfolio fills | Query helper and response parsing |
@@ -22,6 +24,10 @@ nullable and optional fields retain their distinct presence. Generic requests
 remain an escape hatch returning `serde_json::Value`. Undeclared successful
 bodies retain status, headers, decoded content and exact raw bytes.
 Async HTTP uses reqwest and requires a Tokio runtime.
+Redirects and reqwest's native retry/decompression policies are disabled after
+caller customization. The SDK retains encoded response bytes separately from
+decoded payloads and bounds both. Request controls cover queueing, attempts,
+body consumption and retry backoff; pagers also accept traversal controls.
 
 The [endpoint matrix](../tools/typed-coverage.json) records parameters, request
 bodies, responses, named methods and pagination. The
@@ -46,7 +52,6 @@ These four shared fixtures supplement endpoint/model tests. See the
 
 - Separate perps, clearing-member and manual CF REST coverage.
 - WebSocket transport, subscriptions, reconnect, and order-book state management.
-- Automatic retries, rate limiting, and cancellation configuration.
 - Credentialed integration tests and independent live API validation.
 - Public registry release and published-package consumer verification.
 

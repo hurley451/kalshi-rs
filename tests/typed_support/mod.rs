@@ -98,13 +98,9 @@ pub fn server_bytes(
         rest_base_url: Box::leak(format!("http://{address}/trade-api/v2").into_boxed_str()),
         websocket_url: "ws://unused",
     };
-    let http = reqwest::Client::builder()
-        .no_proxy()
-        .timeout(Duration::from_secs(5))
-        .build()
-        .unwrap();
+    let http = |builder: reqwest::ClientBuilder| builder.no_proxy().timeout(Duration::from_secs(5));
     (
-        KalshiClient::with_http_client(environment, auth, http),
+        KalshiClient::with_http_client_builder(environment, auth, http).unwrap(),
         server,
     )
 }

@@ -19,25 +19,45 @@ fn compile(source: &str, deps: &Path, library: &Path) -> std::process::Output {
 
 #[test]
 fn compiler_enforces_required_fields_single_assignment_and_builder_secrecy() {
-    let executable = std::env::current_exe().unwrap();
-    let deps = executable.parent().unwrap();
-    let libraries: Vec<_> = fs::read_dir(deps)
+    let target = tempfile::tempdir().unwrap();
+    let build = Command::new("cargo")
+        .args([
+            "build",
+            "--locked",
+            "--offline",
+            "--lib",
+            "--message-format=json",
+            "--manifest-path",
+        ])
+        .arg(Path::new(env!("CARGO_MANIFEST_DIR")).join("Cargo.toml"))
+        .arg("--target-dir")
+        .arg(target.path())
+        .output()
+        .unwrap();
+    assert!(
+        build.status.success(),
+        "consumer dependency build failed: {}",
+        String::from_utf8_lossy(&build.stderr)
+    );
+    let libraries: Vec<std::path::PathBuf> = String::from_utf8(build.stdout)
         .unwrap()
-        .map(|entry| entry.unwrap().path())
-        .filter(|file| {
-            file.file_name()
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .starts_with("libkalshi_client-")
-                && file
-                    .extension()
-                    .is_some_and(|extension| extension == "rlib")
+        .lines()
+        .filter_map(|line| serde_json::from_str::<serde_json::Value>(line).ok())
+        .filter(|message| {
+            message["reason"] == "compiler-artifact" && message["target"]["name"] == "kalshi_client"
+        })
+        .flat_map(|message| message["filenames"].as_array().unwrap().clone())
+        .filter_map(|file| {
+            file.as_str()
+                .filter(|file| file.ends_with(".rlib"))
+                .map(std::path::PathBuf::from)
         })
         .collect();
-    assert!(!libraries.is_empty(), "compiled SDK library missing");
+    assert_eq!(libraries.len(), 1, "exact compiled SDK library missing");
     // Each candidate must expose the API before its negative results count.
     for library in libraries {
+        let dependency_directory = library.parent().unwrap().join("deps");
+        let deps = dependency_directory.as_path();
         let positive = compile(
             r#"
             use kalshi_client::models::*;
