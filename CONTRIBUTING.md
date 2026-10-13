@@ -19,7 +19,8 @@ cargo run --locked --bin kalshicore-conformance -- --kalshicore-root /path/to/Ka
 
 ## Generated Typed Outputs
 
-Install generation dependencies from their lockfiles and run the checks:
+Use Node.js 22.19 or newer. Install generation dependencies from their lockfiles
+and run the checks:
 
 ```bash
 export KALSHICORE_ROOT=/path/to/KalshiCore
@@ -27,6 +28,7 @@ npm ci --prefix tools/probe-fixtures
 cargo fetch --locked --manifest-path tools/typed-generator/Cargo.toml
 node tools/check_generated_typed.mjs
 node --test tools/check_generated_typed.test.mjs
+node --test tools/probe-fixtures/generate.test.mjs
 ```
 
 The checker generates all 14 typed Rust, schema, coverage, manifest, and fixture

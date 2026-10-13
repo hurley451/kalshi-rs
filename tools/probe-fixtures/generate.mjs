@@ -2,7 +2,9 @@ import jsf from 'json-schema-faker';
 import RefParser from 'json-schema-ref-parser';
 import { readFile, writeFile } from 'node:fs/promises';
 const schema=JSON.parse(await readFile('src/generated/typed-schema.json','utf8'));
-const dereferenced=await RefParser.dereference(structuredClone(schema));
+const dereferenced=await RefParser.dereference(structuredClone(schema), {
+  dereference: { preservedProperties: ['example', 'examples', 'description', 'title', 'default', 'deprecated', 'readOnly', 'writeOnly'] }
+});
 const coverage=JSON.parse(await readFile('tools/typed-coverage.json','utf8'));
 jsf.option({alwaysFakeOptionals:false,optionalsProbability:0,requiredOnly:true,useDefaultValue:false,useExamplesValue:true,random:()=>0.5});
 const sample=name=>jsf.generate(dereferenced.definitions[name]);

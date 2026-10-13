@@ -77,7 +77,7 @@ Generic empty successes return JSON null; typed HTTP 204 operations return `()`.
 - A current stable Rust toolchain supporting edition 2024 and the locked dependencies.
 - A Tokio runtime for async HTTP execution.
 - Kalshi API credentials for private endpoints, separately issued for demo/production.
-- Node.js and a pinned KalshiCore checkout for contract regeneration.
+- Node.js 22.19 or newer and a pinned KalshiCore checkout for contract regeneration.
 - A KalshiCore checkout for offline conformance.
 
 The package records its immutable Core source commit in
