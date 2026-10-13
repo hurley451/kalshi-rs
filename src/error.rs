@@ -4,6 +4,8 @@ pub struct KalshiApiError {
     pub status: reqwest::StatusCode,
     pub headers: reqwest::header::HeaderMap,
     pub body: serde_json::Value,
+    /// Complete encoded HTTP entity bytes, before content decoding.
+    pub raw_body: Vec<u8>,
 }
 
 impl std::fmt::Debug for KalshiApiError {
@@ -23,8 +25,63 @@ impl std::fmt::Display for KalshiApiError {
 
 impl std::error::Error for KalshiApiError {}
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ResponseFailureReason {
+    Read,
+    EncodedSizeLimit,
+    DecodedSizeLimit,
+    UnsupportedEncoding,
+    TooManyEncodingLayers,
+    MalformedEncoding,
+}
+
+/// A response that could not be completely read or content-decoded.
+pub struct KalshiResponseError {
+    pub status: reqwest::StatusCode,
+    pub headers: reqwest::header::HeaderMap,
+    pub raw_body: Vec<u8>,
+    /// False means raw_body is only the retained, bounded prefix.
+    pub raw_body_complete: bool,
+    pub reason: ResponseFailureReason,
+    pub(crate) read_error: Option<reqwest::Error>,
+}
+
+impl std::fmt::Debug for KalshiResponseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("KalshiResponseError")
+            .field("status", &self.status)
+            .field("reason", &self.reason)
+            .field("raw_body_complete", &self.raw_body_complete)
+            .finish_non_exhaustive()
+    }
+}
+impl std::fmt::Display for KalshiResponseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "HTTP {} response could not be consumed ({:?})",
+            self.status, self.reason
+        )
+    }
+}
+impl std::error::Error for KalshiResponseError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        self.read_error.as_ref().map(|error| error as _)
+    }
+}
+
 #[derive(Debug, Error)]
 pub enum KalshiError {
+    #[error("Kalshi request cancelled")]
+    Cancelled,
+    #[error("Kalshi request total deadline exceeded")]
+    DeadlineExceeded,
+    #[error("Kalshi HTTP attempt timed out")]
+    AttemptTimeout,
+    #[error("invalid transport configuration: {0}")]
+    InvalidTransportOptions(&'static str),
+    #[error(transparent)]
+    Response(Box<KalshiResponseError>),
     #[error("typed contract error: {0}")]
     Contract(String),
     #[error("unknown Kalshi operation: {0}")]
@@ -55,7 +112,7 @@ pub enum KalshiError {
     SigningFailed,
 
     #[error("HTTP error: {0}")]
-    Http(#[from] reqwest::Error),
+    Http(#[source] reqwest::Error),
 
     #[error(transparent)]
     Api(Box<KalshiApiError>),
@@ -71,4 +128,10 @@ pub enum KalshiError {
 
     #[error("fixture error: {0}")]
     Fixture(String),
+}
+
+impl From<reqwest::Error> for KalshiError {
+    fn from(error: reqwest::Error) -> Self {
+        Self::Http(error.without_url())
+    }
 }

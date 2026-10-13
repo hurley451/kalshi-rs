@@ -68,6 +68,27 @@ impl<E> std::error::Error for TypedError<E> {
     }
 }
 
+impl crate::transport::RequestContext {
+    pub(crate) fn run_typed<'a, T: Send + 'a, E: Send + 'a>(
+        &'a self,
+        future: impl Future<Output = Result<T, KalshiError>> + Send + 'a,
+        decode_error: impl FnOnce(&KalshiError) -> Option<E> + Send + 'a,
+    ) -> Pin<Box<dyn Future<Output = Result<T, TypedError<E>>> + Send + 'a>> {
+        // Box the shared pipeline, not an executor task, to bound generated caller stack frames.
+        Box::pin(async move {
+            // Include synchronous model validation and error decoding before the final control check.
+            self.run(async {
+                Ok(future.await.map_err(|source| {
+                    let payload = decode_error(&source);
+                    TypedError::new(source, payload)
+                }))
+            })
+            .await
+            .map_err(|source| TypedError::new(source, None))?
+        })
+    }
+}
+
 pub(crate) fn contract_error(message: &str) -> KalshiError {
     KalshiError::Contract(message.into())
 }
@@ -130,23 +151,25 @@ pub(crate) fn query_value(value: &Value) -> Result<QueryValue, KalshiError> {
 }
 
 type PageFuture<'a, R, E> = Pin<Box<dyn Future<Output = Result<R, TypedError<E>>> + Send + 'a>>;
-type FetchPage<'a, P, R, E> = fn(&'a KalshiClient, P) -> PageFuture<'a, R, E>;
+type FetchPage<P, R, E> = for<'call> fn(&'call KalshiClient, P) -> PageFuture<'call, R, E>;
 
 /// Lazy cursor pagination. Requests can be retried after a transport failure.
 pub struct Pager<'a, P, R, E> {
     client: &'a KalshiClient,
     parameters: P,
-    fetch: FetchPage<'a, P, R, E>,
+    fetch: FetchPage<P, R, E>,
     set_cursor: fn(&mut P, String),
     cursor: fn(&R) -> Option<String>,
     seen: HashSet<String>,
     done: bool,
+    traversal: crate::RequestOptions,
+    traversal_cancellations: Vec<crate::CancellationToken>,
 }
 impl<'a, P: Clone + Serialize, R, E> Pager<'a, P, R, E> {
     pub(crate) fn new(
         client: &'a KalshiClient,
         parameters: P,
-        fetch: FetchPage<'a, P, R, E>,
+        fetch: FetchPage<P, R, E>,
         set_cursor: fn(&mut P, String),
         cursor: fn(&R) -> Option<String>,
     ) -> Self {
@@ -167,13 +190,49 @@ impl<'a, P: Clone + Serialize, R, E> Pager<'a, P, R, E> {
             cursor,
             seen,
             done: false,
+            traversal: crate::RequestOptions::default(),
+            traversal_cancellations: Vec::new(),
         }
     }
     pub async fn next_page(&mut self) -> Result<Option<R>, TypedError<E>> {
+        self.next_page_with_options(crate::RequestOptions::default())
+            .await
+    }
+
+    pub fn with_deadline(mut self, deadline: tokio::time::Instant) -> Self {
+        self.traversal.deadline =
+            crate::transport::earliest(self.traversal.deadline, Some(deadline));
+        self
+    }
+    pub fn with_cancellation(mut self, cancellation: crate::CancellationToken) -> Self {
+        self.traversal_cancellations.push(cancellation);
+        self
+    }
+    pub async fn next_page_with_options(
+        &mut self,
+        options: crate::RequestOptions,
+    ) -> Result<Option<R>, TypedError<E>> {
         if self.done {
             return Ok(None);
         }
-        let page = (self.fetch)(self.client, self.parameters.clone()).await?;
+        let mut client = self
+            .client
+            .with_request_options(self.traversal.clone())
+            .with_request_options(options);
+        for token in &self.traversal_cancellations {
+            client = client.with_request_options(crate::RequestOptions {
+                cancellation: Some(token.clone()),
+                ..Default::default()
+            });
+        }
+        let context = client
+            .request_context()
+            .map_err(|error| TypedError::new(error, None))?;
+        // The outer page budget also checks synchronous typed validation before cursor commit.
+        let page = context
+            .run(async { Ok((self.fetch)(&client, self.parameters.clone()).await) })
+            .await
+            .map_err(|source| TypedError::new(source, None))??;
         if let Some(cursor) = (self.cursor)(&page) {
             if !self.seen.insert(cursor.clone()) {
                 self.done = true;
@@ -188,11 +247,94 @@ impl<'a, P: Clone + Serialize, R, E> Pager<'a, P, R, E> {
         }
         Ok(Some(page))
     }
-    pub async fn collect_pages(mut self) -> Result<Vec<R>, TypedError<E>> {
+    pub async fn collect_pages(self) -> Result<Vec<R>, TypedError<E>> {
+        self.collect_pages_with_options(crate::RequestOptions::default())
+            .await
+    }
+    pub async fn collect_pages_with_options(
+        mut self,
+        options: crate::RequestOptions,
+    ) -> Result<Vec<R>, TypedError<E>> {
         let mut pages = Vec::new();
-        while let Some(page) = self.next_page().await? {
+        while let Some(page) = self.next_page_with_options(options.clone()).await? {
             pages.push(page);
         }
         Ok(pages)
+    }
+}
+
+#[cfg(test)]
+mod budget_tests {
+    use super::*;
+    use crate::{CancellationToken, RequestOptions, TransportOptions, transport::RequestContext};
+    use std::{sync::Arc, time::Duration};
+
+    fn context(timeout: Option<Duration>, token: Option<CancellationToken>) -> RequestContext {
+        RequestContext::new(
+            &TransportOptions {
+                total_timeout: timeout,
+                ..Default::default()
+            },
+            &RequestOptions::default(),
+            &token.into_iter().collect::<Vec<_>>(),
+        )
+        .unwrap()
+    }
+
+    #[tokio::test]
+    async fn synchronous_success_decode_cannot_escape_the_entry_deadline() {
+        let context = context(Some(Duration::from_millis(5)), None);
+        let result = context
+            .run_typed(
+                async {
+                    std::thread::sleep(Duration::from_millis(20));
+                    Ok(())
+                },
+                |_| None::<()>,
+            )
+            .await;
+        assert!(matches!(
+            result.unwrap_err().source,
+            KalshiError::DeadlineExceeded
+        ));
+    }
+
+    #[tokio::test]
+    async fn synchronous_error_decode_is_checked_before_returning_a_payload() {
+        let context = context(Some(Duration::from_millis(5)), None);
+        let result = context
+            .run_typed(async { Err::<(), _>(contract_error("test")) }, |_| {
+                std::thread::sleep(Duration::from_millis(20));
+                Some(())
+            })
+            .await
+            .unwrap_err();
+        assert!(matches!(result.source, KalshiError::DeadlineExceeded));
+        assert!(result.payload.is_none());
+    }
+
+    #[tokio::test]
+    async fn concurrent_cancellation_during_synchronous_decode_cannot_return_success() {
+        let token = CancellationToken::new();
+        let context = context(None, Some(token.clone()));
+        let barrier = Arc::new(std::sync::Barrier::new(2));
+        let other = barrier.clone();
+        let cancel = std::thread::spawn(move || {
+            other.wait();
+            token.cancel();
+            other.wait();
+        });
+        let result = context
+            .run_typed(
+                async {
+                    barrier.wait();
+                    barrier.wait();
+                    Ok(())
+                },
+                |_| None::<()>,
+            )
+            .await;
+        cancel.join().unwrap();
+        assert!(matches!(result.unwrap_err().source, KalshiError::Cancelled));
     }
 }

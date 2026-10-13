@@ -94,15 +94,15 @@ for(const o of ops){
   code+=`impl ${error} { fn decode(error: &KalshiError) -> Option<Self> { if let KalshiError::Api(api) = error { match api.status.as_u16() {\n${o.responses.filter(r=>!/^2/.test(r.status)).map(r=>`${r.status} => ${r.name?`crate::typed::decode_model::<${r.name}>(${rust(r.name)}, api.body.clone()).ok().map(Self::Status${r.status})`:`Some(Self::Status${r.status})`},`).join('\n')}\n_ => None, } } else { None } } }\n`;
   const args=[o.params?`parameters: &${o.params}`:null,o.bodyName?`body: ${o.bodyRequired?'&':'Option<&'}${o.bodyName}${o.bodyRequired?'':'>'}`:null].filter(Boolean).join(', ');
   const result=o.success??(o.unknownSuccess?'UnspecifiedResponse':'()');
-  code+=`impl KalshiClient {\n pub async fn ${o.method}(&self${args?', '+args:''}) -> Result<${result}, TypedError<${error}>> {\n let result = async {\n let ${o.parameters.length || o.bodyName ? 'mut ' : ''}request = KalshiRequest { authenticated: ${o.authenticated}, ..Default::default() };\n`;
+  code+=`impl KalshiClient {\n pub async fn ${o.method}(&self${args?', '+args:''}) -> Result<${result}, TypedError<${error}>> {\n let context = self.request_context().map_err(|source| TypedError::new(source, None))?;\n context.run_typed(async {\n let ${o.parameters.length || o.bodyName ? 'mut ' : ''}request = KalshiRequest { authenticated: ${o.authenticated}, ..Default::default() };\n`;
   if(o.params) code+=` let parameters = serde_json::to_value(parameters)?;\n crate::typed::validate(${rust(o.params)}, &parameters)?;\n`;
   for(const p of o.parameters){
     const insert=p.in==='path'?`request.path_parameters.insert(${rust(p.name)}.into(), crate::typed::parameter_text(value)?);`:`request.query.push((${rust(p.name)}.into(), crate::typed::query_value(value)?));`;
     code+=` if let Some(value) = parameters.get(${rust(p.name)}) { ${insert} }\n`;
   }
   if(o.bodyName) code+=o.bodyRequired?` let body = serde_json::to_value(body)?; crate::typed::validate(${rust(o.bodyName)}, &body)?; request.body = Some(body);\n`:` if let Some(body) = body { let body = serde_json::to_value(body)?; crate::typed::validate(${rust(o.bodyName)}, &body)?; request.body = Some(body); }\n`;
-  code+=o.unknownSuccess ? ` self.request_unspecified(${rust(o.id)}, request).await\n` : ` let response = self.request(${rust(o.id)}, request).await?;\n ${o.success?`crate::typed::decode_model(${rust(o.success)}, response)`:'if response.is_null() { Ok(()) } else { Err(crate::typed::contract_error("unexpected body on an empty response")) }'}\n`;
-  code+=` }.await;\n result.map_err(|source| { let payload = ${error}::decode(&source); TypedError::new(source,payload) })\n }\n`;
+  code+=o.unknownSuccess ? ` self.request_unspecified_in_context(${rust(o.id)}, request, &context).await\n` : ` let response = self.request_in_context(${rust(o.id)}, request, &context).await?;\n ${o.success?`crate::typed::decode_model(${rust(o.success)}, response)`:'if response.is_null() { Ok(()) } else { Err(crate::typed::contract_error("unexpected body on an empty response")) }'}\n`;
+  code+=` }, ${error}::decode).await\n }\n`;
   if(o.paginated){
     code+=` pub fn ${o.method}_pages(&self, parameters: ${o.params}) -> Pager<'_, ${o.params}, ${result}, ${error}> {\n Pager::new(self, parameters, |client, parameters| Box::pin(async move { client.${o.method}(&parameters).await }), |parameters, cursor| parameters.cursor = Some(cursor), |response| ${o.cursorRequired?'Some(':''}response.${o.cursorField}.clone()${o.cursorRequired?')':''}.filter(|s| !s.is_empty()))\n }\n`;
   }
