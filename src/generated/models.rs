@@ -80,7 +80,10 @@ impl ::std::convert::From<AcceptBlockTradeProposalRequest> for AcceptBlockTradeP
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AcceptBlockTradeProposalParameters {
+    #[builder(setter(into))]
     pub block_trade_proposal_id: ::std::string::String,
 }
 impl ::std::convert::From<&AcceptBlockTradeProposalParameters>
@@ -114,7 +117,8 @@ impl ::std::convert::From<&AcceptBlockTradeProposalParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AcceptBlockTradeProposalRequest {
     ///User-managed subaccount number to accept as (0 for primary, 1-63 for numbered subaccounts). Provide either this or subtrader_id, not both.
     #[serde()]
@@ -123,6 +127,7 @@ pub struct AcceptBlockTradeProposalRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     ///Subtrader ID to accept as. Provide either this or subaccount, not both.
     #[serde()]
@@ -131,8 +136,10 @@ pub struct AcceptBlockTradeProposalRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subtrader_id), into))]
     pub subtrader_id: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AcceptBlockTradeProposalRequest> for AcceptBlockTradeProposalRequest {
@@ -339,7 +346,10 @@ impl ::std::convert::From<AcceptQuoteRequest> for AcceptQuoteBody {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AcceptQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
 }
 impl ::std::convert::From<&AcceptQuoteParameters> for AcceptQuoteParameters {
@@ -371,11 +381,13 @@ impl ::std::convert::From<&AcceptQuoteParameters> for AcceptQuoteParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AcceptQuoteRequest {
     ///The side of the quote to accept (yes or no)
     pub accepted_side: AcceptQuoteRequestAcceptedSide,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AcceptQuoteRequest> for AcceptQuoteRequest {
@@ -647,8 +659,12 @@ impl ::std::convert::From<AcceptQuoteRequest> for AcceptRfqQuoteBody {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AcceptRfqQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
 }
 impl ::std::convert::From<&AcceptRfqQuoteParameters> for AcceptRfqQuoteParameters {
@@ -821,13 +837,16 @@ impl ::std::convert::From<ErrorResponse> for AcceptRfqQuoteStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AccountApiUsageLevelVolumeGoal {
     pub earn_volume_goal_fp: FixedPointCount,
     pub keep_volume_goal_fp: FixedPointCount,
     ///API usage level for this Predictions volume goal.
+    #[builder(setter(into))]
     pub level: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AccountApiUsageLevelVolumeGoal> for AccountApiUsageLevelVolumeGoal {
@@ -867,13 +886,15 @@ impl ::std::convert::From<&AccountApiUsageLevelVolumeGoal> for AccountApiUsageLe
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AccountApiUsageLevelVolumeProgress {
     ///Unix timestamp (seconds) when this progress was computed; trailing_30d_volume_fp covers the trailing 30 days ending at this time.
     pub computed_ts: i64,
     pub goals: ::std::vec::Vec<AccountApiUsageLevelVolumeGoal>,
     pub trailing_30d_volume_fp: FixedPointCount,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AccountApiUsageLevelVolumeProgress>
@@ -984,7 +1005,8 @@ impl ::std::convert::From<&AccountApiUsageLevelVolumeProgress>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AmendOrderRequest {
     ///Action of the order
     pub action: AmendOrderRequestAction,
@@ -995,6 +1017,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
     ///Updated quantity for the order (whole contracts only). If updating quantity, provide count or count_fp; if both provided they must match.
     #[serde()]
@@ -1003,6 +1026,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_count)))]
     pub count: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -1010,6 +1034,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_count_fp)))]
     pub count_fp: Option<Option<FixedPointCount>>,
     ///Exchange shard index. Defaults to 0. Use -1 to auto-route by market ticker.
     #[serde()]
@@ -1018,6 +1043,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: Option<ExchangeIndex>,
     ///Updated no price for the order in cents
     #[serde()]
@@ -1026,6 +1052,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_no_price)))]
     pub no_price: ::std::option::Option<::std::num::NonZeroU64>,
     ///Updated no price for the order in fixed-point dollars. Exactly one of yes_price, no_price, yes_price_dollars, and no_price_dollars must be passed.
     #[serde()]
@@ -1034,6 +1061,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_no_price_dollars)))]
     pub no_price_dollars: ::std::option::Option<FixedPointDollars>,
     ///Side of the order
     pub side: AmendOrderRequestSide,
@@ -1044,8 +1072,10 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: Option<u64>,
     ///Market ticker
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///The new client-specified order ID after amendment
     #[serde()]
@@ -1053,6 +1083,10 @@ pub struct AmendOrderRequest {
         default,
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
+    )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_updated_client_order_id), into)
     )]
     pub updated_client_order_id: ::std::option::Option<::std::string::String>,
     ///Updated yes price for the order in cents
@@ -1062,6 +1096,7 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_yes_price)))]
     pub yes_price: ::std::option::Option<::std::num::NonZeroU64>,
     ///Updated yes price for the order in fixed-point dollars. Exactly one of yes_price, no_price, yes_price_dollars, and no_price_dollars must be passed.
     #[serde()]
@@ -1070,8 +1105,10 @@ pub struct AmendOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_yes_price_dollars)))]
     pub yes_price_dollars: ::std::option::Option<FixedPointDollars>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AmendOrderRequest> for AmendOrderRequest {
@@ -1242,13 +1279,15 @@ impl ::std::convert::TryFrom<::std::string::String> for AmendOrderRequestSide {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AmendOrderResponse {
     ///The order before amendment
     pub old_order: Order,
     ///The order after amendment
     pub order: Order,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AmendOrderResponse> for AmendOrderResponse {
@@ -1314,7 +1353,10 @@ impl ::std::convert::From<AmendOrderV2Request> for AmendOrderV2Body {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AmendOrderV2Parameters {
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -1322,6 +1364,7 @@ pub struct AmendOrderV2Parameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&AmendOrderV2Parameters> for AmendOrderV2Parameters {
@@ -1405,7 +1448,8 @@ impl ::std::convert::From<&AmendOrderV2Parameters> for AmendOrderV2Parameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AmendOrderV2Request {
     ///The original client-specified order ID to be amended
     #[serde()]
@@ -1414,6 +1458,7 @@ pub struct AmendOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
     ///Updated total/max fillable count for the order. Set this to the order's already filled count plus the desired resting remaining count after the amend.
     pub count: FixedPointCount,
@@ -1424,6 +1469,7 @@ pub struct AmendOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///New Unix expiration timestamp in seconds. Omit to preserve the current expiry, or use 0 to remove it (good-till-canceled). A nonzero expiry must be in the future. Send the current price and total quantity for an expiry-only amendment; this preserves queue position.
     #[serde()]
@@ -1432,12 +1478,14 @@ pub struct AmendOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expiration_time)))]
     pub expiration_time: ::std::option::Option<i64>,
     ///Updated price for the order in fixed-point dollars.
     pub price: FixedPointDollars,
     ///Side of the order
     pub side: BookSide,
     ///Market ticker
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///The new client-specified order ID after amendment
     #[serde()]
@@ -1446,8 +1494,13 @@ pub struct AmendOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_updated_client_order_id), into)
+    )]
     pub updated_client_order_id: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AmendOrderV2Request> for AmendOrderV2Request {
@@ -1538,7 +1591,8 @@ impl ::std::convert::From<&AmendOrderV2Request> for AmendOrderV2Request {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AmendOrderV2Response {
     #[serde()]
     #[serde(
@@ -1546,6 +1600,7 @@ pub struct AmendOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_average_fee_paid)))]
     pub average_fee_paid: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -1553,6 +1608,7 @@ pub struct AmendOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_average_fill_price)))]
     pub average_fill_price: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -1560,6 +1616,7 @@ pub struct AmendOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -1567,7 +1624,9 @@ pub struct AmendOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fill_count)))]
     pub fill_count: Option<Option<FixedPointCount>>,
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -1575,10 +1634,12 @@ pub struct AmendOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_remaining_count)))]
     pub remaining_count: Option<Option<FixedPointCount>>,
     ///Matching engine timestamp at which the amend was processed, as Unix epoch milliseconds.
     pub ts_ms: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AmendOrderV2Response> for AmendOrderV2Response {
@@ -1881,9 +1942,11 @@ impl ::std::convert::From<ErrorResponse> for AmendOrderV2Status503 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ApiKey {
     ///Unique identifier for the API key
+    #[builder(setter(into))]
     pub api_key_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -1891,8 +1954,10 @@ pub struct ApiKey {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fcm_subtrader_id)))]
     pub fcm_subtrader_id: Option<Option<::std::string::String>>,
     ///User-provided name for the API key
+    #[builder(setter(into))]
     pub name: ::std::string::String,
     ///List of scopes granted to this API key.
     pub scopes: ::std::vec::Vec<ApiKeyScope>,
@@ -1902,8 +1967,10 @@ pub struct ApiKey {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: Option<Option<i64>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ApiKey> for ApiKey {
@@ -2135,7 +2202,8 @@ impl ::std::convert::TryFrom<::std::string::String> for ApiKeyType {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ApiUsageLevelGrant {
     pub exchange_instance: ExchangeInstance,
     #[serde()]
@@ -2144,12 +2212,16 @@ pub struct ApiUsageLevelGrant {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expires_ts)))]
     pub expires_ts: Option<Option<i64>>,
     ///API usage level this grant confers (for example, expert, premier, paragon, prime, or prestige).
+    #[builder(setter(into))]
     pub level: ::std::string::String,
     ///How the grant was created: "volume" (earned from trading volume) or "manual" (assigned by Kalshi).
+    #[builder(setter(into))]
     pub source: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ApiUsageLevelGrant> for ApiUsageLevelGrant {
@@ -2243,7 +2315,8 @@ impl ::std::convert::From<ApplySubaccountTransferRequest> for ApplySubaccountTra
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ApplySubaccountTransferRequest {
     ///Amount to transfer in cents.
     pub amount_cents: i64,
@@ -2256,12 +2329,14 @@ pub struct ApplySubaccountTransferRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///Source subaccount number (0 for primary, 1-63 for numbered subaccounts).
     pub from_subaccount: i64,
     ///Destination subaccount number (0 for primary, 1-63 for numbered subaccounts).
     pub to_subaccount: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ApplySubaccountTransferRequest> for ApplySubaccountTransferRequest {
@@ -2503,7 +2578,8 @@ impl ::std::convert::From<ErrorResponse> for ApplySubaccountTransferStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct AssociatedEvent {
     ///List of active quoters for this event.
     pub active_quoters: ::std::vec::Vec<::std::string::String>,
@@ -2515,6 +2591,7 @@ pub struct AssociatedEvent {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_size_max)))]
     pub size_max: Option<Option<i32>>,
     #[serde()]
     #[serde(
@@ -2522,10 +2599,13 @@ pub struct AssociatedEvent {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_size_min)))]
     pub size_min: Option<Option<i32>>,
     ///The event ticker.
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&AssociatedEvent> for AssociatedEvent {
@@ -2586,7 +2666,8 @@ impl ::std::convert::From<&AssociatedEvent> for AssociatedEvent {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersIndividualResponse {
     #[serde()]
     #[serde(
@@ -2594,6 +2675,7 @@ pub struct BatchCancelOrdersIndividualResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_error)))]
     pub error: Option<Option<ErrorResponse>>,
     #[serde()]
     #[serde(
@@ -2601,12 +2683,15 @@ pub struct BatchCancelOrdersIndividualResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order)))]
     pub order: Option<Option<Order>>,
     ///The order ID to identify which order had an error during batch cancellation
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///String representation of the number of contracts that were successfully canceled from this order
     pub reduced_by_fp: FixedPointCount,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersIndividualResponse>
@@ -2644,7 +2729,8 @@ impl ::std::convert::From<&BatchCancelOrdersIndividualResponse>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersRequest {
     ///An array of order IDs to cancel
     #[serde()]
@@ -2653,6 +2739,7 @@ pub struct BatchCancelOrdersRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ids)))]
     pub ids: Option<::std::vec::Vec<::std::string::String>>,
     ///An array of orders to cancel, each optionally specifying a subaccount
     #[serde()]
@@ -2661,8 +2748,10 @@ pub struct BatchCancelOrdersRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_orders)))]
     pub orders: Option<::std::vec::Vec<BatchCancelOrdersRequestOrder>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersRequest> for BatchCancelOrdersRequest {
@@ -2712,7 +2801,8 @@ impl ::std::convert::From<&BatchCancelOrdersRequest> for BatchCancelOrdersReques
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersRequestOrder {
     ///Exchange shard index. Defaults to 0. Use -1 to auto-route by market ticker.
     #[serde()]
@@ -2721,6 +2811,7 @@ pub struct BatchCancelOrdersRequestOrder {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: Option<ExchangeIndex>,
     ///Market ticker. Required when exchange_index is -1 (auto).
     #[serde()]
@@ -2729,8 +2820,10 @@ pub struct BatchCancelOrdersRequestOrder {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
     ///Order ID to cancel
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///Optional subaccount number to use for this cancellation (0 for primary, 1-63 for subaccounts)
     #[serde()]
@@ -2739,8 +2832,10 @@ pub struct BatchCancelOrdersRequestOrder {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: Option<u64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersRequestOrder> for BatchCancelOrdersRequestOrder {
@@ -2770,10 +2865,12 @@ impl ::std::convert::From<&BatchCancelOrdersRequestOrder> for BatchCancelOrdersR
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersResponse {
     pub orders: ::std::vec::Vec<BatchCancelOrdersIndividualResponse>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersResponse> for BatchCancelOrdersResponse {
@@ -2883,11 +2980,13 @@ impl ::std::convert::From<BatchCancelOrdersV2Request> for BatchCancelOrdersV2Bod
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersV2Request {
     ///An array of orders to cancel, each optionally specifying a subaccount.
     pub orders: ::std::vec::Vec<BatchCancelOrdersV2RequestOrdersItem>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersV2Request> for BatchCancelOrdersV2Request {
@@ -2933,7 +3032,8 @@ impl ::std::convert::From<&BatchCancelOrdersV2Request> for BatchCancelOrdersV2Re
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersV2RequestOrdersItem {
     ///Exchange shard index. If omitted, auto-routes when market_ticker is provided; otherwise defaults to 0. Use -1 to require auto-routing. The market_ticker field is required for auto-routing.
     #[serde()]
@@ -2942,6 +3042,7 @@ pub struct BatchCancelOrdersV2RequestOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///Market ticker. Required for auto-routing when exchange_index is omitted or -1.
     #[serde()]
@@ -2950,8 +3051,10 @@ pub struct BatchCancelOrdersV2RequestOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
     ///Order ID to cancel.
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///Optional subaccount number to use for this cancellation (0 for primary, 1-63 for subaccounts). Subaccount-restricted API keys must omit this field or pass their locked subaccount.
     #[serde()]
@@ -2960,8 +3063,10 @@ pub struct BatchCancelOrdersV2RequestOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<u64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersV2RequestOrdersItem>
@@ -3061,10 +3166,12 @@ impl ::std::convert::From<&BatchCancelOrdersV2RequestOrdersItem>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersV2Response {
     pub orders: ::std::vec::Vec<BatchCancelOrdersV2ResponseOrdersItem>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersV2Response> for BatchCancelOrdersV2Response {
@@ -3134,7 +3241,8 @@ impl ::std::convert::From<&BatchCancelOrdersV2Response> for BatchCancelOrdersV2R
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCancelOrdersV2ResponseOrdersItem {
     #[serde()]
     #[serde(
@@ -3142,6 +3250,7 @@ pub struct BatchCancelOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id)))]
     pub client_order_id: Option<Option<::std::string::String>>,
     #[serde()]
     #[serde(
@@ -3149,8 +3258,10 @@ pub struct BatchCancelOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_error)))]
     pub error: Option<Option<ErrorResponse>>,
     ///The order ID identifying which order this entry corresponds to.
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///Number of contracts that were canceled (i.e. the remaining count at time of cancellation). Zero if the cancel errored.
     pub reduced_by: FixedPointCount,
@@ -3160,8 +3271,10 @@ pub struct BatchCancelOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ts_ms)))]
     pub ts_ms: Option<Option<i64>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCancelOrdersV2ResponseOrdersItem>
@@ -3392,7 +3505,8 @@ impl ::std::convert::From<ErrorResponse> for BatchCancelOrdersV2Status500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCreateOrdersIndividualResponse {
     #[serde()]
     #[serde(
@@ -3400,6 +3514,7 @@ pub struct BatchCreateOrdersIndividualResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id)))]
     pub client_order_id: Option<Option<::std::string::String>>,
     #[serde()]
     #[serde(
@@ -3407,6 +3522,7 @@ pub struct BatchCreateOrdersIndividualResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_error)))]
     pub error: Option<Option<ErrorResponse>>,
     #[serde()]
     #[serde(
@@ -3414,8 +3530,10 @@ pub struct BatchCreateOrdersIndividualResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order)))]
     pub order: Option<Option<Order>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCreateOrdersIndividualResponse>
@@ -3450,10 +3568,12 @@ impl ::std::convert::From<&BatchCreateOrdersIndividualResponse>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCreateOrdersRequest {
     pub orders: ::std::vec::Vec<CreateOrderRequest>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCreateOrdersRequest> for BatchCreateOrdersRequest {
@@ -3483,10 +3603,12 @@ impl ::std::convert::From<&BatchCreateOrdersRequest> for BatchCreateOrdersReques
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCreateOrdersResponse {
     pub orders: ::std::vec::Vec<BatchCreateOrdersIndividualResponse>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCreateOrdersResponse> for BatchCreateOrdersResponse {
@@ -3577,10 +3699,12 @@ impl ::std::convert::From<BatchCreateOrdersV2Request> for BatchCreateOrdersV2Bod
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCreateOrdersV2Request {
     pub orders: ::std::vec::Vec<CreateOrderV2Request>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCreateOrdersV2Request> for BatchCreateOrdersV2Request {
@@ -3721,10 +3845,12 @@ impl ::std::convert::From<&BatchCreateOrdersV2Request> for BatchCreateOrdersV2Re
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCreateOrdersV2Response {
     pub orders: ::std::vec::Vec<BatchCreateOrdersV2ResponseOrdersItem>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCreateOrdersV2Response> for BatchCreateOrdersV2Response {
@@ -3833,7 +3959,8 @@ impl ::std::convert::From<&BatchCreateOrdersV2Response> for BatchCreateOrdersV2R
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchCreateOrdersV2ResponseOrdersItem {
     #[serde()]
     #[serde(
@@ -3841,6 +3968,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_average_fee_paid)))]
     pub average_fee_paid: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -3848,6 +3976,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_average_fill_price)))]
     pub average_fill_price: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -3855,6 +3984,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id)))]
     pub client_order_id: Option<Option<::std::string::String>>,
     #[serde()]
     #[serde(
@@ -3862,6 +3992,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_error)))]
     pub error: Option<Option<ErrorResponse>>,
     #[serde()]
     #[serde(
@@ -3869,6 +4000,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fill_count)))]
     pub fill_count: Option<Option<FixedPointCount>>,
     #[serde()]
     #[serde(
@@ -3876,6 +4008,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order_id), into))]
     pub order_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -3883,6 +4016,7 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_remaining_count)))]
     pub remaining_count: Option<Option<FixedPointCount>>,
     #[serde()]
     #[serde(
@@ -3890,8 +4024,10 @@ pub struct BatchCreateOrdersV2ResponseOrdersItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ts_ms)))]
     pub ts_ms: Option<Option<i64>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchCreateOrdersV2ResponseOrdersItem>
@@ -4112,6 +4248,8 @@ impl ::std::convert::From<ErrorResponse> for BatchCreateOrdersV2Status500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchGetMarketCandlesticksParameters {
     pub end_ts: i64,
     #[serde()]
@@ -4120,7 +4258,9 @@ pub struct BatchGetMarketCandlesticksParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_latest_before_start)))]
     pub include_latest_before_start: Option<bool>,
+    #[builder(setter(into))]
     pub market_tickers: ::std::string::String,
     pub period_interval: ::std::num::NonZeroU32,
     pub start_ts: i64,
@@ -4155,11 +4295,13 @@ impl ::std::convert::From<&BatchGetMarketCandlesticksParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BatchGetMarketCandlesticksResponse {
     ///Array of market candlestick data, one entry per requested market.
     pub markets: ::std::vec::Vec<MarketCandlesticksResponse>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BatchGetMarketCandlesticksResponse>
@@ -4244,7 +4386,8 @@ impl ::std::convert::From<BatchGetMarketCandlesticksResponse>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BidAskDistribution {
     ///Offer price on the market at the end of the candlestick period (in dollars).
     pub close_dollars: FixedPointDollars,
@@ -4255,6 +4398,7 @@ pub struct BidAskDistribution {
     ///Offer price on the market at the start of the candlestick period (in dollars).
     pub open_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BidAskDistribution> for BidAskDistribution {
@@ -4297,7 +4441,8 @@ impl ::std::convert::From<&BidAskDistribution> for BidAskDistribution {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BidAskDistributionHistorical {
     ///Offer price on the market at the end of the candlestick period (in dollars).
     pub close: FixedPointDollars,
@@ -4308,6 +4453,7 @@ pub struct BidAskDistributionHistorical {
     ///Offer price on the market at the start of the candlestick period (in dollars).
     pub open: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BidAskDistributionHistorical> for BidAskDistributionHistorical {
@@ -4444,7 +4590,8 @@ impl ::std::convert::From<&BidAskDistributionHistorical> for BidAskDistributionH
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BlockTradeProposal {
     ///Whether the buyer has accepted the proposal
     pub buyer_accepted: bool,
@@ -4455,6 +4602,7 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_buyer_accepted_ts)))]
     pub buyer_accepted_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Order ID for the buyer after the proposal is executed
     #[serde()]
@@ -4463,6 +4611,7 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_buyer_order_id), into))]
     pub buyer_order_id: ::std::option::Option<::std::string::String>,
     ///Subtrader ID of the buyer. Empty when the authenticated user is not the buyer.
     #[serde()]
@@ -4471,8 +4620,10 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_buyer_subtrader_id), into))]
     pub buyer_subtrader_id: ::std::option::Option<::std::string::String>,
     ///User ID of the buyer. Empty when the authenticated user is not the buyer.
+    #[builder(setter(into))]
     pub buyer_user_id: ::std::string::String,
     ///Number of contracts in centicounts
     pub centicount: i64,
@@ -4485,18 +4636,22 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_executed_ts)))]
     pub executed_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Expiration time of the proposal
     pub expiration_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Unique identifier for the block trade proposal
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///The maker side of the trade
     pub maker_side: BlockTradeProposalMakerSide,
     ///The ticker of the market for this block trade
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Price in centi-cents
     pub price_centi_cents: i64,
     ///User ID of the proposal creator
+    #[builder(setter(into))]
     pub proposer_user_id: ::std::string::String,
     ///Whether the seller has accepted the proposal
     pub seller_accepted: bool,
@@ -4507,6 +4662,7 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_seller_accepted_ts)))]
     pub seller_accepted_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Order ID for the seller after the proposal is executed
     #[serde()]
@@ -4515,6 +4671,7 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_seller_order_id), into))]
     pub seller_order_id: ::std::option::Option<::std::string::String>,
     ///Subtrader ID of the seller. Empty when the authenticated user is not the seller.
     #[serde()]
@@ -4523,14 +4680,18 @@ pub struct BlockTradeProposal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_seller_subtrader_id), into))]
     pub seller_subtrader_id: ::std::option::Option<::std::string::String>,
     ///User ID of the seller. Empty when the authenticated user is not the seller.
+    #[builder(setter(into))]
     pub seller_user_id: ::std::string::String,
     ///Current status of the proposal
+    #[builder(setter(into))]
     pub status: ::std::string::String,
     ///Timestamp when the proposal was last updated
     pub updated_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BlockTradeProposal> for BlockTradeProposal {
@@ -4707,7 +4868,8 @@ is rejected with HTTP 429.
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct BucketLimit {
     ///Maximum tokens the bucket can hold. When equal to refill_rate the
     ///bucket holds one second of budget; larger values represent burst
@@ -4718,6 +4880,7 @@ pub struct BucketLimit {
     ///Tokens added to the bucket per second.
     pub refill_rate: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&BucketLimit> for BucketLimit {
@@ -4743,6 +4906,8 @@ impl ::std::convert::From<&BucketLimit> for BucketLimit {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CancelAllOrdersParameters {
     #[serde()]
     #[serde(
@@ -4750,6 +4915,7 @@ pub struct CancelAllOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&CancelAllOrdersParameters> for CancelAllOrdersParameters {
@@ -4895,6 +5061,8 @@ impl ::std::convert::From<ErrorResponse> for CancelAllOrdersStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CancelOrderV2Parameters {
     #[serde()]
     #[serde(
@@ -4902,6 +5070,7 @@ pub struct CancelOrderV2Parameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     #[serde()]
     #[serde(
@@ -4909,7 +5078,9 @@ pub struct CancelOrderV2Parameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -4917,6 +5088,7 @@ pub struct CancelOrderV2Parameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&CancelOrderV2Parameters> for CancelOrderV2Parameters {
@@ -4963,7 +5135,8 @@ impl ::std::convert::From<&CancelOrderV2Parameters> for CancelOrderV2Parameters 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CancelOrderV2Response {
     #[serde()]
     #[serde(
@@ -4971,13 +5144,16 @@ pub struct CancelOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///Number of contracts that were canceled (i.e. the remaining count at time of cancellation).
     pub reduced_by: FixedPointCount,
     ///Matching engine timestamp at which the cancellation was processed, as Unix epoch milliseconds.
     pub ts_ms: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CancelOrderV2Response> for CancelOrderV2Response {
@@ -5176,7 +5352,10 @@ impl ::std::convert::From<EmptyResponse> for ConfirmQuoteBody {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ConfirmQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
 }
 impl ::std::convert::From<&ConfirmQuoteParameters> for ConfirmQuoteParameters {
@@ -5379,8 +5558,12 @@ impl ::std::convert::From<EmptyResponse> for ConfirmRfqQuoteBody {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ConfirmRfqQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
 }
 impl ::std::convert::From<&ConfirmRfqQuoteParameters> for ConfirmRfqQuoteParameters {
@@ -5600,7 +5783,8 @@ impl ::std::convert::From<CreateApiKeyRequest> for CreateApiKeyBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateApiKeyRequest {
     ///FCM members only. If set, binds the API key to a single FCM subtrader that you own, spelled {your_user_id}_{suffix} with a suffix of 1-16 case-sensitive ASCII alphanumeric characters. The subtrader must already exist. A bound key is the institution's trading credential for that subtrader - FIX order-entry and market-data sessions, plus margin WebSocket sessions scoped to the subtrader's own data - and is denied on every REST endpoint, including key management. Mutually exclusive with subaccount.
     #[serde()]
@@ -5609,10 +5793,13 @@ pub struct CreateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fcm_subtrader_id), into))]
     pub fcm_subtrader_id: ::std::option::Option<::std::string::String>,
     ///Name for the API key. This helps identify the key's purpose
+    #[builder(setter(into))]
     pub name: ::std::string::String,
     ///RSA or Ed25519 public key in PEM format (`-----BEGIN PUBLIC KEY-----`). This will be used to verify signatures on API requests - RSA-PSS with SHA-256 for RSA keys, Ed25519 for Ed25519 keys
+    #[builder(setter(into))]
     pub public_key: ::std::string::String,
     ///List of scopes to grant to the API key. If the broad `write` parent scope is included, `read` must also be included. Child scopes may be granted without the broad parent scope. Defaults to full access (`read`, `write`) if not provided.
     #[serde()]
@@ -5621,6 +5808,7 @@ pub struct CreateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_scopes)))]
     pub scopes: Option<::std::vec::Vec<ApiKeyScope>>,
     ///If set, restricts the API key to a single sub-account (0-63) that you own. A restricted key may only read and trade on that sub-account; it cannot act on other sub-accounts, transfer funds between sub-accounts, or create sub-accounts. Omit to leave the key unrestricted. Mutually exclusive with fcm_subtrader_id.
     #[serde()]
@@ -5629,8 +5817,10 @@ pub struct CreateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateApiKeyRequest> for CreateApiKeyRequest {
@@ -5669,9 +5859,11 @@ impl ::std::convert::From<&CreateApiKeyRequest> for CreateApiKeyRequest {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateApiKeyResponse {
     ///Unique identifier for the newly created API key
+    #[builder(setter(into))]
     pub api_key_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -5679,8 +5871,10 @@ pub struct CreateApiKeyResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_warning)))]
     pub warning: Option<Option<::std::string::String>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateApiKeyResponse> for CreateApiKeyResponse {
@@ -5815,19 +6009,24 @@ impl ::std::convert::From<CreateFcmPositionTransferRequest> for CreateFcmPositio
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateFcmPositionTransferRequest {
     ///Ticker of the market whose position is moved.
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Contracts to move, in centicounts (contracts x 100). Positive moves YES, negative moves NO. Must be a non-zero whole number of contracts, e.g. 1000 for 10 YES or -500 for 5 NO.
     pub position_centicount: i64,
     ///YES price per contract in centicents (cents x 100), in whole cents, even when moving NO. For example, 4500 is 45 cents.
     pub price_centicents: i64,
     ///Full id of the FCM subtrader giving up the position, as returned by `GET /fcm/subtraders`.
+    #[builder(setter(into))]
     pub source_subtrader_id: ::std::string::String,
     ///Subtrader under your error account that receives the position, `{error_account_id}_{suffix}` with a 1-16 character alphanumeric suffix. Created if it does not exist.
+    #[builder(setter(into))]
     pub target_subtrader_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateFcmPositionTransferRequest> for CreateFcmPositionTransferRequest {
@@ -5855,11 +6054,14 @@ impl ::std::convert::From<&CreateFcmPositionTransferRequest> for CreateFcmPositi
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateFcmPositionTransferResponse {
     ///Id of the executed transfer. Store it; no Trade API endpoint lists past transfers.
+    #[builder(setter(into))]
     pub position_transfer_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateFcmPositionTransferResponse>
@@ -6215,11 +6417,14 @@ impl ::std::convert::From<CreateFcmSubtraderRequest> for CreateFcmSubtraderBody 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateFcmSubtraderRequest {
     ///Suffix for the new subtrader, 1-16 case-sensitive ASCII alphanumeric characters ([A-Za-z0-9]). The full subtrader id becomes {your_account_id}_{suffix}.
+    #[builder(setter(into))]
     pub subtrader_suffix: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateFcmSubtraderRequest> for CreateFcmSubtraderRequest {
@@ -6247,11 +6452,14 @@ impl ::std::convert::From<&CreateFcmSubtraderRequest> for CreateFcmSubtraderRequ
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateFcmSubtraderResponse {
     ///The full id of the created subtrader.
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateFcmSubtraderResponse> for CreateFcmSubtraderResponse {
@@ -6526,7 +6734,10 @@ impl ::std::convert::From<CreateMarketInMultivariateEventCollectionRequest>
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateMarketInMultivariateEventCollectionParameters {
+    #[builder(setter(into))]
     pub collection_ticker: ::std::string::String,
 }
 impl ::std::convert::From<&CreateMarketInMultivariateEventCollectionParameters>
@@ -6566,7 +6777,8 @@ impl ::std::convert::From<&CreateMarketInMultivariateEventCollectionParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateMarketInMultivariateEventCollectionRequest {
     ///List of selected markets that act as parameters to determine which market is created.
     pub selected_markets: ::std::vec::Vec<TickerPair>,
@@ -6577,8 +6789,10 @@ pub struct CreateMarketInMultivariateEventCollectionRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_with_market_payload)))]
     pub with_market_payload: ::std::option::Option<bool>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateMarketInMultivariateEventCollectionRequest>
@@ -6617,9 +6831,11 @@ impl ::std::convert::From<&CreateMarketInMultivariateEventCollectionRequest>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateMarketInMultivariateEventCollectionResponse {
     ///Event ticker for the created market.
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     ///Market payload of the created market.
     #[serde()]
@@ -6628,10 +6844,13 @@ pub struct CreateMarketInMultivariateEventCollectionResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market)))]
     pub market: ::std::option::Option<Market>,
     ///Market ticker for the created market.
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateMarketInMultivariateEventCollectionResponse>
@@ -6910,7 +7129,8 @@ impl ::std::convert::From<CreateOrderGroupRequest> for CreateOrderGroupBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateOrderGroupRequest {
     ///Specifies the maximum number of contracts that can be matched within this group over a rolling 15-second window. Whole contracts only. Provide contracts_limit or contracts_limit_fp; if both provided they must match.
     #[serde()]
@@ -6919,6 +7139,7 @@ pub struct CreateOrderGroupRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_limit)))]
     pub contracts_limit: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -6926,6 +7147,7 @@ pub struct CreateOrderGroupRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_limit_fp)))]
     pub contracts_limit_fp: Option<Option<FixedPointCount>>,
     ///Identifier for an exchange shard. Defaults to 0.
     #[serde()]
@@ -6934,6 +7156,7 @@ pub struct CreateOrderGroupRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: Option<ExchangeIndex>,
     ///Optional subaccount number to use for this order group (0 for primary, 1-63 for subaccounts). Subaccount-restricted API keys must omit this field or pass their locked subaccount.
     #[serde()]
@@ -6942,8 +7165,10 @@ pub struct CreateOrderGroupRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<u64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateOrderGroupRequest> for CreateOrderGroupRequest {
@@ -6987,7 +7212,8 @@ impl ::std::convert::From<&CreateOrderGroupRequest> for CreateOrderGroupRequest 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateOrderGroupResponse {
     #[serde()]
     #[serde(
@@ -6995,12 +7221,15 @@ pub struct CreateOrderGroupResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///The unique identifier for the created order group
+    #[builder(setter(into))]
     pub order_group_id: ::std::string::String,
     ///Subaccount number that owns the created order group (0 for primary, 1-63 for subaccounts).
     pub subaccount: u64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateOrderGroupResponse> for CreateOrderGroupResponse {
@@ -7301,7 +7530,8 @@ impl ::std::convert::From<ErrorResponse> for CreateOrderGroupStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateOrderRequest {
     pub action: CreateOrderRequestAction,
     ///Maximum cost in cents. When specified, the order will automatically have Fill-or-Kill (FoK) behavior.
@@ -7311,6 +7541,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_buy_max_cost)))]
     pub buy_max_cost: ::std::option::Option<i64>,
     ///If this flag is set to true, the order will be canceled if the order is open and trading on the exchange is paused for any reason.
     #[serde()]
@@ -7319,6 +7550,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancel_order_on_pause)))]
     pub cancel_order_on_pause: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -7326,6 +7558,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
     ///Order quantity in contracts (whole contracts only). Provide count or count_fp; if both provided they must match.
     #[serde()]
@@ -7334,6 +7567,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_count)))]
     pub count: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -7341,6 +7575,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_count_fp)))]
     pub count_fp: Option<Option<FixedPointCount>>,
     ///Exchange shard index. Defaults to 0. Use -1 to auto-route by market ticker.
     #[serde()]
@@ -7349,6 +7584,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: Option<ExchangeIndex>,
     ///Optional Unix timestamp in seconds for when the order expires. To place
     ///an expiring order, set `time_in_force` to `good_till_canceled` and
@@ -7361,6 +7597,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expiration_ts)))]
     pub expiration_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -7368,6 +7605,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_no_price)))]
     pub no_price: ::std::option::Option<::std::num::NonZeroU64>,
     ///Submitting price of the No side in fixed-point dollars
     #[serde()]
@@ -7376,6 +7614,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_no_price_dollars)))]
     pub no_price_dollars: ::std::option::Option<FixedPointDollars>,
     ///The order group this order is part of
     #[serde()]
@@ -7384,6 +7623,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order_group_id), into))]
     pub order_group_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -7391,6 +7631,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_post_only)))]
     pub post_only: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -7398,6 +7639,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_reduce_only)))]
     pub reduce_only: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -7405,6 +7647,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_self_trade_prevention_type)))]
     pub self_trade_prevention_type: ::std::option::Option<SelfTradePreventionType>,
     ///Deprecated: Use reduce_only instead. Only accepts value of 0.
     #[serde()]
@@ -7413,6 +7656,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_sell_position_floor)))]
     pub sell_position_floor: ::std::option::Option<i64>,
     pub side: CreateOrderRequestSide,
     ///The subaccount number to use for this order. 0 is the primary subaccount.
@@ -7422,7 +7666,9 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: Option<u64>,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///Specifies how long the order remains active. Use `good_till_canceled`
     ///with `expiration_ts` for an order that should rest until a specific
@@ -7434,6 +7680,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_time_in_force)))]
     pub time_in_force: ::std::option::Option<CreateOrderRequestTimeInForce>,
     #[serde()]
     #[serde(
@@ -7441,6 +7688,7 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_yes_price)))]
     pub yes_price: ::std::option::Option<::std::num::NonZeroU64>,
     ///Submitting price of the Yes side in fixed-point dollars
     #[serde()]
@@ -7449,8 +7697,10 @@ pub struct CreateOrderRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_yes_price_dollars)))]
     pub yes_price_dollars: ::std::option::Option<FixedPointDollars>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateOrderRequest> for CreateOrderRequest {
@@ -7701,10 +7951,12 @@ impl ::std::convert::TryFrom<::std::string::String> for CreateOrderRequestTimeIn
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateOrderResponse {
     pub order: Order,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateOrderResponse> for CreateOrderResponse {
@@ -7864,7 +8116,8 @@ impl ::std::convert::From<CreateOrderV2Request> for CreateOrderV2Body {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateOrderV2Request {
     ///If this flag is set to true, the order will be canceled if the order is open and trading on the exchange is paused for any reason.
     #[serde()]
@@ -7873,6 +8126,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancel_order_on_pause)))]
     pub cancel_order_on_pause: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -7880,6 +8134,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
     ///String representation of the order quantity in contracts.
     pub count: FixedPointCount,
@@ -7890,6 +8145,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///Optional Unix timestamp in seconds for when the order expires. To place
     ///an expiring order, set `time_in_force` to `good_till_canceled` and
@@ -7903,6 +8159,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expiration_time)))]
     pub expiration_time: ::std::option::Option<i64>,
     ///The order group this order is part of
     #[serde()]
@@ -7911,6 +8168,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order_group_id), into))]
     pub order_group_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -7918,6 +8176,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_post_only)))]
     pub post_only: ::std::option::Option<bool>,
     ///Price for the order in fixed-point dollars.
     pub price: FixedPointDollars,
@@ -7928,6 +8187,7 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_reduce_only)))]
     pub reduce_only: ::std::option::Option<bool>,
     pub self_trade_prevention_type: SelfTradePreventionType,
     pub side: BookSide,
@@ -7938,7 +8198,9 @@ pub struct CreateOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<u64>,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///Specifies how long the order remains active. Use `good_till_canceled`
     ///with `expiration_time` for an order that should rest until a specific
@@ -7946,6 +8208,7 @@ pub struct CreateOrderV2Request {
     ///true good-till-canceled order. `GTT` is not a valid API value.
     pub time_in_force: CreateOrderV2RequestTimeInForce,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateOrderV2Request> for CreateOrderV2Request {
@@ -8088,7 +8351,8 @@ impl ::std::convert::TryFrom<::std::string::String> for CreateOrderV2RequestTime
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateOrderV2Response {
     ///Volume-weighted average fee paid per contract for fills resulting from this request. Only present when fill_count > 0.
     #[serde()]
@@ -8097,6 +8361,7 @@ pub struct CreateOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_average_fee_paid)))]
     pub average_fee_paid: ::std::option::Option<FixedPointDollars>,
     ///Volume-weighted average fill price. Only present when fill_count > 0.
     #[serde()]
@@ -8105,6 +8370,7 @@ pub struct CreateOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_average_fill_price)))]
     pub average_fill_price: ::std::option::Option<FixedPointDollars>,
     #[serde()]
     #[serde(
@@ -8112,15 +8378,18 @@ pub struct CreateOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
     ///Number of contracts filled immediately upon placement.
     pub fill_count: FixedPointCount,
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///Number of contracts remaining after placement. For IOC orders, this reflects the final state after unfilled contracts are canceled.
     pub remaining_count: FixedPointCount,
     ///Matching engine timestamp at which the order was processed, as Unix epoch milliseconds.
     pub ts_ms: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateOrderV2Response> for CreateOrderV2Response {
@@ -8479,7 +8748,8 @@ impl ::std::convert::From<CreateQuoteRequest> for CreateQuoteBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateQuoteRequest {
     ///The bid price for NO contracts, in dollars
     pub no_bid: FixedPointDollars,
@@ -8490,10 +8760,12 @@ pub struct CreateQuoteRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_post_only)))]
     pub post_only: ::std::option::Option<bool>,
     ///Whether to rest the remainder of the quote after execution
     pub rest_remainder: bool,
     ///The UUID of the RFQ to quote on. Pass the RFQ ID unchanged; malformed IDs return HTTP 400.
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
     ///Optional subaccount number to place the quote under (0 for primary, 1-63 for subaccounts)
     #[serde()]
@@ -8502,10 +8774,12 @@ pub struct CreateQuoteRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     ///The bid price for YES contracts, in dollars
     pub yes_bid: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateQuoteRequest> for CreateQuoteRequest {
@@ -8533,11 +8807,14 @@ impl ::std::convert::From<&CreateQuoteRequest> for CreateQuoteRequest {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateQuoteResponse {
     ///UUID of the newly created quote. Pass it unchanged in subsequent requests.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateQuoteResponse> for CreateQuoteResponse {
@@ -8794,7 +9071,8 @@ impl ::std::convert::From<CreateRfqRequest> for CreateRfqBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateRfqRequest {
     ///Whole-contract count for the RFQ. Use contracts_fp for partial contract values; if both are provided, they must match.
     #[serde()]
@@ -8803,6 +9081,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts)))]
     pub contracts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -8810,8 +9089,10 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_fp)))]
     pub contracts_fp: Option<Option<FixedPointCount>>,
     ///The ticker of the market for which to create an RFQ
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Replace the RFQ creator's public communications ID with a shared empty-input SHA-256 hash for other users. Applies to RFQ responses and broadcasts, and to quotes before successful execution. Successful execution reveals the normal ID in subsequent RFQ responses and in the executed quote. Accepting or confirming a quote does not reveal the ID. The creator always sees their normal ID. See the RFQ guide for the placeholder and visibility rules.
     #[serde()]
@@ -8820,6 +9101,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_obscure_creator_id)))]
     pub obscure_creator_id: Option<bool>,
     ///Whether to delete existing RFQs as part of this RFQ's creation
     #[serde()]
@@ -8828,6 +9110,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_replace_existing)))]
     pub replace_existing: Option<bool>,
     ///Whether to rest the remainder of the RFQ after execution
     pub rest_remainder: bool,
@@ -8838,6 +9121,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     ///The subtrader to create the RFQ for (FCM members only)
     #[serde()]
@@ -8846,6 +9130,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subtrader_id), into))]
     pub subtrader_id: ::std::option::Option<::std::string::String>,
     ///DEPRECATED: The target cost for the RFQ in centi-cents. Use target_cost_dollars instead.
     #[serde()]
@@ -8854,6 +9139,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_cost_centi_cents)))]
     pub target_cost_centi_cents: ::std::option::Option<i64>,
     ///The target cost for the RFQ in dollars
     #[serde()]
@@ -8862,6 +9148,7 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_cost_dollars)))]
     pub target_cost_dollars: ::std::option::Option<FixedPointDollars>,
     ///Sizes quotes against the target cost as principal only (contracts = target cost / price), with your taker fees charged on top of the target cost. By default (false) the target cost caps principal plus Kalshi fees, and quote sizes are reduced to make room for the fees. Only valid together with a target cost.
     #[serde()]
@@ -8870,8 +9157,10 @@ pub struct CreateRfqRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_cost_excludes_fees)))]
     pub target_cost_excludes_fees: ::std::option::Option<bool>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateRfqRequest> for CreateRfqRequest {
@@ -8899,11 +9188,14 @@ impl ::std::convert::From<&CreateRfqRequest> for CreateRfqRequest {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateRfqResponse {
     ///UUID of the newly created RFQ. Pass it unchanged in subsequent requests.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateRfqResponse> for CreateRfqResponse {
@@ -9140,7 +9432,8 @@ impl ::std::convert::From<CreateSubaccountRequest> for CreateSubaccountBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateSubaccountRequest {
     ///Identifier for an exchange shard. Defaults to 0 if unspecified.
     #[serde()]
@@ -9149,8 +9442,10 @@ pub struct CreateSubaccountRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateSubaccountRequest> for CreateSubaccountRequest {
@@ -9178,11 +9473,13 @@ impl ::std::convert::From<&CreateSubaccountRequest> for CreateSubaccountRequest 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct CreateSubaccountResponse {
     ///The sequential number assigned to this subaccount (1-63).
     pub subaccount_number: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&CreateSubaccountResponse> for CreateSubaccountResponse {
@@ -9351,13 +9648,17 @@ impl ::std::convert::From<ErrorResponse> for CreateSubaccountStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DailySchedule {
     ///Closing time in ET (Eastern Time) format HH:MM.
+    #[builder(setter(into))]
     pub close_time: ::std::string::String,
     ///Opening time in ET (Eastern Time) format HH:MM.
+    #[builder(setter(into))]
     pub open_time: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&DailySchedule> for DailySchedule {
@@ -9423,7 +9724,10 @@ impl ::std::convert::From<DecreaseOrderV2Request> for DecreaseOrderV2Body {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DecreaseOrderV2Parameters {
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -9431,6 +9735,7 @@ pub struct DecreaseOrderV2Parameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&DecreaseOrderV2Parameters> for DecreaseOrderV2Parameters {
@@ -9490,7 +9795,8 @@ impl ::std::convert::From<&DecreaseOrderV2Parameters> for DecreaseOrderV2Paramet
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DecreaseOrderV2Request {
     ///Exchange shard index. If omitted, auto-routes when market_ticker is provided; otherwise defaults to 0. Use -1 to require auto-routing by market ticker.
     #[serde()]
@@ -9499,6 +9805,7 @@ pub struct DecreaseOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///Market ticker used for auto-routing when exchange_index is omitted or -1.
     #[serde()]
@@ -9507,6 +9814,7 @@ pub struct DecreaseOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -9514,6 +9822,7 @@ pub struct DecreaseOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_reduce_by)))]
     pub reduce_by: Option<Option<FixedPointCount>>,
     #[serde()]
     #[serde(
@@ -9521,8 +9830,10 @@ pub struct DecreaseOrderV2Request {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_reduce_to)))]
     pub reduce_to: Option<Option<FixedPointCount>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&DecreaseOrderV2Request> for DecreaseOrderV2Request {
@@ -9569,7 +9880,8 @@ impl ::std::convert::From<&DecreaseOrderV2Request> for DecreaseOrderV2Request {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DecreaseOrderV2Response {
     #[serde()]
     #[serde(
@@ -9577,13 +9889,16 @@ pub struct DecreaseOrderV2Response {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_id), into))]
     pub client_order_id: ::std::option::Option<::std::string::String>,
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///Number of contracts remaining after the decrease.
     pub remaining_count: FixedPointCount,
     ///Matching engine timestamp at which the decrease was processed, as Unix epoch milliseconds.
     pub ts_ms: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&DecreaseOrderV2Response> for DecreaseOrderV2Response {
@@ -9782,7 +10097,10 @@ impl ::std::convert::From<ErrorResponse> for DecreaseOrderV2Status500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DeleteApiKeyParameters {
+    #[builder(setter(into))]
     pub api_key: ::std::string::String,
 }
 impl ::std::convert::From<&DeleteApiKeyParameters> for DeleteApiKeyParameters {
@@ -9811,7 +10129,10 @@ impl ::std::convert::From<&DeleteApiKeyParameters> for DeleteApiKeyParameters {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DeleteFcmEventContractDailyCapParameters {
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
 }
 impl ::std::convert::From<&DeleteFcmEventContractDailyCapParameters>
@@ -10064,6 +10385,8 @@ impl ::std::convert::From<ErrorResponse> for DeleteFcmEventContractDailyCapStatu
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DeleteOrderGroupParameters {
     #[serde()]
     #[serde(
@@ -10071,7 +10394,9 @@ pub struct DeleteOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
+    #[builder(setter(into))]
     pub order_group_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -10079,6 +10404,7 @@ pub struct DeleteOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&DeleteOrderGroupParameters> for DeleteOrderGroupParameters {
@@ -10243,7 +10569,10 @@ impl ::std::convert::From<ErrorResponse> for DeleteOrderGroupStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DeleteQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
 }
 impl ::std::convert::From<&DeleteQuoteParameters> for DeleteQuoteParameters {
@@ -10408,7 +10737,10 @@ impl ::std::convert::From<ErrorResponse> for DeleteQuoteStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DeleteRfqParameters {
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
 }
 impl ::std::convert::From<&DeleteRfqParameters> for DeleteRfqParameters {
@@ -10441,8 +10773,12 @@ impl ::std::convert::From<&DeleteRfqParameters> for DeleteRfqParameters {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct DeleteRfqQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
 }
 impl ::std::convert::From<&DeleteRfqQuoteParameters> for DeleteRfqQuoteParameters {
@@ -10801,7 +11137,8 @@ impl ::std::convert::From<ErrorResponse> for DeleteRfqStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Deposit {
     ///Deposit amount in cents.
     pub amount_cents: i64,
@@ -10815,8 +11152,10 @@ pub struct Deposit {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_finalized_ts)))]
     pub finalized_ts: Option<Option<i64>>,
     ///Unique identifier for the deposit.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Current status of the deposit. 'applied' means funds are reflected in balance.
     pub status: DepositStatus,
@@ -10824,6 +11163,7 @@ pub struct Deposit {
     #[serde(rename = "type")]
     pub type_: DepositType,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Deposit> for Deposit {
@@ -11069,15 +11409,19 @@ impl ::std::convert::From<::serde_json::Map<::std::string::String, ::serde_json:
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct EndpointTokenCost {
     ///Configured token cost for an endpoint whose cost differs from the default cost.
     pub cost: i64,
     ///HTTP method for the endpoint.
+    #[builder(setter(into))]
     pub method: ::std::string::String,
     ///API route path for the endpoint.
+    #[builder(setter(into))]
     pub path: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&EndpointTokenCost> for EndpointTokenCost {
@@ -11110,7 +11454,8 @@ impl ::std::convert::From<&EndpointTokenCost> for EndpointTokenCost {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ErrorResponse {
     ///Error code
     #[serde()]
@@ -11119,6 +11464,7 @@ pub struct ErrorResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_code), into))]
     pub code: ::std::option::Option<::std::string::String>,
     ///Additional details about the error, if available
     #[serde()]
@@ -11127,6 +11473,7 @@ pub struct ErrorResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_details), into))]
     pub details: ::std::option::Option<::std::string::String>,
     ///Human-readable error message
     #[serde()]
@@ -11135,8 +11482,10 @@ pub struct ErrorResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_message), into))]
     pub message: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ErrorResponse> for ErrorResponse {
@@ -11296,7 +11645,8 @@ impl ::std::convert::From<&ErrorResponse> for ErrorResponse {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct EventData {
     ///Event category (deprecated, use series-level category instead).
     #[serde()]
@@ -11305,12 +11655,15 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_category), into))]
     pub category: ::std::option::Option<::std::string::String>,
     ///Collateral-return netting type for this event: `MECNET` for mutually exclusive markets, `DIRECNET` for directional netting, or an empty string for no collateral-return netting.
     ///Netting applies within this event, not across all events in its series, and also requires netting to be enabled for the trading account or subtrader.
     ///Use `with_nested_markets=true` to retrieve the markets associated with each event.
+    #[builder(setter(into))]
     pub collateral_return_type: ::std::string::String,
     ///Unique identifier for this event.
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -11318,6 +11671,7 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     #[serde()]
     #[serde(
@@ -11325,6 +11679,7 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fee_multiplier_override)))]
     pub fee_multiplier_override: Option<Option<f64>>,
     #[serde()]
     #[serde(
@@ -11332,6 +11687,7 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fee_type_override)))]
     pub fee_type_override: Option<Option<::std::string::String>>,
     ///Timestamp of when this event's metadata was last updated.
     #[serde()]
@@ -11340,6 +11696,7 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_last_updated_ts)))]
     pub last_updated_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Array of markets associated with this event. Only populated when 'with_nested_markets=true' is specified in the request.
     #[serde()]
@@ -11348,6 +11705,7 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_markets)))]
     pub markets: Option<::std::vec::Vec<Market>>,
     ///True when `collateral_return_type` is `MECNET`: at most one market in this event can resolve to 'yes'.
     ///False for both `DIRECNET` and an empty collateral-return type. A false value does not mean collateral-return netting is unavailable. Use `collateral_return_type` to distinguish these cases.
@@ -11358,9 +11716,11 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_product_metadata)))]
     pub product_metadata:
         Option<Option<::serde_json::Map<::std::string::String, ::serde_json::Value>>>,
     ///Unique identifier for the series this event belongs to.
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub settlement_sources: ::std::option::Option<::std::vec::Vec<SettlementSource>>,
@@ -11370,6 +11730,7 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_strike_date)))]
     pub strike_date: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     #[serde()]
     #[serde(
@@ -11377,12 +11738,16 @@ pub struct EventData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_strike_period)))]
     pub strike_period: Option<Option<::std::string::String>>,
     ///Shortened descriptive title for the event.
+    #[builder(setter(into))]
     pub sub_title: ::std::string::String,
     ///Full title of the event.
+    #[builder(setter(into))]
     pub title: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&EventData> for EventData {
@@ -11456,21 +11821,26 @@ impl ::std::convert::From<&EventData> for EventData {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct EventFeeChange {
     ///Event ticker this fee change applies to
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub fee_multiplier_override: ::std::option::Option<f64>,
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub fee_type_override: ::std::option::Option<FeeType>,
     ///Unique identifier for this fee change
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Timestamp when this fee change is scheduled to take effect
     pub scheduled_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Series ticker for the event
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&EventFeeChange> for EventFeeChange {
@@ -11519,7 +11889,8 @@ impl ::std::convert::From<&EventFeeChange> for EventFeeChange {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct EventLiveData {
     ///Chart range the client should default to (e.g. `15min`, `1h`). Omitted when unset.
     #[serde()]
@@ -11528,6 +11899,7 @@ pub struct EventLiveData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_default_range), into))]
     pub default_range: ::std::option::Option<::std::string::String>,
     ///Live data details as a flexible object whose shape depends on the type.
     pub details: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -11538,6 +11910,7 @@ pub struct EventLiveData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_is_historical)))]
     pub is_historical: ::std::option::Option<bool>,
     ///Chart range menu options. Omitted when unset.
     #[serde()]
@@ -11546,11 +11919,14 @@ pub struct EventLiveData {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_range_options)))]
     pub range_options: Option<::std::vec::Vec<::std::string::String>>,
     ///Type of live data. Names the schema of the details object.
     #[serde(rename = "type")]
+    #[builder(setter(into))]
     pub type_: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&EventLiveData> for EventLiveData {
@@ -11603,11 +11979,13 @@ impl ::std::convert::From<&EventLiveData> for EventLiveData {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct EventPosition {
     ///Cost of the aggregate event position in dollars
     pub event_exposure_dollars: FixedPointDollars,
     ///Unique identifier for events
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     ///Fees paid on fill orders, in dollars
     pub fees_paid_dollars: FixedPointDollars,
@@ -11618,6 +11996,7 @@ pub struct EventPosition {
     ///String representation of the total number of shares traded on this event (including both YES and NO contracts)
     pub total_cost_shares_fp: FixedPointCount,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&EventPosition> for EventPosition {
@@ -11729,9 +12108,11 @@ impl ::std::fmt::Display for ExchangeIndex {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ExchangeIndexStatus {
     ///Description of this exchange shard.
+    #[builder(setter(into))]
     pub description: ::std::string::String,
     ///False if this exchange index is no longer taking any state changes at all. True unless under maintenance.
     pub exchange_active: bool,
@@ -11741,6 +12122,7 @@ pub struct ExchangeIndexStatus {
     ///True if trading is currently permitted on this exchange index. False outside exchange hours or during pauses.
     pub trading_active: bool,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ExchangeIndexStatus> for ExchangeIndexStatus {
@@ -11865,7 +12247,8 @@ impl ::std::convert::TryFrom<::std::string::String> for ExchangeInstance {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ExchangeStatus {
     ///False if the core Kalshi exchange is no longer taking any state changes at all. This includes but is not limited to trading, new users, and transfers. True unless we are under maintenance.
     pub exchange_active: bool,
@@ -11875,6 +12258,10 @@ pub struct ExchangeStatus {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_exchange_estimated_resume_time))
+    )]
     pub exchange_estimated_resume_time: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     ///Status of each exchange index. The top-level fields above reflect the default exchange index (0). Absent when the per-index breakdown is unavailable.
     #[serde()]
@@ -11883,6 +12270,7 @@ pub struct ExchangeStatus {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index_statuses)))]
     pub exchange_index_statuses: Option<::std::vec::Vec<ExchangeIndexStatus>>,
     ///True if intra-exchange transfers are currently permitted. False when transfers are temporarily blocked.
     #[serde()]
@@ -11891,10 +12279,15 @@ pub struct ExchangeStatus {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_intra_exchange_transfers_active))
+    )]
     pub intra_exchange_transfers_active: ::std::option::Option<bool>,
     ///True if we are currently permitting trading on the exchange. This is true during trading hours and false outside exchange hours. Kalshi reserves the right to pause at any time in case issues are detected.
     pub trading_active: bool,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ExchangeStatus> for ExchangeStatus {
@@ -11975,7 +12368,8 @@ impl ::std::convert::From<&ExchangeStatus> for ExchangeStatus {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct FcmFill {
     ///Filled contract count.
     pub count_fp: FixedPointCount,
@@ -11986,9 +12380,11 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_created_time)))]
     pub created_time: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     pub exchange_index: ExchangeIndex,
     ///Fill ID.
+    #[builder(setter(into))]
     pub fill_id: ::std::string::String,
     ///Maker fee in dollars when owned by the FCM.
     #[serde()]
@@ -11997,6 +12393,7 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_maker_fee_cost)))]
     pub maker_fee_cost: ::std::option::Option<FixedPointDollars>,
     ///Maker order ID when owned by the FCM.
     #[serde()]
@@ -12005,6 +12402,7 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_maker_order_id), into))]
     pub maker_order_id: ::std::option::Option<::std::string::String>,
     ///Maker subtrader ID when owned by the FCM.
     #[serde()]
@@ -12013,6 +12411,7 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_maker_subtrader_id), into))]
     pub maker_subtrader_id: ::std::option::Option<::std::string::String>,
     ///Taker fee in dollars when owned by the FCM.
     #[serde()]
@@ -12021,6 +12420,7 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_taker_fee_cost)))]
     pub taker_fee_cost: ::std::option::Option<FixedPointDollars>,
     ///Taker order ID when owned by the FCM.
     #[serde()]
@@ -12029,6 +12429,7 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_taker_order_id), into))]
     pub taker_order_id: ::std::option::Option<::std::string::String>,
     ///Taker outcome side. The maker has the opposite outcome.
     pub taker_outcome_side: OutcomeSide,
@@ -12039,12 +12440,15 @@ pub struct FcmFill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_taker_subtrader_id), into))]
     pub taker_subtrader_id: ::std::option::Option<::std::string::String>,
     ///Market ticker.
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///YES price in dollars.
     pub yes_price_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&FcmFill> for FcmFill {
@@ -12096,7 +12500,8 @@ impl ::std::convert::From<&FcmFill> for FcmFill {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct FcmSubtrader {
     ///Exchange indices where this subtrader has been observed.
     pub exchange_indices: ::std::vec::Vec<i32>,
@@ -12105,10 +12510,12 @@ pub struct FcmSubtrader {
     ///Whether a configured per-subtrader block is awaiting engine application.
     pub propagation_pending: bool,
     ///Full subtrader identifier owned by the authenticated FCM.
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
     ///Effective trading block, including firm-wide and Kalshi restrictions.
     pub trading_blocked: bool,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&FcmSubtrader> for FcmSubtrader {
@@ -12322,7 +12729,8 @@ impl ::std::convert::TryFrom<::std::string::String> for FeeType {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Fill {
     ///Deprecated. Use `outcome_side` (or `book_side`) instead. See [Order direction](/getting_started/order_direction). This field will not be removed before May 14, 2026.
     #[serde()]
@@ -12331,6 +12739,7 @@ pub struct Fill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_action)))]
     pub action: ::std::option::Option<FillAction>,
     ///Same directional bit as outcome_side in book vocabulary. 'bid' is equivalent to outcome_side 'yes'; 'ask' is equivalent to outcome_side 'no'.
     ///
@@ -12345,19 +12754,23 @@ pub struct Fill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_created_time)))]
     pub created_time: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     pub exchange_index: ExchangeIndex,
     ///Fee cost in fixed-point dollars
     pub fee_cost: FixedPointDollars,
     ///Unique identifier for this fill
+    #[builder(setter(into))]
     pub fill_id: ::std::string::String,
     ///If true, this fill was a taker (removed liquidity from the order book)
     pub is_taker: bool,
     ///Unique identifier for the market (legacy field name, same as ticker)
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Fill price for the no side in fixed-point dollars
     pub no_price_dollars: FixedPointDollars,
     ///Unique identifier for the order that resulted in this fill
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///The outcome side this fill positioned the user for. buy-yes and sell-no produce 'yes'; buy-no and sell-yes produce 'no'.
     ///
@@ -12372,6 +12785,7 @@ pub struct Fill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_side)))]
     pub side: ::std::option::Option<FillSide>,
     #[serde()]
     #[serde(
@@ -12379,10 +12793,13 @@ pub struct Fill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount_number)))]
     pub subaccount_number: Option<Option<i64>>,
     ///Unique identifier for the market
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///Unique identifier for this fill (legacy field name, same as fill_id)
+    #[builder(setter(into))]
     pub trade_id: ::std::string::String,
     ///Unix timestamp when this fill was executed (legacy field name)
     #[serde()]
@@ -12391,10 +12808,12 @@ pub struct Fill {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ts)))]
     pub ts: ::std::option::Option<i64>,
     ///Fill price for the yes side in fixed-point dollars
     pub yes_price_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Fill> for Fill {
@@ -12680,17 +13099,20 @@ impl ::std::fmt::Display for FixedPointDollars {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ForecastPercentilesPoint {
     ///Unix timestamp for the inclusive end of the forecast period.
     pub end_period_ts: i64,
     ///The event ticker this forecast is for.
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     ///Array of forecast values at different percentiles.
     pub percentile_points: ::std::vec::Vec<PercentilePoint>,
     ///Length of the forecast period in minutes.
     pub period_interval: i32,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ForecastPercentilesPoint> for ForecastPercentilesPoint {
@@ -12772,7 +13194,8 @@ impl ::std::convert::From<GenerateApiKeyRequest> for GenerateApiKeyBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GenerateApiKeyRequest {
     ///FCM members only. If set, binds the API key to a single FCM subtrader that you own, spelled {your_user_id}_{suffix} with a suffix of 1-16 case-sensitive ASCII alphanumeric characters. The subtrader must already exist. A bound key is the institution's trading credential for that subtrader - FIX order-entry and market-data sessions, plus margin WebSocket sessions scoped to the subtrader's own data - and is denied on every REST endpoint, including key management. Mutually exclusive with subaccount.
     #[serde()]
@@ -12781,6 +13204,7 @@ pub struct GenerateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fcm_subtrader_id), into))]
     pub fcm_subtrader_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -12788,8 +13212,10 @@ pub struct GenerateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_key_type)))]
     pub key_type: ::std::option::Option<ApiKeyType>,
     ///Name for the API key. This helps identify the key's purpose
+    #[builder(setter(into))]
     pub name: ::std::string::String,
     ///List of scopes to grant to the API key. If the broad `write` parent scope is included, `read` must also be included. Child scopes may be granted without the broad parent scope. Defaults to full access (`read`, `write`) if not provided.
     #[serde()]
@@ -12798,6 +13224,7 @@ pub struct GenerateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_scopes)))]
     pub scopes: Option<::std::vec::Vec<ApiKeyScope>>,
     ///If set, restricts the API key to a single sub-account (0-63) that you own. A restricted key may only read and trade on that sub-account; it cannot act on other sub-accounts, transfer funds between sub-accounts, or create sub-accounts. Omit to leave the key unrestricted. Mutually exclusive with fcm_subtrader_id.
     #[serde()]
@@ -12806,8 +13233,10 @@ pub struct GenerateApiKeyRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GenerateApiKeyRequest> for GenerateApiKeyRequest {
@@ -12854,9 +13283,11 @@ impl ::std::convert::From<&GenerateApiKeyRequest> for GenerateApiKeyRequest {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GenerateApiKeyResponse {
     ///Unique identifier for the newly generated API key
+    #[builder(setter(into))]
     pub api_key_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -12864,8 +13295,10 @@ pub struct GenerateApiKeyResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_key_type)))]
     pub key_type: ::std::option::Option<ApiKeyType>,
     ///Private key in PEM format - PKCS#1 (`-----BEGIN RSA PRIVATE KEY-----`) for `rsa`, PKCS#8 (`-----BEGIN PRIVATE KEY-----`) for `ed25519`. This must be stored securely and cannot be retrieved again after this response
+    #[builder(setter(into))]
     pub private_key: ::std::string::String,
     #[serde()]
     #[serde(
@@ -12873,8 +13306,10 @@ pub struct GenerateApiKeyResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_warning)))]
     pub warning: Option<Option<::std::string::String>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GenerateApiKeyResponse> for GenerateApiKeyResponse {
@@ -12953,15 +13388,18 @@ impl ::std::convert::From<GenerateApiKeyResponse> for GenerateApiKeyStatus201 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetAccountApiLimitsResponse {
     ///The caller's active API usage level grants across exchange lanes, where each grant applies to its exchange_instance and usage_tier reflects the effective tier for the lane reported by this endpoint.
     pub grants: ::std::vec::Vec<ApiUsageLevelGrant>,
     pub read: BucketLimit,
     ///User's effective Predictions API usage tier for these limits (for example, basic, advanced, expert, premier, paragon, prime, or prestige).
+    #[builder(setter(into))]
     pub usage_tier: ::std::string::String,
     pub write: BucketLimit,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetAccountApiLimitsResponse> for GetAccountApiLimitsResponse {
@@ -13026,11 +13464,13 @@ impl ::std::convert::From<GetAccountApiLimitsResponse> for GetAccountApiLimitsSt
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetAccountApiUsageLevelVolumeProgressResponse {
     ///Latest cron-computed trading volume progress toward volume-based API usage tiers for the predictions (event_contract) lane. Volume-based public tiers are Expert, Premier, Paragon, Prime, and Prestige.
     pub volume_progress: ::std::vec::Vec<AccountApiUsageLevelVolumeProgress>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetAccountApiUsageLevelVolumeProgressResponse>
@@ -13110,13 +13550,15 @@ impl ::std::convert::From<GetAccountApiUsageLevelVolumeProgressResponse>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetAccountEndpointCostsResponse {
     ///Default token cost applied to endpoints that are not listed in `endpoint_costs`. This is currently 10.
     pub default_cost: i64,
     ///API v2 endpoints whose configured token cost differs from `default_cost`. Endpoints that use the default cost are omitted.
     pub endpoint_costs: ::std::vec::Vec<EndpointTokenCost>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetAccountEndpointCostsResponse> for GetAccountEndpointCostsResponse {
@@ -13176,6 +13618,8 @@ impl ::std::convert::From<GetAccountEndpointCostsResponse> for GetAccountEndpoin
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetApiKeysParameters {
     #[serde()]
     #[serde(
@@ -13183,6 +13627,7 @@ pub struct GetApiKeysParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fcm_subtrader_id), into))]
     pub fcm_subtrader_id: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetApiKeysParameters> for GetApiKeysParameters {
@@ -13232,7 +13677,8 @@ impl ::std::default::Default for GetApiKeysParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetApiKeysResponse {
     #[serde()]
     #[serde(
@@ -13240,10 +13686,15 @@ pub struct GetApiKeysResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_api_key_region_expiration_ts))
+    )]
     pub api_key_region_expiration_ts: Option<Option<i64>>,
     ///List of all API keys associated with the user
     pub api_keys: ::std::vec::Vec<ApiKey>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetApiKeysResponse> for GetApiKeysResponse {
@@ -13306,6 +13757,8 @@ impl ::std::convert::From<GetApiKeysResponse> for GetApiKeysStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetBalanceParameters {
     #[serde()]
     #[serde(
@@ -13313,6 +13766,7 @@ pub struct GetBalanceParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     #[serde()]
     #[serde(
@@ -13320,6 +13774,7 @@ pub struct GetBalanceParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&GetBalanceParameters> for GetBalanceParameters {
@@ -13380,7 +13835,8 @@ impl ::std::default::Default for GetBalanceParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetBalanceResponse {
     ///Member's available balance in cents for the requested account and exchange index. It includes all exchange indexes when `exchange_index` is omitted.
     pub balance: i64,
@@ -13391,6 +13847,7 @@ pub struct GetBalanceResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_balance_breakdown)))]
     pub balance_breakdown: Option<::std::vec::Vec<IndexedBalance>>,
     ///Member's available balance as a fixed-point dollar string for the requested account and exchange index. It includes all exchange indexes when `exchange_index` is omitted.
     pub balance_dollars: FixedPointDollars,
@@ -13399,6 +13856,7 @@ pub struct GetBalanceResponse {
     ///Unix timestamp of the last update to the balance.
     pub updated_ts: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetBalanceResponse> for GetBalanceResponse {
@@ -13541,6 +13999,8 @@ impl ::std::convert::From<ErrorResponse> for GetBalanceStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetBlockTradeProposalsParameters {
     #[serde()]
     #[serde(
@@ -13548,6 +14008,7 @@ pub struct GetBlockTradeProposalsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -13555,6 +14016,7 @@ pub struct GetBlockTradeProposalsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU32>,
     #[serde()]
     #[serde(
@@ -13562,6 +14024,7 @@ pub struct GetBlockTradeProposalsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -13569,6 +14032,7 @@ pub struct GetBlockTradeProposalsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status), into))]
     pub status: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetBlockTradeProposalsParameters> for GetBlockTradeProposalsParameters {
@@ -13614,7 +14078,8 @@ impl ::std::default::Default for GetBlockTradeProposalsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetBlockTradeProposalsResponse {
     ///List of block trade proposals
     pub block_trade_proposals: ::std::vec::Vec<BlockTradeProposal>,
@@ -13625,8 +14090,10 @@ pub struct GetBlockTradeProposalsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetBlockTradeProposalsResponse> for GetBlockTradeProposalsResponse {
@@ -13790,11 +14257,14 @@ impl ::std::convert::From<ErrorResponse> for GetBlockTradeProposalsStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetCommunicationsIdResponse {
     ///A public communications ID which is used to identify the user
+    #[builder(setter(into))]
     pub communications_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetCommunicationsIdResponse> for GetCommunicationsIdResponse {
@@ -13933,6 +14403,8 @@ impl ::std::convert::From<ErrorResponse> for GetCommunicationsIdStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetDepositsParameters {
     #[serde()]
     #[serde(
@@ -13940,6 +14412,7 @@ pub struct GetDepositsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -13947,6 +14420,7 @@ pub struct GetDepositsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
 }
 impl ::std::convert::From<&GetDepositsParameters> for GetDepositsParameters {
@@ -13987,7 +14461,8 @@ impl ::std::default::Default for GetDepositsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetDepositsResponse {
     #[serde()]
     #[serde(
@@ -13995,9 +14470,11 @@ pub struct GetDepositsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     pub deposits: ::std::vec::Vec<Deposit>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetDepositsResponse> for GetDepositsResponse {
@@ -14181,7 +14658,8 @@ impl ::std::convert::From<ErrorResponse> for GetDepositsStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventCandlesticksResponse {
     ///Adjusted end timestamp if the requested candlesticks would be larger than maxAggregateCandidates.
     pub adjusted_end_ts: i64,
@@ -14190,6 +14668,7 @@ pub struct GetEventCandlesticksResponse {
     ///Array of market tickers in the event.
     pub market_tickers: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventCandlesticksResponse> for GetEventCandlesticksResponse {
@@ -14229,6 +14708,8 @@ impl ::std::convert::From<&GetEventCandlesticksResponse> for GetEventCandlestick
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventFeeChangesParameters {
     #[serde()]
     #[serde(
@@ -14236,6 +14717,7 @@ pub struct GetEventFeeChangesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -14243,6 +14725,7 @@ pub struct GetEventFeeChangesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -14250,6 +14733,7 @@ pub struct GetEventFeeChangesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
 }
 impl ::std::convert::From<&GetEventFeeChangesParameters> for GetEventFeeChangesParameters {
@@ -14293,12 +14777,15 @@ impl ::std::default::Default for GetEventFeeChangesParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventFeeChangesResponse {
     ///Pagination cursor for the next page. Empty if there are no more results.
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     pub event_fee_changes: ::std::vec::Vec<EventFeeChange>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventFeeChangesResponse> for GetEventFeeChangesResponse {
@@ -14465,12 +14952,16 @@ impl ::std::convert::From<ErrorResponse> for GetEventFeeChangesStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventForecastPercentilesHistoryParameters {
     pub end_ts: i64,
     pub percentiles: ::std::vec::Vec<i32>,
     pub period_interval: GetEventForecastPercentilesHistoryParametersPeriodInterval,
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     pub start_ts: i64,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetEventForecastPercentilesHistoryParameters>
@@ -14560,11 +15051,13 @@ impl<'de> ::serde::Deserialize<'de> for GetEventForecastPercentilesHistoryParame
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventForecastPercentilesHistoryResponse {
     ///Array of forecast percentile data points over time.
     pub forecast_history: ::std::vec::Vec<ForecastPercentilesPoint>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventForecastPercentilesHistoryResponse>
@@ -14640,7 +15133,10 @@ impl ::std::convert::From<GetEventForecastPercentilesHistoryResponse>
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventLiveDataParameters {
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -14648,6 +15144,7 @@ pub struct GetEventLiveDataParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_range), into))]
     pub range: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetEventLiveDataParameters> for GetEventLiveDataParameters {
@@ -14674,10 +15171,12 @@ impl ::std::convert::From<&GetEventLiveDataParameters> for GetEventLiveDataParam
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventLiveDataResponse {
     pub live_data: EventLiveData,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventLiveDataResponse> for GetEventLiveDataResponse {
@@ -14740,7 +15239,10 @@ impl ::std::convert::From<GetEventLiveDataResponse> for GetEventLiveDataStatus20
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventMetadataParameters {
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetEventMetadataParameters> for GetEventMetadataParameters {
@@ -14814,7 +15316,8 @@ impl ::std::convert::From<&GetEventMetadataParameters> for GetEventMetadataParam
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventMetadataResponse {
     #[serde()]
     #[serde(
@@ -14822,6 +15325,7 @@ pub struct GetEventMetadataResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_competition)))]
     pub competition: Option<Option<::std::string::String>>,
     #[serde()]
     #[serde(
@@ -14829,6 +15333,7 @@ pub struct GetEventMetadataResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_competition_scope)))]
     pub competition_scope: Option<Option<::std::string::String>>,
     ///A path to an image that represents the image of the featured market.
     #[serde()]
@@ -14837,14 +15342,17 @@ pub struct GetEventMetadataResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_featured_image_url), into))]
     pub featured_image_url: ::std::option::Option<::std::string::String>,
     ///A path to an image that represents this event.
+    #[builder(setter(into))]
     pub image_url: ::std::string::String,
     ///Metadata for the markets in this event.
     pub market_details: ::std::vec::Vec<MarketMetadata>,
     ///A list of settlement sources for this event.
     pub settlement_sources: ::std::vec::Vec<SettlementSource>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventMetadataResponse> for GetEventMetadataResponse {
@@ -14912,7 +15420,10 @@ impl ::std::convert::From<GetEventMetadataResponse> for GetEventMetadataStatus20
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventParameters {
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -14920,6 +15431,7 @@ pub struct GetEventParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_with_nested_markets)))]
     pub with_nested_markets: Option<bool>,
 }
 impl ::std::convert::From<&GetEventParameters> for GetEventParameters {
@@ -14955,13 +15467,15 @@ impl ::std::convert::From<&GetEventParameters> for GetEventParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventResponse {
     ///Data for the event.
     pub event: EventData,
     ///Data for the markets in this event. This field is deprecated in favour of the "markets" field inside the event. Which will be filled with the same value if you use the query parameter "with_nested_markets=true".
     pub markets: ::std::vec::Vec<Market>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventResponse> for GetEventResponse {
@@ -15059,6 +15573,8 @@ impl ::std::convert::From<GetEventResponse> for GetEventStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventsParameters {
     #[serde()]
     #[serde(
@@ -15066,6 +15582,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -15073,6 +15590,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -15080,6 +15598,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_close_ts)))]
     pub min_close_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -15087,6 +15606,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_updated_ts)))]
     pub min_updated_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -15094,6 +15614,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_series_ticker), into))]
     pub series_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -15101,6 +15622,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status)))]
     pub status: ::std::option::Option<GetEventsParametersStatus>,
     #[serde()]
     #[serde(
@@ -15108,6 +15630,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_tickers), into))]
     pub tickers: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -15115,6 +15638,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_with_milestones)))]
     pub with_milestones: Option<bool>,
     #[serde()]
     #[serde(
@@ -15122,6 +15646,7 @@ pub struct GetEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_with_nested_markets)))]
     pub with_nested_markets: Option<bool>,
 }
 impl ::std::convert::From<&GetEventsParameters> for GetEventsParameters {
@@ -15257,9 +15782,11 @@ impl ::std::convert::TryFrom<::std::string::String> for GetEventsParametersStatu
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetEventsResponse {
     ///Pagination cursor for the next page. Empty if there are no more results.
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     ///Array of events matching the query criteria.
     pub events: ::std::vec::Vec<EventData>,
@@ -15270,8 +15797,10 @@ pub struct GetEventsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_milestones)))]
     pub milestones: Option<::std::vec::Vec<Milestone>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetEventsResponse> for GetEventsResponse {
@@ -15332,10 +15861,12 @@ impl ::std::convert::From<GetEventsResponse> for GetEventsStatus200 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetExchangeScheduleResponse {
     pub schedule: Schedule,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetExchangeScheduleResponse> for GetExchangeScheduleResponse {
@@ -15532,6 +16063,8 @@ impl ::std::convert::From<ExchangeStatus> for GetExchangeStatusStatus504 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmEventContractDailyCapParameters {
     #[serde()]
     #[serde(
@@ -15539,6 +16072,7 @@ pub struct GetFcmEventContractDailyCapParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subtrader_id), into))]
     pub subtrader_id: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetFcmEventContractDailyCapParameters>
@@ -15593,16 +16127,20 @@ impl ::std::default::Default for GetFcmEventContractDailyCapParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmEventContractDailyCapResponse {
     ///The New York calendar date the executed utilization applies to. Executed utilization resets at midnight New York time; resting and pending reservations persist while their orders remain open.
+    #[builder(setter(into))]
     pub cap_date: ::std::string::String,
     pub executed_utilization: FixedPointDollars,
     pub limit: FixedPointDollars,
     pub pending_order_utilization: FixedPointDollars,
     pub resting_order_utilization: FixedPointDollars,
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetFcmEventContractDailyCapResponse>
@@ -15859,6 +16397,8 @@ impl ::std::convert::From<ErrorResponse> for GetFcmEventContractDailyCapStatus50
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmFillsParameters {
     #[serde()]
     #[serde(
@@ -15866,6 +16406,7 @@ pub struct GetFcmFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -15873,6 +16414,7 @@ pub struct GetFcmFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -15880,6 +16422,7 @@ pub struct GetFcmFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&GetFcmFillsParameters> for GetFcmFillsParameters {
@@ -15922,11 +16465,14 @@ impl ::std::default::Default for GetFcmFillsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmFillsResponse {
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     pub fills: ::std::vec::Vec<FcmFill>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetFcmFillsResponse> for GetFcmFillsResponse {
@@ -16024,6 +16570,8 @@ impl ::std::convert::From<GetFcmFillsResponse> for GetFcmFillsStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmOrdersParameters {
     #[serde()]
     #[serde(
@@ -16031,6 +16579,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_order_ids), into))]
     pub client_order_ids: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16038,6 +16587,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16045,6 +16595,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16052,6 +16603,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -16059,6 +16611,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16066,6 +16619,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16073,6 +16627,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status)))]
     pub status: ::std::option::Option<GetFcmOrdersParametersStatus>,
     #[serde()]
     #[serde(
@@ -16080,6 +16635,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subtrader_id), into))]
     pub subtrader_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16087,6 +16643,7 @@ pub struct GetFcmOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetFcmOrdersParameters> for GetFcmOrdersParameters {
@@ -16262,6 +16819,8 @@ impl ::std::convert::From<GetOrdersResponse> for GetFcmOrdersStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmPositionsParameters {
     #[serde()]
     #[serde(
@@ -16269,6 +16828,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_count_filter), into))]
     pub count_filter: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16276,6 +16836,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16283,6 +16844,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16290,6 +16852,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -16297,6 +16860,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_settlement_status)))]
     pub settlement_status: ::std::option::Option<GetFcmPositionsParametersSettlementStatus>,
     #[serde()]
     #[serde(
@@ -16304,6 +16868,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subtrader_id), into))]
     pub subtrader_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16311,6 +16876,7 @@ pub struct GetFcmPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetFcmPositionsParameters> for GetFcmPositionsParameters {
@@ -16459,7 +17025,10 @@ impl ::std::convert::From<GetPositionsResponse> for GetFcmPositionsStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmSubtraderBlockedCategoriesParameters {
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetFcmSubtraderBlockedCategoriesParameters>
@@ -16492,11 +17061,13 @@ impl ::std::convert::From<&GetFcmSubtraderBlockedCategoriesParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFcmSubtraderBlockedCategoriesResponse {
     ///The event categories blocked for the subtrader, sorted ascending. Empty when no categories are blocked.
     pub categories: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetFcmSubtraderBlockedCategoriesResponse>
@@ -16734,6 +17305,8 @@ impl ::std::convert::From<ErrorResponse> for GetFcmSubtraderBlockedCategoriesSta
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFillsHistoricalParameters {
     #[serde()]
     #[serde(
@@ -16741,6 +17314,7 @@ pub struct GetFillsHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16748,6 +17322,7 @@ pub struct GetFillsHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -16755,6 +17330,7 @@ pub struct GetFillsHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16762,6 +17338,7 @@ pub struct GetFillsHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16769,6 +17346,7 @@ pub struct GetFillsHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16776,6 +17354,7 @@ pub struct GetFillsHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetFillsHistoricalParameters> for GetFillsHistoricalParameters {
@@ -16919,6 +17498,8 @@ impl ::std::convert::From<ErrorResponse> for GetFillsHistoricalStatus404 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFillsParameters {
     #[serde()]
     #[serde(
@@ -16926,6 +17507,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16933,6 +17515,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<i32>,
     #[serde()]
     #[serde(
@@ -16940,6 +17523,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -16947,6 +17531,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16954,6 +17539,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16961,6 +17547,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order_id), into))]
     pub order_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -16968,6 +17555,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -16975,6 +17563,7 @@ pub struct GetFillsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetFillsParameters> for GetFillsParameters {
@@ -17022,11 +17611,14 @@ impl ::std::default::Default for GetFillsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFillsResponse {
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     pub fills: ::std::vec::Vec<Fill>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetFillsResponse> for GetFillsResponse {
@@ -17099,13 +17691,15 @@ impl ::std::convert::From<GetFillsResponse> for GetFillsStatus200 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetFiltersBySportsResponse {
     ///Mapping of sports to their filter details
     pub filters_by_sports: ::std::collections::HashMap<::std::string::String, SportFilterDetails>,
     ///Ordered list of sports for display
     pub sport_ordering: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetFiltersBySportsResponse> for GetFiltersBySportsResponse {
@@ -17168,7 +17762,10 @@ impl ::std::convert::From<GetFiltersBySportsResponse> for GetFiltersForSportsSta
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetGameStatsParameters {
+    #[builder(setter(into))]
     pub milestone_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetGameStatsParameters> for GetGameStatsParameters {
@@ -17192,7 +17789,8 @@ impl ::std::convert::From<&GetGameStatsParameters> for GetGameStatsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetGameStatsResponse {
     #[serde()]
     #[serde(
@@ -17200,8 +17798,10 @@ pub struct GetGameStatsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_pbp)))]
     pub pbp: ::std::option::Option<PlayByPlay>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetGameStatsResponse> for GetGameStatsResponse {
@@ -17281,7 +17881,8 @@ impl ::std::convert::From<GetGameStatsResponse> for GetGameStatsStatus200 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetHistoricalCutoffResponse {
     ///Cutoff based on **position last-update time**. Settled positions archived from the live data set before this timestamp are served through the historical section of position reads.
     #[serde()]
@@ -17289,6 +17890,10 @@ pub struct GetHistoricalCutoffResponse {
         default,
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
+    )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_market_positions_last_updated_ts))
     )]
     pub market_positions_last_updated_ts:
         ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
@@ -17299,6 +17904,7 @@ pub struct GetHistoricalCutoffResponse {
     ///Cutoff based on **trade fill time**. Fills that occurred before this timestamp must be accessed via `GET /historical/fills`.
     pub trades_created_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetHistoricalCutoffResponse> for GetHistoricalCutoffResponse {
@@ -17361,7 +17967,10 @@ impl ::std::convert::From<GetHistoricalCutoffResponse> for GetHistoricalCutoffSt
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetHistoricalMarketParameters {
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetHistoricalMarketParameters> for GetHistoricalMarketParameters {
@@ -17517,6 +18126,8 @@ impl ::std::convert::From<ErrorResponse> for GetHistoricalMarketStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetHistoricalMarketsParameters {
     #[serde()]
     #[serde(
@@ -17524,6 +18135,7 @@ pub struct GetHistoricalMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -17531,6 +18143,7 @@ pub struct GetHistoricalMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -17538,6 +18151,7 @@ pub struct GetHistoricalMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<i64>,
     #[serde()]
     #[serde(
@@ -17545,6 +18159,7 @@ pub struct GetHistoricalMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mve_filter)))]
     pub mve_filter: ::std::option::Option<GetHistoricalMarketsParametersMveFilter>,
     #[serde()]
     #[serde(
@@ -17552,6 +18167,7 @@ pub struct GetHistoricalMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_series_ticker), into))]
     pub series_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -17559,6 +18175,7 @@ pub struct GetHistoricalMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_tickers), into))]
     pub tickers: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetHistoricalMarketsParameters> for GetHistoricalMarketsParameters {
@@ -17787,6 +18404,8 @@ impl ::std::convert::From<ErrorResponse> for GetHistoricalMarketsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetHistoricalOrdersParameters {
     #[serde()]
     #[serde(
@@ -17794,6 +18413,7 @@ pub struct GetHistoricalOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -17801,6 +18421,7 @@ pub struct GetHistoricalOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -17808,6 +18429,7 @@ pub struct GetHistoricalOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -17815,6 +18437,7 @@ pub struct GetHistoricalOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -17822,6 +18445,7 @@ pub struct GetHistoricalOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -17829,6 +18453,7 @@ pub struct GetHistoricalOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetHistoricalOrdersParameters> for GetHistoricalOrdersParameters {
@@ -18024,6 +18649,8 @@ impl ::std::convert::From<ErrorResponse> for GetHistoricalOrdersStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetHistoricalPositionsParameters {
     #[serde()]
     #[serde(
@@ -18031,6 +18658,7 @@ pub struct GetHistoricalPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -18038,6 +18666,7 @@ pub struct GetHistoricalPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -18045,6 +18674,7 @@ pub struct GetHistoricalPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -18052,6 +18682,7 @@ pub struct GetHistoricalPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -18059,6 +18690,7 @@ pub struct GetHistoricalPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetHistoricalPositionsParameters> for GetHistoricalPositionsParameters {
@@ -18259,6 +18891,8 @@ impl ::std::convert::From<ErrorResponse> for GetHistoricalPositionsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetIncentiveProgramsParameters {
     #[serde()]
     #[serde(
@@ -18266,6 +18900,7 @@ pub struct GetIncentiveProgramsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -18273,6 +18908,7 @@ pub struct GetIncentiveProgramsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_incentive_description), into))]
     pub incentive_description: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -18280,6 +18916,7 @@ pub struct GetIncentiveProgramsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -18287,6 +18924,7 @@ pub struct GetIncentiveProgramsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status)))]
     pub status: ::std::option::Option<GetIncentiveProgramsParametersStatus>,
     #[serde(rename = "type")]
     #[serde(
@@ -18294,6 +18932,7 @@ pub struct GetIncentiveProgramsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_type_)))]
     pub type_: ::std::option::Option<GetIncentiveProgramsParametersType>,
 }
 impl ::std::convert::From<&GetIncentiveProgramsParameters> for GetIncentiveProgramsParameters {
@@ -18504,7 +19143,8 @@ impl ::std::convert::TryFrom<::std::string::String> for GetIncentiveProgramsPara
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetIncentiveProgramsResponse {
     pub incentive_programs: ::std::vec::Vec<IncentiveProgram>,
     ///Cursor for pagination to get the next page of results
@@ -18514,8 +19154,10 @@ pub struct GetIncentiveProgramsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_next_cursor), into))]
     pub next_cursor: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetIncentiveProgramsResponse> for GetIncentiveProgramsResponse {
@@ -18646,7 +19288,10 @@ impl ::std::convert::From<ErrorResponse> for GetIncentiveProgramsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetIntraExchangeInstanceTransferParameters {
+    #[builder(setter(into))]
     pub transfer_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetIntraExchangeInstanceTransferParameters>
@@ -18675,10 +19320,12 @@ impl ::std::convert::From<&GetIntraExchangeInstanceTransferParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetIntraExchangeInstanceTransferResponse {
     pub transfer: IntraExchangeInstanceTransfer,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetIntraExchangeInstanceTransferResponse>
@@ -18866,6 +19513,8 @@ impl ::std::convert::From<ErrorResponse> for GetIntraExchangeInstanceTransferSta
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetIntraExchangeInstanceTransfersParameters {
     #[serde()]
     #[serde(
@@ -18873,6 +19522,7 @@ pub struct GetIntraExchangeInstanceTransfersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -18880,6 +19530,7 @@ pub struct GetIntraExchangeInstanceTransfersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
 }
 impl ::std::convert::From<&GetIntraExchangeInstanceTransfersParameters>
@@ -18923,7 +19574,8 @@ impl ::std::default::Default for GetIntraExchangeInstanceTransfersParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetIntraExchangeInstanceTransfersResponse {
     ///Cursor for the next page of results. Omitted when there are no further pages.
     #[serde()]
@@ -18932,9 +19584,11 @@ pub struct GetIntraExchangeInstanceTransfersResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     pub transfers: ::std::vec::Vec<IntraExchangeInstanceTransfer>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetIntraExchangeInstanceTransfersResponse>
@@ -19119,6 +19773,8 @@ impl ::std::convert::From<ErrorResponse> for GetIntraExchangeInstanceTransfersSt
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetLiveDataByMilestoneParameters {
     #[serde()]
     #[serde(
@@ -19126,7 +19782,9 @@ pub struct GetLiveDataByMilestoneParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_player_stats)))]
     pub include_player_stats: Option<bool>,
+    #[builder(setter(into))]
     pub milestone_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetLiveDataByMilestoneParameters> for GetLiveDataByMilestoneParameters {
@@ -19197,6 +19855,8 @@ impl ::std::convert::From<GetLiveDataResponse> for GetLiveDataByMilestoneStatus2
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetLiveDataParameters {
     #[serde()]
     #[serde(
@@ -19204,9 +19864,12 @@ pub struct GetLiveDataParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_player_stats)))]
     pub include_player_stats: Option<bool>,
+    #[builder(setter(into))]
     pub milestone_id: ::std::string::String,
     #[serde(rename = "type")]
+    #[builder(setter(into))]
     pub type_: ::std::string::String,
 }
 impl ::std::convert::From<&GetLiveDataParameters> for GetLiveDataParameters {
@@ -19233,10 +19896,12 @@ impl ::std::convert::From<&GetLiveDataParameters> for GetLiveDataParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetLiveDataResponse {
     pub live_data: LiveData,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetLiveDataResponse> for GetLiveDataResponse {
@@ -19307,6 +19972,8 @@ impl ::std::convert::From<GetLiveDataResponse> for GetLiveDataStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetLiveDatasParameters {
     #[serde()]
     #[serde(
@@ -19314,6 +19981,7 @@ pub struct GetLiveDatasParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_player_stats)))]
     pub include_player_stats: Option<bool>,
     pub milestone_ids: ::std::vec::Vec<::std::string::String>,
 }
@@ -19344,10 +20012,12 @@ impl ::std::convert::From<&GetLiveDatasParameters> for GetLiveDatasParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetLiveDatasResponse {
     pub live_datas: ::std::vec::Vec<LiveData>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetLiveDatasResponse> for GetLiveDatasResponse {
@@ -19434,11 +20104,15 @@ impl ::std::convert::From<GetLiveDatasResponse> for GetLiveDatasStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketCandlesticksByEventParameters {
     pub end_ts: i64,
     pub period_interval: GetMarketCandlesticksByEventParametersPeriodInterval,
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     pub start_ts: i64,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetMarketCandlesticksByEventParameters>
@@ -19580,10 +20254,13 @@ impl ::std::convert::From<GetEventCandlesticksResponse> for GetMarketCandlestick
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketCandlesticksHistoricalParameters {
     pub end_ts: i64,
     pub period_interval: GetMarketCandlesticksHistoricalParametersPeriodInterval,
     pub start_ts: i64,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetMarketCandlesticksHistoricalParameters>
@@ -19676,13 +20353,16 @@ impl<'de> ::serde::Deserialize<'de> for GetMarketCandlesticksHistoricalParameter
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketCandlesticksHistoricalResponse {
     ///Array of candlestick data points for the specified time range.
     pub candlesticks: ::std::vec::Vec<MarketCandlestickHistorical>,
     ///Unique identifier for the market.
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMarketCandlesticksHistoricalResponse>
@@ -19785,6 +20465,8 @@ impl ::std::convert::From<GetMarketCandlesticksHistoricalResponse>
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketCandlesticksParameters {
     pub end_ts: i64,
     #[serde()]
@@ -19793,10 +20475,13 @@ pub struct GetMarketCandlesticksParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_latest_before_start)))]
     pub include_latest_before_start: Option<bool>,
     pub period_interval: GetMarketCandlesticksParametersPeriodInterval,
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     pub start_ts: i64,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetMarketCandlesticksParameters> for GetMarketCandlesticksParameters {
@@ -19892,13 +20577,16 @@ impl<'de> ::serde::Deserialize<'de> for GetMarketCandlesticksParametersPeriodInt
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketCandlesticksResponse {
     ///Array of candlestick data points for the specified time range.
     pub candlesticks: ::std::vec::Vec<MarketCandlestick>,
     ///Unique identifier for the market.
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMarketCandlesticksResponse> for GetMarketCandlesticksResponse {
@@ -19967,6 +20655,8 @@ impl ::std::convert::From<GetMarketCandlesticksResponse> for GetMarketCandlestic
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketOrderbookParameters {
     #[serde()]
     #[serde(
@@ -19974,7 +20664,9 @@ pub struct GetMarketOrderbookParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_depth)))]
     pub depth: Option<i64>,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetMarketOrderbookParameters> for GetMarketOrderbookParameters {
@@ -20002,11 +20694,13 @@ impl ::std::convert::From<&GetMarketOrderbookParameters> for GetMarketOrderbookP
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketOrderbookResponse {
     ///Orderbook with fixed-point contract counts (fp) in all price levels.
     pub orderbook_fp: OrderbookCountFp,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMarketOrderbookResponse> for GetMarketOrderbookResponse {
@@ -20177,6 +20871,8 @@ impl ::std::convert::From<ErrorResponse> for GetMarketOrderbookStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketOrderbooksParameters {
     pub tickers: ::std::vec::Vec<GetMarketOrderbooksParametersTickersItem>,
 }
@@ -20282,10 +20978,12 @@ impl<'de> ::serde::Deserialize<'de> for GetMarketOrderbooksParametersTickersItem
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketOrderbooksResponse {
     pub orderbooks: ::std::vec::Vec<MarketOrderbookFp>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMarketOrderbooksResponse> for GetMarketOrderbooksResponse {
@@ -20450,7 +21148,10 @@ impl ::std::convert::From<ErrorResponse> for GetMarketOrderbooksStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketParameters {
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetMarketParameters> for GetMarketParameters {
@@ -20477,10 +21178,12 @@ impl ::std::convert::From<&GetMarketParameters> for GetMarketParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketResponse {
     pub market: Market,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMarketResponse> for GetMarketResponse {
@@ -20611,6 +21314,8 @@ impl ::std::convert::From<GetMarketResponse> for GetMarketStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketsParameters {
     #[serde()]
     #[serde(
@@ -20618,6 +21323,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -20625,6 +21331,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -20632,6 +21339,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<i64>,
     #[serde()]
     #[serde(
@@ -20639,6 +21347,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_close_ts)))]
     pub max_close_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20646,6 +21355,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_created_ts)))]
     pub max_created_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20653,6 +21363,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_settled_ts)))]
     pub max_settled_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20660,6 +21371,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_updated_ts)))]
     pub max_updated_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20667,6 +21379,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_close_ts)))]
     pub min_close_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20674,6 +21387,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_created_ts)))]
     pub min_created_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20681,6 +21395,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_settled_ts)))]
     pub min_settled_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20688,6 +21403,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_updated_ts)))]
     pub min_updated_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -20695,6 +21411,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mve_filter)))]
     pub mve_filter: ::std::option::Option<GetMarketsParametersMveFilter>,
     #[serde()]
     #[serde(
@@ -20702,6 +21419,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_series_ticker), into))]
     pub series_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -20709,6 +21427,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status)))]
     pub status: ::std::option::Option<GetMarketsParametersStatus>,
     #[serde()]
     #[serde(
@@ -20716,6 +21435,7 @@ pub struct GetMarketsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_tickers), into))]
     pub tickers: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetMarketsParameters> for GetMarketsParameters {
@@ -20921,11 +21641,14 @@ impl ::std::convert::TryFrom<::std::string::String> for GetMarketsParametersStat
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMarketsResponse {
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     pub markets: ::std::vec::Vec<Market>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMarketsResponse> for GetMarketsResponse {
@@ -20988,7 +21711,10 @@ impl ::std::convert::From<GetMarketsResponse> for GetMarketsStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMilestoneParameters {
+    #[builder(setter(into))]
     pub milestone_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetMilestoneParameters> for GetMilestoneParameters {
@@ -21016,11 +21742,13 @@ impl ::std::convert::From<&GetMilestoneParameters> for GetMilestoneParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMilestoneResponse {
     ///The milestone data.
     pub milestone: Milestone,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMilestoneResponse> for GetMilestoneResponse {
@@ -21114,6 +21842,8 @@ impl ::std::convert::From<GetMilestoneResponse> for GetMilestoneStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMilestonesParameters {
     #[serde()]
     #[serde(
@@ -21121,6 +21851,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_category), into))]
     pub category: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21128,6 +21859,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_competition), into))]
     pub competition: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21135,6 +21867,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     pub limit: ::std::num::NonZeroU64,
     #[serde()]
@@ -21143,6 +21876,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_updated_ts)))]
     pub min_updated_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -21150,6 +21884,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_minimum_start_date)))]
     pub minimum_start_date: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     #[serde()]
     #[serde(
@@ -21157,6 +21892,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_related_event_ticker), into))]
     pub related_event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21164,6 +21900,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_id), into))]
     pub source_id: ::std::option::Option<::std::string::String>,
     #[serde(rename = "type")]
     #[serde(
@@ -21171,6 +21908,7 @@ pub struct GetMilestonesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_type_), into))]
     pub type_: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetMilestonesParameters> for GetMilestonesParameters {
@@ -21205,7 +21943,8 @@ impl ::std::convert::From<&GetMilestonesParameters> for GetMilestonesParameters 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMilestonesResponse {
     ///Cursor for pagination.
     #[serde()]
@@ -21214,10 +21953,12 @@ pub struct GetMilestonesResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     ///List of milestones.
     pub milestones: ::std::vec::Vec<Milestone>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMilestonesResponse> for GetMilestonesResponse {
@@ -21280,7 +22021,10 @@ impl ::std::convert::From<GetMilestonesResponse> for GetMilestonesStatus200 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMultivariateEventCollectionParameters {
+    #[builder(setter(into))]
     pub collection_ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetMultivariateEventCollectionParameters>
@@ -21310,11 +22054,13 @@ impl ::std::convert::From<&GetMultivariateEventCollectionParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMultivariateEventCollectionResponse {
     ///The multivariate event collection.
     pub multivariate_contract: MultivariateEventCollection,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMultivariateEventCollectionResponse>
@@ -21510,12 +22256,18 @@ impl ::std::convert::From<ErrorResponse> for GetMultivariateEventCollectionStatu
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMultivariateEventCollectionsParameters {
     #[serde()]
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
+    )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_associated_event_ticker), into)
     )]
     pub associated_event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
@@ -21524,6 +22276,7 @@ pub struct GetMultivariateEventCollectionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21531,6 +22284,7 @@ pub struct GetMultivariateEventCollectionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: ::std::option::Option<::std::num::NonZeroU32>,
     #[serde()]
     #[serde(
@@ -21538,6 +22292,7 @@ pub struct GetMultivariateEventCollectionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_series_ticker), into))]
     pub series_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21545,6 +22300,7 @@ pub struct GetMultivariateEventCollectionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status)))]
     pub status: ::std::option::Option<GetMultivariateEventCollectionsParametersStatus>,
 }
 impl ::std::convert::From<&GetMultivariateEventCollectionsParameters>
@@ -21670,7 +22426,8 @@ impl ::std::convert::TryFrom<::std::string::String>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMultivariateEventCollectionsResponse {
     ///The Cursor represents a pointer to the next page of records in the pagination. Use the value returned here in the cursor query parameter for this end-point to get the next page containing limit records. An empty value of this field indicates there is no next page.
     #[serde()]
@@ -21679,10 +22436,12 @@ pub struct GetMultivariateEventCollectionsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     ///List of multivariate event collections.
     pub multivariate_contracts: ::std::vec::Vec<MultivariateEventCollection>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMultivariateEventCollectionsResponse>
@@ -21839,6 +22598,8 @@ impl ::std::convert::From<ErrorResponse> for GetMultivariateEventCollectionsStat
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMultivariateEventsParameters {
     #[serde()]
     #[serde(
@@ -21846,6 +22607,7 @@ pub struct GetMultivariateEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_collection_ticker), into))]
     pub collection_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21853,6 +22615,7 @@ pub struct GetMultivariateEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21860,6 +22623,7 @@ pub struct GetMultivariateEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -21867,6 +22631,7 @@ pub struct GetMultivariateEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_series_ticker), into))]
     pub series_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -21874,6 +22639,7 @@ pub struct GetMultivariateEventsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_with_nested_markets)))]
     pub with_nested_markets: Option<bool>,
 }
 impl ::std::convert::From<&GetMultivariateEventsParameters> for GetMultivariateEventsParameters {
@@ -21920,13 +22686,16 @@ impl ::std::default::Default for GetMultivariateEventsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetMultivariateEventsResponse {
     ///Pagination cursor for the next page. Empty if there are no more results.
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     ///Array of multivariate events matching the query criteria.
     pub events: ::std::vec::Vec<EventData>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetMultivariateEventsResponse> for GetMultivariateEventsResponse {
@@ -21992,7 +22761,10 @@ impl ::std::convert::From<GetMultivariateEventsResponse> for GetMultivariateEven
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderGroupParameters {
+    #[builder(setter(into))]
     pub order_group_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -22000,6 +22772,7 @@ pub struct GetOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&GetOrderGroupParameters> for GetOrderGroupParameters {
@@ -22050,7 +22823,8 @@ impl ::std::convert::From<&GetOrderGroupParameters> for GetOrderGroupParameters 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderGroupResponse {
     ///String representation of the current maximum contracts allowed over a rolling 15-second window.
     #[serde()]
@@ -22059,6 +22833,7 @@ pub struct GetOrderGroupResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_limit_fp)))]
     pub contracts_limit_fp: ::std::option::Option<FixedPointCount>,
     #[serde()]
     #[serde(
@@ -22066,12 +22841,14 @@ pub struct GetOrderGroupResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///Whether auto-cancel is enabled for this order group
     pub is_auto_cancel_enabled: bool,
     ///List of order IDs that belong to this order group
     pub orders: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetOrderGroupResponse> for GetOrderGroupResponse {
@@ -22233,6 +23010,8 @@ impl ::std::convert::From<ErrorResponse> for GetOrderGroupStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderGroupsParameters {
     #[serde()]
     #[serde(
@@ -22240,6 +23019,7 @@ pub struct GetOrderGroupsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&GetOrderGroupsParameters> for GetOrderGroupsParameters {
@@ -22272,7 +23052,8 @@ impl ::std::default::Default for GetOrderGroupsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderGroupsResponse {
     #[serde()]
     #[serde(
@@ -22280,8 +23061,10 @@ pub struct GetOrderGroupsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order_groups)))]
     pub order_groups: Option<::std::vec::Vec<OrderGroup>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetOrderGroupsResponse> for GetOrderGroupsResponse {
@@ -22446,7 +23229,10 @@ impl ::std::convert::From<ErrorResponse> for GetOrderGroupsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderParameters {
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetOrderParameters> for GetOrderParameters {
@@ -22475,7 +23261,10 @@ impl ::std::convert::From<&GetOrderParameters> for GetOrderParameters {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderQueuePositionParameters {
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetOrderQueuePositionParameters> for GetOrderQueuePositionParameters {
@@ -22503,11 +23292,13 @@ impl ::std::convert::From<&GetOrderQueuePositionParameters> for GetOrderQueuePos
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderQueuePositionResponse {
     ///The number of preceding shares before the order in the queue.
     pub queue_position_fp: FixedPointCount,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetOrderQueuePositionResponse> for GetOrderQueuePositionResponse {
@@ -22675,6 +23466,8 @@ impl ::std::convert::From<ErrorResponse> for GetOrderQueuePositionStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderQueuePositionsParameters {
     #[serde()]
     #[serde(
@@ -22682,6 +23475,7 @@ pub struct GetOrderQueuePositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -22689,6 +23483,7 @@ pub struct GetOrderQueuePositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_tickers), into))]
     pub market_tickers: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -22696,6 +23491,7 @@ pub struct GetOrderQueuePositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&GetOrderQueuePositionsParameters> for GetOrderQueuePositionsParameters {
@@ -22735,11 +23531,13 @@ impl ::std::default::Default for GetOrderQueuePositionsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderQueuePositionsResponse {
     ///Queue positions for all matching orders
     pub queue_positions: ::std::vec::Vec<OrderQueuePosition>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetOrderQueuePositionsResponse> for GetOrderQueuePositionsResponse {
@@ -22902,10 +23700,12 @@ impl ::std::convert::From<ErrorResponse> for GetOrderQueuePositionsStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrderResponse {
     pub order: Order,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetOrderResponse> for GetOrderResponse {
@@ -23108,6 +23908,8 @@ impl ::std::convert::From<ErrorResponse> for GetOrderStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrdersParameters {
     #[serde()]
     #[serde(
@@ -23115,6 +23917,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -23122,6 +23925,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -23129,6 +23933,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<i32>,
     #[serde()]
     #[serde(
@@ -23136,6 +23941,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -23143,6 +23949,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -23150,6 +23957,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -23157,6 +23965,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status), into))]
     pub status: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -23164,6 +23973,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -23171,6 +23981,7 @@ pub struct GetOrdersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetOrdersParameters> for GetOrdersParameters {
@@ -23219,11 +24030,14 @@ impl ::std::default::Default for GetOrdersParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetOrdersResponse {
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     pub orders: ::std::vec::Vec<Order>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetOrdersResponse> for GetOrdersResponse {
@@ -23395,13 +24209,15 @@ impl ::std::convert::From<ErrorResponse> for GetOrdersStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetPortfolioRestingOrderTotalValueResponse {
     ///Total value of resting orders broken down by exchange index, with each balance expressed as a fixed-point dollar string.
     pub resting_order_value_breakdown: ::std::vec::Vec<IndexedBalance>,
     ///Total value of resting orders in cents
     pub total_resting_order_value: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetPortfolioRestingOrderTotalValueResponse>
@@ -23581,6 +24397,8 @@ impl ::std::convert::From<ErrorResponse> for GetPortfolioRestingOrderTotalValueS
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetPositionsParameters {
     #[serde()]
     #[serde(
@@ -23588,6 +24406,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_count_filter), into))]
     pub count_filter: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -23595,6 +24414,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -23602,6 +24422,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -23609,6 +24430,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<i32>,
     #[serde()]
     #[serde(
@@ -23616,6 +24438,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU32>,
     #[serde()]
     #[serde(
@@ -23623,6 +24446,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_settlement_status)))]
     pub settlement_status: Option<GetPositionsParametersSettlementStatus>,
     #[serde()]
     #[serde(
@@ -23630,6 +24454,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -23637,6 +24462,7 @@ pub struct GetPositionsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetPositionsParameters> for GetPositionsParameters {
@@ -23772,7 +24598,8 @@ impl ::std::default::Default for GetPositionsParametersSettlementStatus {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetPositionsResponse {
     ///The Cursor represents a pointer to the next page of records in the pagination. Use the value returned here in the cursor query parameter for this end-point to get the next page containing limit records. An empty value of this field indicates there is no next page.
     #[serde()]
@@ -23781,12 +24608,14 @@ pub struct GetPositionsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     ///List of event positions
     pub event_positions: ::std::vec::Vec<EventPosition>,
     ///List of market positions
     pub market_positions: ::std::vec::Vec<MarketPosition>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetPositionsResponse> for GetPositionsResponse {
@@ -23951,7 +24780,10 @@ impl ::std::convert::From<ErrorResponse> for GetPositionsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetQuoteParameters> for GetQuoteParameters {
@@ -23979,11 +24811,13 @@ impl ::std::convert::From<&GetQuoteParameters> for GetQuoteParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetQuoteResponse {
     ///The details of the requested quote
     pub quote: Quote,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetQuoteResponse> for GetQuoteResponse {
@@ -24223,6 +25057,8 @@ impl ::std::convert::From<ErrorResponse> for GetQuoteStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetQuotesParameters {
     #[serde()]
     #[serde(
@@ -24230,6 +25066,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24237,6 +25074,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU32>,
     #[serde()]
     #[serde(
@@ -24244,6 +25082,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -24251,6 +25090,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -24258,12 +25098,17 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_quote_creator_user_id), into))]
     pub quote_creator_user_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
+    )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_rfq_creator_subtrader_id), into)
     )]
     pub rfq_creator_subtrader_id: ::std::option::Option<::std::string::String>,
     #[serde()]
@@ -24272,6 +25117,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_creator_user_id), into))]
     pub rfq_creator_user_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24279,6 +25125,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_id), into))]
     pub rfq_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24286,6 +25133,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_user_filter)))]
     pub rfq_user_filter: ::std::option::Option<UserFilter>,
     #[serde()]
     #[serde(
@@ -24293,6 +25141,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status), into))]
     pub status: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24300,6 +25149,7 @@ pub struct GetQuotesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_user_filter)))]
     pub user_filter: ::std::option::Option<UserFilter>,
 }
 impl ::std::convert::From<&GetQuotesParameters> for GetQuotesParameters {
@@ -24352,7 +25202,8 @@ impl ::std::default::Default for GetQuotesParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetQuotesResponse {
     ///Cursor for pagination to get the next page of results
     #[serde()]
@@ -24361,10 +25212,12 @@ pub struct GetQuotesResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     ///List of quotes matching the query criteria
     pub quotes: ::std::vec::Vec<Quote>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetQuotesResponse> for GetQuotesResponse {
@@ -24555,6 +25408,8 @@ impl ::std::convert::From<ErrorResponse> for GetQuotesStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetRfQsParameters {
     #[serde()]
     #[serde(
@@ -24562,6 +25417,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_creator_user_id), into))]
     pub creator_user_id: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24569,6 +25425,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24576,6 +25433,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24583,6 +25441,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU32>,
     #[serde()]
     #[serde(
@@ -24590,6 +25449,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24597,6 +25457,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_status), into))]
     pub status: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -24604,6 +25465,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -24611,6 +25473,7 @@ pub struct GetRfQsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_user_filter)))]
     pub user_filter: ::std::option::Option<UserFilter>,
 }
 impl ::std::convert::From<&GetRfQsParameters> for GetRfQsParameters {
@@ -24660,7 +25523,8 @@ impl ::std::default::Default for GetRfQsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetRfQsResponse {
     ///Cursor for pagination to get the next page of results
     #[serde()]
@@ -24669,10 +25533,12 @@ pub struct GetRfQsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     ///List of RFQs matching the query criteria
     pub rfqs: ::std::vec::Vec<Rfq>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetRfQsResponse> for GetRfQsResponse {
@@ -24837,7 +25703,10 @@ impl ::std::convert::From<ErrorResponse> for GetRfQsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetRfqParameters {
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetRfqParameters> for GetRfqParameters {
@@ -24870,8 +25739,12 @@ impl ::std::convert::From<&GetRfqParameters> for GetRfqParameters {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetRfqQuoteParameters {
+    #[builder(setter(into))]
     pub quote_id: ::std::string::String,
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetRfqQuoteParameters> for GetRfqQuoteParameters {
@@ -25069,11 +25942,13 @@ impl ::std::convert::From<ErrorResponse> for GetRfqQuoteStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetRfqResponse {
     ///The details of the requested RFQ
     pub rfq: Rfq,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetRfqResponse> for GetRfqResponse {
@@ -25273,6 +26148,8 @@ impl ::std::convert::From<ErrorResponse> for GetRfqStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSeriesFeeChangesParameters {
     #[serde()]
     #[serde(
@@ -25280,6 +26157,7 @@ pub struct GetSeriesFeeChangesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_series_ticker), into))]
     pub series_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -25287,6 +26165,7 @@ pub struct GetSeriesFeeChangesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_show_historical)))]
     pub show_historical: Option<bool>,
 }
 impl ::std::convert::From<&GetSeriesFeeChangesParameters> for GetSeriesFeeChangesParameters {
@@ -25324,10 +26203,12 @@ impl ::std::default::Default for GetSeriesFeeChangesParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSeriesFeeChangesResponse {
     pub series_fee_change_arr: ::std::vec::Vec<SeriesFeeChange>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSeriesFeeChangesResponse> for GetSeriesFeeChangesResponse {
@@ -25470,6 +26351,8 @@ impl ::std::convert::From<ErrorResponse> for GetSeriesFeeChangesStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSeriesListParameters {
     #[serde()]
     #[serde(
@@ -25477,6 +26360,7 @@ pub struct GetSeriesListParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_category), into))]
     pub category: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -25484,6 +26368,7 @@ pub struct GetSeriesListParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_product_metadata)))]
     pub include_product_metadata: Option<bool>,
     #[serde()]
     #[serde(
@@ -25491,6 +26376,7 @@ pub struct GetSeriesListParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_volume)))]
     pub include_volume: Option<bool>,
     #[serde()]
     #[serde(
@@ -25498,6 +26384,7 @@ pub struct GetSeriesListParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_updated_ts)))]
     pub min_updated_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -25505,6 +26392,7 @@ pub struct GetSeriesListParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_tags), into))]
     pub tags: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetSeriesListParameters> for GetSeriesListParameters {
@@ -25545,10 +26433,12 @@ impl ::std::default::Default for GetSeriesListParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSeriesListResponse {
     pub series: ::std::vec::Vec<Series>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSeriesListResponse> for GetSeriesListResponse {
@@ -25683,6 +26573,8 @@ impl ::std::convert::From<ErrorResponse> for GetSeriesListStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSeriesParameters {
     #[serde()]
     #[serde(
@@ -25690,7 +26582,9 @@ pub struct GetSeriesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_include_volume)))]
     pub include_volume: Option<bool>,
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
 }
 impl ::std::convert::From<&GetSeriesParameters> for GetSeriesParameters {
@@ -25717,10 +26611,12 @@ impl ::std::convert::From<&GetSeriesParameters> for GetSeriesParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSeriesResponse {
     pub series: Series,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSeriesResponse> for GetSeriesResponse {
@@ -25878,6 +26774,8 @@ impl ::std::convert::From<ErrorResponse> for GetSeriesStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSettlementsParameters {
     #[serde()]
     #[serde(
@@ -25885,6 +26783,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -25892,6 +26791,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -25899,6 +26799,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -25906,6 +26807,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -25913,6 +26815,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -25920,6 +26823,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -25927,6 +26831,7 @@ pub struct GetSettlementsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetSettlementsParameters> for GetSettlementsParameters {
@@ -25972,7 +26877,8 @@ impl ::std::default::Default for GetSettlementsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSettlementsResponse {
     #[serde()]
     #[serde(
@@ -25980,9 +26886,11 @@ pub struct GetSettlementsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     pub settlements: ::std::vec::Vec<Settlement>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSettlementsResponse> for GetSettlementsResponse {
@@ -26147,7 +27055,10 @@ impl ::std::convert::From<ErrorResponse> for GetSettlementsStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetStructuredTargetParameters {
+    #[builder(setter(into))]
     pub structured_target_id: ::std::string::String,
 }
 impl ::std::convert::From<&GetStructuredTargetParameters> for GetStructuredTargetParameters {
@@ -26171,7 +27082,8 @@ impl ::std::convert::From<&GetStructuredTargetParameters> for GetStructuredTarge
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetStructuredTargetResponse {
     #[serde()]
     #[serde(
@@ -26179,8 +27091,10 @@ pub struct GetStructuredTargetResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_structured_target)))]
     pub structured_target: ::std::option::Option<StructuredTarget>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetStructuredTargetResponse> for GetStructuredTargetResponse {
@@ -26262,6 +27176,8 @@ impl ::std::convert::From<GetStructuredTargetResponse> for GetStructuredTargetSt
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetStructuredTargetsParameters {
     #[serde()]
     #[serde(
@@ -26269,6 +27185,7 @@ pub struct GetStructuredTargetsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_competition), into))]
     pub competition: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -26276,6 +27193,7 @@ pub struct GetStructuredTargetsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -26283,6 +27201,7 @@ pub struct GetStructuredTargetsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ids)))]
     pub ids: Option<::std::vec::Vec<::std::string::String>>,
     #[serde()]
     #[serde(
@@ -26290,6 +27209,7 @@ pub struct GetStructuredTargetsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_page_size)))]
     pub page_size: Option<::std::num::NonZeroU32>,
     #[serde(rename = "type")]
     #[serde(
@@ -26297,6 +27217,7 @@ pub struct GetStructuredTargetsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_type_), into))]
     pub type_: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetStructuredTargetsParameters> for GetStructuredTargetsParameters {
@@ -26338,7 +27259,8 @@ impl ::std::default::Default for GetStructuredTargetsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetStructuredTargetsResponse {
     ///Pagination cursor for the next page. Empty if there are no more results.
     #[serde()]
@@ -26347,6 +27269,7 @@ pub struct GetStructuredTargetsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -26354,8 +27277,10 @@ pub struct GetStructuredTargetsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_structured_targets)))]
     pub structured_targets: Option<::std::vec::Vec<StructuredTarget>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetStructuredTargetsResponse> for GetStructuredTargetsResponse {
@@ -26419,10 +27344,12 @@ impl ::std::convert::From<GetStructuredTargetsResponse> for GetStructuredTargets
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSubaccountBalancesResponse {
     pub subaccount_balances: ::std::vec::Vec<SubaccountBalance>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSubaccountBalancesResponse> for GetSubaccountBalancesResponse {
@@ -26554,10 +27481,12 @@ impl ::std::convert::From<ErrorResponse> for GetSubaccountBalancesStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSubaccountNettingResponse {
     pub netting_configs: ::std::vec::Vec<SubaccountNettingConfig>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSubaccountNettingResponse> for GetSubaccountNettingResponse {
@@ -26696,6 +27625,8 @@ impl ::std::convert::From<ErrorResponse> for GetSubaccountNettingStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSubaccountTransfersParameters {
     #[serde()]
     #[serde(
@@ -26703,6 +27634,7 @@ pub struct GetSubaccountTransfersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -26710,6 +27642,7 @@ pub struct GetSubaccountTransfersParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
 }
 impl ::std::convert::From<&GetSubaccountTransfersParameters> for GetSubaccountTransfersParameters {
@@ -26751,7 +27684,8 @@ impl ::std::default::Default for GetSubaccountTransfersParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetSubaccountTransfersResponse {
     ///Cursor for the next page of results.
     #[serde()]
@@ -26760,9 +27694,11 @@ pub struct GetSubaccountTransfersResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     pub transfers: ::std::vec::Vec<SubaccountTransfer>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetSubaccountTransfersResponse> for GetSubaccountTransfersResponse {
@@ -26898,12 +27834,14 @@ impl ::std::convert::From<ErrorResponse> for GetSubaccountTransfersStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetTagsForSeriesCategoriesResponse {
     ///Mapping of series categories to their associated tags
     pub tags_by_categories:
         ::std::collections::HashMap<::std::string::String, ::std::vec::Vec<::std::string::String>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetTagsForSeriesCategoriesResponse>
@@ -26979,11 +27917,13 @@ impl ::std::convert::From<GetTagsForSeriesCategoriesResponse>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetTargetBalanceAllocationResponse {
     pub allocations: ::std::vec::Vec<TargetBalanceAllocation>,
     pub resting_margin_reservation: RestingMarginReservation,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetTargetBalanceAllocationResponse>
@@ -27185,6 +28125,8 @@ impl ::std::convert::From<ErrorResponse> for GetTargetBalanceAllocationStatus500
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetTradesHistoricalParameters {
     #[serde()]
     #[serde(
@@ -27192,6 +28134,7 @@ pub struct GetTradesHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -27199,6 +28142,7 @@ pub struct GetTradesHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_is_block_trade)))]
     pub is_block_trade: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -27206,6 +28150,7 @@ pub struct GetTradesHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<i64>,
     #[serde()]
     #[serde(
@@ -27213,6 +28158,7 @@ pub struct GetTradesHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -27220,6 +28166,7 @@ pub struct GetTradesHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -27227,6 +28174,7 @@ pub struct GetTradesHistoricalParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetTradesHistoricalParameters> for GetTradesHistoricalParameters {
@@ -27426,6 +28374,8 @@ impl ::std::convert::From<ErrorResponse> for GetTradesHistoricalStatus500 {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetTradesParameters {
     #[serde()]
     #[serde(
@@ -27433,6 +28383,7 @@ pub struct GetTradesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -27440,6 +28391,7 @@ pub struct GetTradesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_is_block_trade)))]
     pub is_block_trade: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -27447,6 +28399,7 @@ pub struct GetTradesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<i64>,
     #[serde()]
     #[serde(
@@ -27454,6 +28407,7 @@ pub struct GetTradesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_ts)))]
     pub max_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -27461,6 +28415,7 @@ pub struct GetTradesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_ts)))]
     pub min_ts: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -27468,6 +28423,7 @@ pub struct GetTradesParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_ticker), into))]
     pub ticker: ::std::option::Option<::std::string::String>,
 }
 impl ::std::convert::From<&GetTradesParameters> for GetTradesParameters {
@@ -27513,11 +28469,14 @@ impl ::std::default::Default for GetTradesParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetTradesResponse {
+    #[builder(setter(into))]
     pub cursor: ::std::string::String,
     pub trades: ::std::vec::Vec<Trade>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetTradesResponse> for GetTradesResponse {
@@ -27580,11 +28539,13 @@ impl ::std::convert::From<GetTradesResponse> for GetTradesStatus200 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetUserDataTimestampResponse {
     ///Timestamp when user data was last updated.
     pub as_of_time: ::chrono::DateTime<::chrono::offset::Utc>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetUserDataTimestampResponse> for GetUserDataTimestampResponse {
@@ -27647,7 +28608,10 @@ impl ::std::convert::From<GetUserDataTimestampResponse> for GetUserDataTimestamp
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetWeatherIndexCalibrationsParameters {
+    #[builder(setter(into))]
     pub city: ::std::string::String,
 }
 impl ::std::convert::From<&GetWeatherIndexCalibrationsParameters>
@@ -27690,15 +28654,19 @@ impl ::std::convert::From<&GetWeatherIndexCalibrationsParameters>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetWeatherIndexCalibrationsResponse {
     ///Configuration records, ascending by effective time.
     pub calibrations: ::std::vec::Vec<WeatherIndexCalibration>,
     ///Index city ID.
+    #[builder(setter(into))]
     pub city: ::std::string::String,
     ///Always `celsius` — offsets and the city reference are Celsius quantities from the index methodology (the published index value itself is Fahrenheit).
+    #[builder(setter(into))]
     pub units: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetWeatherIndexCalibrationsResponse>
@@ -27784,7 +28752,10 @@ impl ::std::convert::From<GetWeatherIndexCalibrationsResponse>
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetWeatherIndexParameters {
+    #[builder(setter(into))]
     pub city: ::std::string::String,
     #[serde()]
     #[serde(
@@ -27792,6 +28763,7 @@ pub struct GetWeatherIndexParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_detailed)))]
     pub detailed: ::std::option::Option<bool>,
     #[serde()]
     #[serde(
@@ -27799,6 +28771,7 @@ pub struct GetWeatherIndexParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_from)))]
     pub from: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -27806,6 +28779,7 @@ pub struct GetWeatherIndexParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_last_sec)))]
     pub last_sec: ::std::option::Option<i64>,
     #[serde()]
     #[serde(
@@ -27813,6 +28787,7 @@ pub struct GetWeatherIndexParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_to)))]
     pub to: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&GetWeatherIndexParameters> for GetWeatherIndexParameters {
@@ -27856,9 +28831,11 @@ impl ::std::convert::From<&GetWeatherIndexParameters> for GetWeatherIndexParamet
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetWeatherIndexResponse {
     ///Index city ID.
+    #[builder(setter(into))]
     pub city: ::std::string::String,
     ///Index configuration version of the newest returned point (e.g. `miami-temperature-v1.0`). Empty when no points matched the window.
     #[serde()]
@@ -27867,11 +28844,14 @@ pub struct GetWeatherIndexResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_config_version), into))]
     pub config_version: ::std::option::Option<::std::string::String>,
     pub timeseries: ::std::vec::Vec<WeatherIndexPoint>,
     ///Always `fahrenheit`.
+    #[builder(setter(into))]
     pub units: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetWeatherIndexResponse> for GetWeatherIndexResponse {
@@ -27942,6 +28922,8 @@ impl ::std::convert::From<GetWeatherIndexResponse> for GetWeatherIndexStatus200 
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetWithdrawalsParameters {
     #[serde()]
     #[serde(
@@ -27949,6 +28931,7 @@ pub struct GetWithdrawalsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -27956,6 +28939,7 @@ pub struct GetWithdrawalsParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_limit)))]
     pub limit: Option<::std::num::NonZeroU64>,
 }
 impl ::std::convert::From<&GetWithdrawalsParameters> for GetWithdrawalsParameters {
@@ -27996,7 +28980,8 @@ impl ::std::default::Default for GetWithdrawalsParameters {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct GetWithdrawalsResponse {
     #[serde()]
     #[serde(
@@ -28004,9 +28989,11 @@ pub struct GetWithdrawalsResponse {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cursor), into))]
     pub cursor: ::std::option::Option<::std::string::String>,
     pub withdrawals: ::std::vec::Vec<Withdrawal>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&GetWithdrawalsResponse> for GetWithdrawalsResponse {
@@ -28254,7 +29241,8 @@ impl ::std::convert::From<ErrorResponse> for GetWithdrawalsStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct IncentiveProgram {
     #[serde()]
     #[serde(
@@ -28262,18 +29250,23 @@ pub struct IncentiveProgram {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_discount_factor_bps)))]
     pub discount_factor_bps: Option<Option<i32>>,
     ///End date of the incentive program
     pub end_date: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Unique identifier for the incentive program
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Plain text description of the incentive program
+    #[builder(setter(into))]
     pub incentive_description: ::std::string::String,
     ///Type of incentive program
     pub incentive_type: IncentiveProgramIncentiveType,
     ///The unique identifier of the market associated with this incentive program
+    #[builder(setter(into))]
     pub market_id: ::std::string::String,
     ///The ticker symbol of the market associated with this incentive program
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -28281,6 +29274,7 @@ pub struct IncentiveProgram {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_reward_per_account)))]
     pub max_reward_per_account: Option<Option<i64>>,
     ///Whether the incentive has been paid out
     pub paid_out: bool,
@@ -28294,8 +29288,10 @@ pub struct IncentiveProgram {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_size_fp)))]
     pub target_size_fp: Option<Option<FixedPointCount>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&IncentiveProgram> for IncentiveProgram {
@@ -28405,11 +29401,13 @@ impl ::std::convert::TryFrom<::std::string::String> for IncentiveProgramIncentiv
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct IndexedBalance {
     pub balance: FixedPointDollars,
     pub exchange_index: ExchangeIndex,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&IndexedBalance> for IndexedBalance {
@@ -28472,7 +29470,8 @@ impl ::std::convert::From<&IndexedBalance> for IndexedBalance {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct IntraExchangeInstanceTransfer {
     ///Transfer amount in dollars
     pub amount: FixedPointDollars,
@@ -28488,8 +29487,10 @@ pub struct IntraExchangeInstanceTransfer {
     pub source_exchange_shard: i64,
     pub status: IntraExchangeInstanceTransferStatus,
     ///Unique transfer id
+    #[builder(setter(into))]
     pub transfer_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&IntraExchangeInstanceTransfer> for IntraExchangeInstanceTransfer {
@@ -28613,7 +29614,8 @@ impl ::std::convert::From<IntraExchangeInstanceTransferRequest>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct IntraExchangeInstanceTransferRequest {
     ///The amount to transfer in centicents
     pub amount: i64,
@@ -28625,6 +29627,7 @@ pub struct IntraExchangeInstanceTransferRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_client_transfer_id)))]
     pub client_transfer_id: ::std::option::Option<::uuid::Uuid>,
     ///The destination exchange instance
     pub destination: ExchangeInstance,
@@ -28635,6 +29638,7 @@ pub struct IntraExchangeInstanceTransferRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_destination_exchange_shard)))]
     pub destination_exchange_shard: Option<i64>,
     ///Destination subaccount number (default 0 for the primary account). Only supported for event contract to event contract transfers.
     #[serde()]
@@ -28643,6 +29647,7 @@ pub struct IntraExchangeInstanceTransferRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_destination_subaccount)))]
     pub destination_subaccount: Option<i64>,
     ///The source exchange instance
     pub source: ExchangeInstance,
@@ -28653,6 +29658,7 @@ pub struct IntraExchangeInstanceTransferRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_exchange_shard)))]
     pub source_exchange_shard: Option<i64>,
     ///Source subaccount number (default 0 for the primary account). Only supported for event contract to event contract transfers.
     #[serde()]
@@ -28661,8 +29667,10 @@ pub struct IntraExchangeInstanceTransferRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_subaccount)))]
     pub source_subaccount: Option<i64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&IntraExchangeInstanceTransferRequest>
@@ -28692,11 +29700,14 @@ impl ::std::convert::From<&IntraExchangeInstanceTransferRequest>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct IntraExchangeInstanceTransferResponse {
     ///The ID of the transfer that was created
+    #[builder(setter(into))]
     pub transfer_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&IntraExchangeInstanceTransferResponse>
@@ -28985,10 +29996,12 @@ impl ::std::convert::From<ErrorResponse> for IntraExchangeInstanceTransferStatus
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ListFcmSubtradersResponse {
     pub subtraders: ::std::vec::Vec<FcmSubtrader>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ListFcmSubtradersResponse> for ListFcmSubtradersResponse {
@@ -29163,16 +30176,20 @@ impl ::std::convert::From<ErrorResponse> for ListFcmSubtradersStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct LiveData {
     ///Live data details as a flexible object
     pub details: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
     ///Milestone ID
+    #[builder(setter(into))]
     pub milestone_id: ::std::string::String,
     ///Type of live data
     #[serde(rename = "type")]
+    #[builder(setter(into))]
     pub type_: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&LiveData> for LiveData {
@@ -29207,13 +30224,15 @@ impl ::std::convert::From<&LiveData> for LiveData {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MaintenanceWindow {
     ///End date and time of the maintenance window.
     pub end_datetime: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Start date and time of the maintenance window.
     pub start_datetime: ::chrono::DateTime<::chrono::offset::Utc>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MaintenanceWindow> for MaintenanceWindow {
@@ -29641,7 +30660,8 @@ impl ::std::convert::From<&MaintenanceWindow> for MaintenanceWindow {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Market {
     pub can_close_early: bool,
     #[serde()]
@@ -29650,6 +30670,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cap_strike)))]
     pub cap_strike: Option<Option<f64>>,
     pub close_time: ::chrono::DateTime<::chrono::offset::Utc>,
     pub created_time: ::chrono::DateTime<::chrono::offset::Utc>,
@@ -29659,6 +30680,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_custom_strike)))]
     pub custom_strike:
         Option<Option<::serde_json::Map<::std::string::String, ::serde_json::Value>>>,
     #[serde()]
@@ -29667,7 +30689,9 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_early_close_condition)))]
     pub early_close_condition: Option<Option<::std::string::String>>,
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -29675,6 +30699,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     #[serde()]
     #[serde(
@@ -29682,6 +30707,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expected_expiration_time)))]
     pub expected_expiration_time: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     #[serde()]
     #[serde(
@@ -29689,8 +30715,10 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expiration_time)))]
     pub expiration_time: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///The value that was considered for the settlement
+    #[builder(setter(into))]
     pub expiration_value: ::std::string::String,
     #[serde()]
     #[serde(
@@ -29698,6 +30726,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_fee_waiver_expiration_time)))]
     pub fee_waiver_expiration_time: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     #[serde()]
     #[serde(
@@ -29705,6 +30734,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_floor_strike)))]
     pub floor_strike: Option<Option<f64>>,
     #[serde()]
     #[serde(
@@ -29712,6 +30742,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_functional_strike)))]
     pub functional_strike: Option<Option<::std::string::String>>,
     ///If true, the market may be removed after determination if there is no activity on it
     #[serde()]
@@ -29720,6 +30751,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_is_provisional)))]
     pub is_provisional: ::std::option::Option<bool>,
     ///Price for the last traded YES contract on this market in dollars
     pub last_price_dollars: FixedPointDollars,
@@ -29734,6 +30766,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mve_collection_ticker), into))]
     pub mve_collection_ticker: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -29741,12 +30774,14 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mve_selected_legs)))]
     pub mve_selected_legs: Option<::std::vec::Vec<MveSelectedLeg>>,
     ///Price for the lowest NO sell offer on this market in dollars
     pub no_ask_dollars: FixedPointDollars,
     ///Price for the highest NO buy offer on this market in dollars
     pub no_bid_dollars: FixedPointDollars,
     ///Shortened title for the no side of this market
+    #[builder(setter(into))]
     pub no_sub_title: ::std::string::String,
     ///The total value of a single contract at settlement in dollars
     pub notional_value_dollars: FixedPointDollars,
@@ -29756,6 +30791,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_occurrence_datetime)))]
     pub occurrence_datetime: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     ///String representation of the number of contracts bought on this market disconsidering netting
     pub open_interest_fp: FixedPointCount,
@@ -29767,6 +30803,7 @@ pub struct Market {
     ///Price for the highest YES buy offer on this market a day ago in dollars
     pub previous_yes_bid_dollars: FixedPointDollars,
     ///Price level structure for this market, defining price ranges and tick sizes
+    #[builder(setter(into))]
     pub price_level_structure: ::std::string::String,
     ///Valid price ranges for orders on this market
     pub price_ranges: ::std::vec::Vec<PriceRange>,
@@ -29776,11 +30813,14 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_primary_participant_key)))]
     pub primary_participant_key: Option<Option<::std::string::String>>,
     pub result: MarketResult,
     ///A plain language description of the most important market terms
+    #[builder(setter(into))]
     pub rules_primary: ::std::string::String,
     ///A plain language description of secondary market terms
+    #[builder(setter(into))]
     pub rules_secondary: ::std::string::String,
     ///Which settlement bounds apply to this market. default means the market has no settlement bounds
     pub settlement_bounds_type: MarketSettlementBoundsType,
@@ -29790,6 +30830,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_settlement_floor_dollars)))]
     pub settlement_floor_dollars: Option<Option<FixedPointDollars>>,
     ///The amount of time after determination that the market settles
     pub settlement_timer_seconds: i64,
@@ -29799,6 +30840,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_settlement_ts)))]
     pub settlement_ts: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     #[serde()]
     #[serde(
@@ -29806,6 +30848,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_settlement_value_dollars)))]
     pub settlement_value_dollars: Option<Option<FixedPointDollars>>,
     ///The current status of the market in its lifecycle.
     pub status: MarketStatus,
@@ -29816,6 +30859,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_strike_type)))]
     pub strike_type: ::std::option::Option<MarketStrikeType>,
     #[serde()]
     #[serde(
@@ -29823,7 +30867,9 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subtitle), into))]
     pub subtitle: ::std::option::Option<::std::string::String>,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -29831,6 +30877,7 @@ pub struct Market {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_title), into))]
     pub title: ::std::option::Option<::std::string::String>,
     ///Time of the last non-trading metadata update.
     pub updated_time: ::chrono::DateTime<::chrono::offset::Utc>,
@@ -29847,8 +30894,10 @@ pub struct Market {
     ///Total contract size of orders to buy YES at the best bid price (fixed-point count string).
     pub yes_bid_size_fp: FixedPointCount,
     ///Shortened title for the yes side of this market
+    #[builder(setter(into))]
     pub yes_sub_title: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Market> for Market {
@@ -29902,7 +30951,8 @@ impl ::std::convert::From<&Market> for Market {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MarketCandlestick {
     ///Unix timestamp for the inclusive end of the candlestick period.
     pub end_period_ts: i64,
@@ -29917,6 +30967,7 @@ pub struct MarketCandlestick {
     ///Open, high, low, close (OHLC) data for YES buy offers on the market during the candlestick period.
     pub yes_bid: BidAskDistribution,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MarketCandlestick> for MarketCandlestick {
@@ -29970,7 +31021,8 @@ impl ::std::convert::From<&MarketCandlestick> for MarketCandlestick {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MarketCandlestickHistorical {
     ///Unix timestamp for the inclusive end of the candlestick period.
     pub end_period_ts: i64,
@@ -29985,6 +31037,7 @@ pub struct MarketCandlestickHistorical {
     ///Open, high, low, close (OHLC) data for YES buy offers on the market during the candlestick period.
     pub yes_bid: BidAskDistributionHistorical,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MarketCandlestickHistorical> for MarketCandlestickHistorical {
@@ -30020,13 +31073,16 @@ impl ::std::convert::From<&MarketCandlestickHistorical> for MarketCandlestickHis
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MarketCandlesticksResponse {
     ///Array of candlestick data points for the market. Includes an initial data point at the start timestamp when available.
     pub candlesticks: ::std::vec::Vec<MarketCandlestick>,
     ///Market ticker string (e.g., 'INXD-24JAN01').
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MarketCandlesticksResponse> for MarketCandlesticksResponse {
@@ -30133,15 +31189,20 @@ impl ::std::convert::TryFrom<::std::string::String> for MarketMarketType {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MarketMetadata {
     ///The color code for the market.
+    #[builder(setter(into))]
     pub color_code: ::std::string::String,
     ///A path to an image that represents this market.
+    #[builder(setter(into))]
     pub image_url: ::std::string::String,
     ///The ticker of the market.
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MarketMetadata> for MarketMetadata {
@@ -30172,11 +31233,14 @@ impl ::std::convert::From<&MarketMetadata> for MarketMetadata {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MarketOrderbookFp {
     pub orderbook_fp: OrderbookCountFp,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MarketOrderbookFp> for MarketOrderbookFp {
@@ -30240,7 +31304,8 @@ impl ::std::convert::From<&MarketOrderbookFp> for MarketOrderbookFp {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MarketPosition {
     pub exchange_index: ExchangeIndex,
     ///Fees paid on fill orders, in dollars
@@ -30254,10 +31319,12 @@ pub struct MarketPosition {
     ///Locked in profit and loss, in dollars
     pub realized_pnl_dollars: FixedPointDollars,
     ///Unique identifier for the market
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///Total spent on this market in dollars
     pub total_traded_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MarketPosition> for MarketPosition {
@@ -30718,9 +31785,11 @@ impl ::std::convert::TryFrom<::std::string::String> for MarketStrikeType {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Milestone {
     ///Category of the milestone. E.g. Sports, Elections, Esports, Crypto.
+    #[builder(setter(into))]
     pub category: ::std::string::String,
     ///Additional details about the milestone.
     pub details: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
@@ -30730,12 +31799,15 @@ pub struct Milestone {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_end_date)))]
     pub end_date: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     ///Unique identifier for the milestone.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Last time this structured target was updated.
     pub last_updated_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Notification message for the milestone.
+    #[builder(setter(into))]
     pub notification_message: ::std::string::String,
     ///List of event tickers directly related to the outcome of this milestone.
     pub primary_event_tickers: ::std::vec::Vec<::std::string::String>,
@@ -30747,6 +31819,7 @@ pub struct Milestone {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_id)))]
     pub source_id: Option<Option<::std::string::String>>,
     ///Source ids of milestone if available.
     #[serde()]
@@ -30755,16 +31828,20 @@ pub struct Milestone {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_ids)))]
     pub source_ids:
         Option<::std::collections::HashMap<::std::string::String, ::std::string::String>>,
     ///Start date of the milestone.
     pub start_date: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Title of the milestone.
+    #[builder(setter(into))]
     pub title: ::std::string::String,
     ///Type of the milestone. E.g. football_game, basketball_game, soccer_tournament_multi_leg, baseball_game, hockey_match, golf_tournament, political_race.
     #[serde(rename = "type")]
+    #[builder(setter(into))]
     pub type_: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Milestone> for Milestone {
@@ -30890,7 +31967,8 @@ impl ::std::convert::From<&Milestone> for Milestone {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MultivariateEventCollection {
     ///[DEPRECATED - Use associated_events instead] A list of events associated with the collection. Markets in these events can be passed as inputs to the Lookup and Create endpoints.
     pub associated_event_tickers: ::std::vec::Vec<::std::string::String>,
@@ -30899,8 +31977,10 @@ pub struct MultivariateEventCollection {
     ///The close date of the collection. After this time, the collection cannot be interacted with.
     pub close_date: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Unique identifier for the collection.
+    #[builder(setter(into))]
     pub collection_ticker: ::std::string::String,
     ///Short description of the collection.
+    #[builder(setter(into))]
     pub description: ::std::string::String,
     ///Exchange index inherited from the collection's series.
     #[serde()]
@@ -30909,8 +31989,10 @@ pub struct MultivariateEventCollection {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///A functional description of the collection describing how inputs affect the output.
+    #[builder(setter(into))]
     pub functional_description: ::std::string::String,
     ///[DEPRECATED - Use associated_events instead] Whether the collection requires that only the market side of 'yes' may be used.
     pub is_all_yes: bool,
@@ -30921,18 +32003,22 @@ pub struct MultivariateEventCollection {
     ///The open date of the collection. Before this time, the collection cannot be interacted with.
     pub open_date: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Price level structure used for new markets created in this collection. Existing markets may differ; use the market's price_level_structure and price_ranges for its current pricing.
+    #[builder(setter(into))]
     pub price_level_structure: ::std::string::String,
     ///Price bands and tick sizes in fixed-point dollars for new markets created in this collection. Use these ranges to determine valid prices rather than hardcoding the structure name.
     pub price_ranges: ::std::vec::Vec<PriceRange>,
     ///Series associated with the collection. Events produced in the collection will be associated with this series.
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     ///The maximum number of markets that must be passed into Lookup/Create (inclusive).
     pub size_max: i32,
     ///The minimum number of markets that must be passed into Lookup/Create (inclusive).
     pub size_min: i32,
     ///Title of the collection.
+    #[builder(setter(into))]
     pub title: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MultivariateEventCollection> for MultivariateEventCollection {
@@ -30980,7 +32066,8 @@ impl ::std::convert::From<&MultivariateEventCollection> for MultivariateEventCol
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct MveSelectedLeg {
     ///Unique identifier for the selected event
     #[serde()]
@@ -30989,6 +32076,7 @@ pub struct MveSelectedLeg {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_event_ticker), into))]
     pub event_ticker: ::std::option::Option<::std::string::String>,
     ///Unique identifier for the selected market
     #[serde()]
@@ -30997,6 +32085,7 @@ pub struct MveSelectedLeg {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_market_ticker), into))]
     pub market_ticker: ::std::option::Option<::std::string::String>,
     ///The side of the selected market
     #[serde()]
@@ -31005,6 +32094,7 @@ pub struct MveSelectedLeg {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_side), into))]
     pub side: ::std::option::Option<::std::string::String>,
     #[serde()]
     #[serde(
@@ -31012,8 +32102,13 @@ pub struct MveSelectedLeg {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(
+        default,
+        setter(strip_option(fallback = opt_yes_settlement_value_dollars))
+    )]
     pub yes_settlement_value_dollars: Option<Option<FixedPointDollars>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&MveSelectedLeg> for MveSelectedLeg {
@@ -31227,7 +32322,8 @@ impl ::std::convert::From<&MveSelectedLeg> for MveSelectedLeg {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Order {
     ///Deprecated. Use `outcome_side` (or `book_side`) instead. See [Order direction](/getting_started/order_direction). This field will not be removed before May 14, 2026.
     #[serde()]
@@ -31236,6 +32332,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_action)))]
     pub action: ::std::option::Option<OrderAction>,
     ///Same directional bit as outcome_side in book vocabulary. 'bid' is equivalent to outcome_side 'yes'; 'ask' is equivalent to outcome_side 'no'.
     ///
@@ -31248,7 +32345,9 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancel_order_on_pause)))]
     pub cancel_order_on_pause: ::std::option::Option<bool>,
+    #[builder(setter(into))]
     pub client_order_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -31256,6 +32355,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_created_time)))]
     pub created_time: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     #[serde()]
     #[serde(
@@ -31263,6 +32363,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     #[serde()]
     #[serde(
@@ -31270,6 +32371,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_expiration_time)))]
     pub expiration_time: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     ///String representation of the number of contracts that have been filled
     pub fill_count_fp: FixedPointCount,
@@ -31281,6 +32383,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_last_update_time)))]
     pub last_update_time: Option<Option<::chrono::DateTime<::chrono::offset::Utc>>>,
     ///Fees paid on filled maker contracts, in dollars
     pub maker_fees_dollars: FixedPointDollars,
@@ -31294,7 +32397,9 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_order_group_id)))]
     pub order_group_id: Option<Option<::std::string::String>>,
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///The outcome side this order is positioned for. buy-yes and sell-no produce 'yes'; buy-no and sell-yes produce 'no'.
     ///
@@ -31310,6 +32415,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_self_trade_prevention_type)))]
     pub self_trade_prevention_type: Option<Option<SelfTradePreventionType>>,
     ///Deprecated. Use `outcome_side` (or `book_side`) instead. See [Order direction](/getting_started/order_direction). This field will not be removed before May 14, 2026.
     #[serde()]
@@ -31318,6 +32424,7 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_side)))]
     pub side: ::std::option::Option<OrderSide>,
     pub status: OrderStatus,
     #[serde()]
@@ -31326,19 +32433,23 @@ pub struct Order {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount_number)))]
     pub subaccount_number: Option<Option<i64>>,
     ///Fees paid on filled taker contracts, in dollars
     pub taker_fees_dollars: FixedPointDollars,
     ///The cost of filled taker orders in dollars
     pub taker_fill_cost_dollars: FixedPointDollars,
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde(rename = "type")]
     pub type_: OrderType,
     ///Unique identifier for users
+    #[builder(setter(into))]
     pub user_id: ::std::string::String,
     ///The yes price for this order in fixed-point dollars
     pub yes_price_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Order> for Order {
@@ -31459,7 +32570,8 @@ impl ::std::convert::TryFrom<::std::string::String> for OrderAction {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct OrderGroup {
     ///String representation of the current maximum contracts allowed over a rolling 15-second window.
     #[serde()]
@@ -31468,6 +32580,7 @@ pub struct OrderGroup {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_limit_fp)))]
     pub contracts_limit_fp: ::std::option::Option<FixedPointCount>,
     #[serde()]
     #[serde(
@@ -31475,12 +32588,15 @@ pub struct OrderGroup {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     ///Unique identifier for the order group
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Whether auto-cancel is enabled for this order group
     pub is_auto_cancel_enabled: bool,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&OrderGroup> for OrderGroup {
@@ -31592,15 +32708,19 @@ impl ::std::convert::TryFrom<::std::string::String> for OrderOutcomeSide {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct OrderQueuePosition {
     ///The market ticker
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///The order ID
+    #[builder(setter(into))]
     pub order_id: ::std::string::String,
     ///The number of preceding shares before the order in the queue.
     pub queue_position_fp: FixedPointCount,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&OrderQueuePosition> for OrderQueuePosition {
@@ -31852,11 +32972,13 @@ impl ::std::convert::TryFrom<::std::string::String> for OrderType {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct OrderbookCountFp {
     pub no_dollars: ::std::vec::Vec<PriceLevelDollarsCountFp>,
     pub yes_dollars: ::std::vec::Vec<PriceLevelDollarsCountFp>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&OrderbookCountFp> for OrderbookCountFp {
@@ -31973,15 +33095,18 @@ impl ::std::convert::TryFrom<::std::string::String> for OutcomeSide {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct PercentilePoint {
     ///The human-readable formatted forecast value.
+    #[builder(setter(into))]
     pub formatted_forecast: ::std::string::String,
     pub numerical_forecast: f64,
     ///The percentile value (0-9999).
     pub percentile: i32,
     pub raw_numerical_forecast: f64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&PercentilePoint> for PercentilePoint {
@@ -32019,7 +33144,8 @@ impl ::std::convert::From<&PercentilePoint> for PercentilePoint {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct PlayByPlay {
     #[serde()]
     #[serde(
@@ -32027,8 +33153,10 @@ pub struct PlayByPlay {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_periods)))]
     pub periods: Option<::std::vec::Vec<PlayByPlayPeriodsItem>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&PlayByPlay> for PlayByPlay {
@@ -32056,7 +33184,8 @@ impl ::std::convert::From<&PlayByPlay> for PlayByPlay {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct PlayByPlayPeriodsItem {
     #[serde()]
     #[serde(
@@ -32064,9 +33193,11 @@ pub struct PlayByPlayPeriodsItem {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_events)))]
     pub events:
         Option<::std::vec::Vec<::serde_json::Map<::std::string::String, ::serde_json::Value>>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&PlayByPlayPeriodsItem> for PlayByPlayPeriodsItem {
@@ -32175,7 +33306,8 @@ impl ::std::convert::From<&PlayByPlayPeriodsItem> for PlayByPlayPeriodsItem {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct PriceDistribution {
     #[serde()]
     #[serde(
@@ -32183,6 +33315,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_close_dollars)))]
     pub close_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32190,6 +33323,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_high_dollars)))]
     pub high_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32197,6 +33331,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_low_dollars)))]
     pub low_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32204,6 +33339,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_max_dollars)))]
     pub max_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32211,6 +33347,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mean_dollars)))]
     pub mean_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32218,6 +33355,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_min_dollars)))]
     pub min_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32225,6 +33363,7 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_open_dollars)))]
     pub open_dollars: Option<Option<FixedPointDollars>>,
     #[serde()]
     #[serde(
@@ -32232,8 +33371,10 @@ pub struct PriceDistribution {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_previous_dollars)))]
     pub previous_dollars: Option<Option<FixedPointDollars>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&PriceDistribution> for PriceDistribution {
@@ -32352,7 +33493,8 @@ impl ::std::convert::From<&PriceDistribution> for PriceDistribution {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct PriceDistributionHistorical {
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub close: ::std::option::Option<FixedPointDollars>,
@@ -32367,6 +33509,7 @@ pub struct PriceDistributionHistorical {
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub previous: ::std::option::Option<FixedPointDollars>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&PriceDistributionHistorical> for PriceDistributionHistorical {
@@ -32448,15 +33591,20 @@ impl ::std::convert::From<[::std::string::String; 2usize]> for PriceLevelDollars
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct PriceRange {
     ///Ending price for this range in dollars
+    #[builder(setter(into))]
     pub end: ::std::string::String,
     ///Starting price for this range in dollars
+    #[builder(setter(into))]
     pub start: ::std::string::String,
     ///Price step/tick size for this range in dollars
+    #[builder(setter(into))]
     pub step: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&PriceRange> for PriceRange {
@@ -32600,7 +33748,8 @@ impl ::std::convert::From<ProposeBlockTradeRequest> for ProposeBlockTradeBody {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ProposeBlockTradeRequest {
     ///User-managed subaccount number of the buyer (0 for primary, 1-63 for numbered subaccounts). Provide either this or buyer_subtrader_id, not both.
     #[serde()]
@@ -32609,6 +33758,7 @@ pub struct ProposeBlockTradeRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_buyer_subaccount)))]
     pub buyer_subaccount: ::std::option::Option<i64>,
     ///Subtrader ID of the buyer. Provide either this or buyer_subaccount, not both.
     #[serde()]
@@ -32617,8 +33767,10 @@ pub struct ProposeBlockTradeRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_buyer_subtrader_id), into))]
     pub buyer_subtrader_id: ::std::option::Option<::std::string::String>,
     ///User ID of the buyer
+    #[builder(setter(into))]
     pub buyer_user_id: ::std::string::String,
     ///Number of contracts in centicounts
     pub centicount: ::std::num::NonZeroU64,
@@ -32627,6 +33779,7 @@ pub struct ProposeBlockTradeRequest {
     ///The maker side of the trade
     pub maker_side: ProposeBlockTradeRequestMakerSide,
     ///The ticker of the market for this block trade
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Price in centi-cents
     pub price_centi_cents: ::std::num::NonZeroU64,
@@ -32637,6 +33790,7 @@ pub struct ProposeBlockTradeRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_seller_subaccount)))]
     pub seller_subaccount: ::std::option::Option<i64>,
     ///Subtrader ID of the seller. Provide either this or seller_subaccount, not both.
     #[serde()]
@@ -32645,10 +33799,13 @@ pub struct ProposeBlockTradeRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_seller_subtrader_id), into))]
     pub seller_subtrader_id: ::std::option::Option<::std::string::String>,
     ///User ID of the seller
+    #[builder(setter(into))]
     pub seller_user_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ProposeBlockTradeRequest> for ProposeBlockTradeRequest {
@@ -32748,11 +33905,14 @@ impl ::std::convert::TryFrom<::std::string::String> for ProposeBlockTradeRequest
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ProposeBlockTradeResponse {
     ///The ID of the newly created block trade proposal
+    #[builder(setter(into))]
     pub block_trade_proposal_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ProposeBlockTradeResponse> for ProposeBlockTradeResponse {
@@ -33096,7 +34256,8 @@ impl ::std::convert::From<ErrorResponse> for ProposeBlockTradeStatus500 {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Quote {
     ///The side that was accepted (yes or no)
     #[serde()]
@@ -33105,6 +34266,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_accepted_side)))]
     pub accepted_side: ::std::option::Option<QuoteAcceptedSide>,
     ///Timestamp when the quote was accepted
     #[serde()]
@@ -33113,6 +34275,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_accepted_ts)))]
     pub accepted_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Reason for quote cancellation if cancelled
     #[serde()]
@@ -33121,6 +34284,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancellation_reason), into))]
     pub cancellation_reason: ::std::option::Option<::std::string::String>,
     ///Timestamp when the quote was cancelled
     #[serde()]
@@ -33129,6 +34293,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancelled_ts)))]
     pub cancelled_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Timestamp when the quote was confirmed
     #[serde()]
@@ -33137,12 +34302,14 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_confirmed_ts)))]
     pub confirmed_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///String representation of the number of contracts in the quote
     pub contracts_fp: FixedPointCount,
     ///Timestamp when the quote was created
     pub created_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Public communications ID of the quote creator
+    #[builder(setter(into))]
     pub creator_id: ::std::string::String,
     ///Order ID for the quote creator (private field)
     #[serde()]
@@ -33151,6 +34318,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_creator_order_id), into))]
     pub creator_order_id: ::std::option::Option<::std::string::String>,
     ///Subaccount number of the quote creator (visible when the caller is the quote creator)
     #[serde()]
@@ -33159,6 +34327,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_creator_subaccount)))]
     pub creator_subaccount: ::std::option::Option<i64>,
     ///User ID of the quote creator (private field)
     #[serde()]
@@ -33167,6 +34336,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_creator_user_id), into))]
     pub creator_user_id: ::std::option::Option<::std::string::String>,
     ///Timestamp when the quote was executed
     #[serde()]
@@ -33175,10 +34345,13 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_executed_ts)))]
     pub executed_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///UUID of the quote. Preserve the exact returned string.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///The ticker of the market this quote is for
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Bid price for NO contracts, in dollars
     pub no_bid_dollars: FixedPointDollars,
@@ -33189,6 +34362,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_no_contracts_fp)))]
     pub no_contracts_fp: ::std::option::Option<FixedPointCount>,
     ///Whether the quote creator's order is post-only (visible when the caller is the quote creator)
     #[serde()]
@@ -33197,6 +34371,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_post_only)))]
     pub post_only: ::std::option::Option<bool>,
     ///Whether to rest the remainder of the quote after execution
     #[serde()]
@@ -33205,8 +34380,10 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rest_remainder)))]
     pub rest_remainder: ::std::option::Option<bool>,
     ///Public communications ID of the RFQ creator (pseudonymous). When obscure_creator_id is enabled, other users receive the shared placeholder "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" (SHA-256 of empty input). The creator sees their normal ID. After this quote executes successfully, its counterparty sees the normal public communications ID.
+    #[builder(setter(into))]
     pub rfq_creator_id: ::std::string::String,
     ///Order ID for the RFQ creator (private field)
     #[serde()]
@@ -33215,6 +34392,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_creator_order_id), into))]
     pub rfq_creator_order_id: ::std::option::Option<::std::string::String>,
     ///Subaccount number of the RFQ creator (visible when the caller is the RFQ creator)
     #[serde()]
@@ -33223,6 +34401,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_creator_subaccount)))]
     pub rfq_creator_subaccount: ::std::option::Option<i64>,
     ///User ID of the RFQ creator (private field)
     #[serde()]
@@ -33231,8 +34410,10 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_creator_user_id), into))]
     pub rfq_creator_user_id: ::std::option::Option<::std::string::String>,
     ///UUID of the RFQ this quote is responding to.
+    #[builder(setter(into))]
     pub rfq_id: ::std::string::String,
     ///Total value requested in the RFQ in dollars
     #[serde()]
@@ -33241,6 +34422,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rfq_target_cost_dollars)))]
     pub rfq_target_cost_dollars: ::std::option::Option<FixedPointDollars>,
     ///Current status of the quote
     pub status: QuoteStatus,
@@ -33251,6 +34433,7 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_cost_excludes_fees)))]
     pub target_cost_excludes_fees: ::std::option::Option<bool>,
     ///Timestamp when the quote was last updated
     pub updated_ts: ::chrono::DateTime<::chrono::offset::Utc>,
@@ -33263,8 +34446,10 @@ pub struct Quote {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_yes_contracts_fp)))]
     pub yes_contracts_fp: ::std::option::Option<FixedPointCount>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Quote> for Quote {
@@ -33486,6 +34671,8 @@ impl ::std::convert::From<EmptyResponse> for ResetOrderGroupBody {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ResetOrderGroupParameters {
     #[serde()]
     #[serde(
@@ -33493,7 +34680,9 @@ pub struct ResetOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
+    #[builder(setter(into))]
     pub order_group_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -33501,6 +34690,7 @@ pub struct ResetOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&ResetOrderGroupParameters> for ResetOrderGroupParameters {
@@ -33827,7 +35017,8 @@ impl ::std::convert::TryFrom<::std::string::String> for RestingMarginReservation
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Rfq {
     ///Reason for RFQ cancellation if cancelled
     #[serde()]
@@ -33836,6 +35027,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancellation_reason), into))]
     pub cancellation_reason: ::std::option::Option<::std::string::String>,
     ///Timestamp when the RFQ was cancelled
     #[serde()]
@@ -33844,12 +35036,14 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_cancelled_ts)))]
     pub cancelled_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///String representation of the number of contracts requested in the RFQ
     pub contracts_fp: FixedPointCount,
     ///Timestamp when the RFQ was created
     pub created_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Public communications ID of the RFQ creator (pseudonymous). When obscure_creator_id is enabled, other users receive the shared placeholder "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" (SHA-256 of empty input). The creator sees their normal ID. After successful quote execution, subsequent RFQ responses show the normal public communications ID to all viewers.
+    #[builder(setter(into))]
     pub creator_id: ::std::string::String,
     ///Subaccount number of the RFQ creator (visible when the caller is the RFQ creator)
     #[serde()]
@@ -33858,6 +35052,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_creator_subaccount)))]
     pub creator_subaccount: ::std::option::Option<i64>,
     ///User ID of the RFQ creator (private field)
     #[serde()]
@@ -33866,10 +35061,13 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_creator_user_id), into))]
     pub creator_user_id: ::std::option::Option<::std::string::String>,
     ///UUID of the RFQ. Preserve the exact returned string.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///The ticker of the market this RFQ is for
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Ticker of the MVE collection this market belongs to
     #[serde()]
@@ -33878,6 +35076,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mve_collection_ticker), into))]
     pub mve_collection_ticker: ::std::option::Option<::std::string::String>,
     ///Selected legs for the MVE collection
     #[serde()]
@@ -33886,6 +35085,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_mve_selected_legs)))]
     pub mve_selected_legs: Option<::std::vec::Vec<MveSelectedLeg>>,
     ///Whether to rest the remainder of the RFQ after execution
     #[serde()]
@@ -33894,6 +35094,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_rest_remainder)))]
     pub rest_remainder: ::std::option::Option<bool>,
     ///Current status of the RFQ (open, closed)
     pub status: RfqStatus,
@@ -33904,6 +35105,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_cost_dollars)))]
     pub target_cost_dollars: ::std::option::Option<FixedPointDollars>,
     ///True when the target cost is principal-only and quote sizes are computed without reserving taker fees (fees are charged on top).
     #[serde()]
@@ -33912,6 +35114,7 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_target_cost_excludes_fees)))]
     pub target_cost_excludes_fees: ::std::option::Option<bool>,
     ///Timestamp when the RFQ was last updated
     #[serde()]
@@ -33920,8 +35123,10 @@ pub struct Rfq {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_updated_ts)))]
     pub updated_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Rfq> for Rfq {
@@ -34029,13 +35234,15 @@ impl ::std::convert::TryFrom<::std::string::String> for RfqStatus {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Schedule {
     ///Scheduled maintenance windows, during which the exchange may be unavailable.
     pub maintenance_windows: ::std::vec::Vec<MaintenanceWindow>,
     ///The standard operating hours of the exchange. All times are expressed in ET. Outside of these times trading will be unavailable.
     pub standard_hours: ::std::vec::Vec<WeeklySchedule>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Schedule> for Schedule {
@@ -34066,11 +35273,13 @@ impl ::std::convert::From<&Schedule> for Schedule {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct ScopeList {
     ///List of scopes
     pub scopes: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&ScopeList> for ScopeList {
@@ -34291,17 +35500,21 @@ impl ::std::convert::TryFrom<::std::string::String> for SelfTradePreventionType 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Series {
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub additional_prohibitions: ::std::option::Option<::std::vec::Vec<::std::string::String>>,
     ///Categories is the list of discovery categories for this series. The `category` filter on Get Series List matches any entry in this list. May be empty.
     pub categories: ::std::vec::Vec<::std::string::String>,
     ///Category is the primary category of this series.
+    #[builder(setter(into))]
     pub category: ::std::string::String,
     ///ContractTermsUrl is the URL to the current terms of the contract underlying the series.
+    #[builder(setter(into))]
     pub contract_terms_url: ::std::string::String,
     ///ContractUrl provides a direct link to the original filing of the contract which underlies the series.
+    #[builder(setter(into))]
     pub contract_url: ::std::string::String,
     #[serde()]
     #[serde(
@@ -34309,11 +35522,13 @@ pub struct Series {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
     pub fee_multiplier: f64,
     ///FeeType is a string representing the series' fee structure. Fee structures can be found at https://kalshi.com/docs/kalshi-fee-schedule.pdf. 'quadratic' is described by the General Trading Fees Table, 'quadratic_with_maker_fees' is described by the General Trading Fees Table with maker fees described in the Maker Fees section, 'quadratic_with_combo_maker_fees' is the same maker-fee structure with a 0.5 maker multiplier instead of 0.25, 'flat' is described by the Specific Trading Fees Table.
     pub fee_type: FeeType,
     ///Description of the frequency of the series. There is no fixed value set here, but will be something human-readable like weekly, daily, one-off.
+    #[builder(setter(into))]
     pub frequency: ::std::string::String,
     ///Timestamp of when this series' metadata was last updated.
     #[serde()]
@@ -34322,6 +35537,7 @@ pub struct Series {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_last_updated_ts)))]
     pub last_updated_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     #[serde()]
     #[serde(
@@ -34329,6 +35545,7 @@ pub struct Series {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_product_metadata)))]
     pub product_metadata:
         Option<Option<::serde_json::Map<::std::string::String, ::serde_json::Value>>>,
     #[serde(deserialize_with = "crate::typed::required_nullable")]
@@ -34336,8 +35553,10 @@ pub struct Series {
     #[serde(deserialize_with = "crate::typed::required_nullable")]
     pub tags: ::std::option::Option<::std::vec::Vec<::std::string::String>>,
     ///Ticker that identifies this series.
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///Title describing the series. For full context use you should use this field with the title field of the events belonging to this series.
+    #[builder(setter(into))]
     pub title: ::std::string::String,
     ///String representation of the total number of contracts traded across all events in this series.
     #[serde()]
@@ -34346,8 +35565,10 @@ pub struct Series {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_volume_fp)))]
     pub volume_fp: ::std::option::Option<FixedPointCount>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Series> for Series {
@@ -34401,18 +35622,22 @@ impl ::std::convert::From<&Series> for Series {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SeriesFeeChange {
     pub fee_multiplier: f64,
     ///New fee type for the series
     pub fee_type: FeeType,
     ///Unique identifier for this fee change
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Timestamp when this fee change is scheduled to take effect
     pub scheduled_ts: ::chrono::DateTime<::chrono::offset::Utc>,
     ///Series ticker this fee change applies to
+    #[builder(setter(into))]
     pub series_ticker: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SeriesFeeChange> for SeriesFeeChange {
@@ -34492,7 +35717,8 @@ impl ::std::convert::From<SetTargetBalanceAllocationRequest> for SetTargetBalanc
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SetTargetBalanceAllocationRequest {
     pub allocations: ::std::vec::Vec<TargetBalanceAllocationInput>,
     ///Defaults to `sum` when omitted.
@@ -34502,8 +35728,10 @@ pub struct SetTargetBalanceAllocationRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_resting_margin_reservation)))]
     pub resting_margin_reservation: ::std::option::Option<RestingMarginReservation>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SetTargetBalanceAllocationRequest>
@@ -34780,9 +36008,11 @@ impl ::std::convert::From<ErrorResponse> for SetTargetBalanceAllocationStatus500
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Settlement {
     ///The event ticker symbol of the market that was settled.
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     pub exchange_index: ExchangeIndex,
     ///Total fees paid in fixed point dollars.
@@ -34798,6 +36028,7 @@ pub struct Settlement {
     ///Timestamp when the market was settled and payouts were processed.
     pub settled_time: ::chrono::DateTime<::chrono::offset::Utc>,
     ///The ticker symbol of the market that was settled.
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     #[serde()]
     #[serde(
@@ -34805,12 +36036,14 @@ pub struct Settlement {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_value)))]
     pub value: Option<Option<i64>>,
     ///String representation of the number of YES contracts owned at the time of settlement.
     pub yes_count_fp: FixedPointCount,
     ///Total cost basis of all YES contracts in fixed-point dollars.
     pub yes_total_cost_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Settlement> for Settlement {
@@ -34915,7 +36148,8 @@ impl ::std::convert::TryFrom<::std::string::String> for SettlementMarketResult {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SettlementSource {
     ///Name of the settlement source
     #[serde()]
@@ -34924,6 +36158,7 @@ pub struct SettlementSource {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_name), into))]
     pub name: ::std::option::Option<::std::string::String>,
     ///URL to the settlement source
     #[serde()]
@@ -34932,8 +36167,10 @@ pub struct SettlementSource {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_url), into))]
     pub url: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SettlementSource> for SettlementSource {
@@ -34972,13 +36209,15 @@ impl ::std::convert::From<&SettlementSource> for SettlementSource {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SportFilterDetails {
     ///Mapping of competitions to their scope lists
     pub competitions: ::std::collections::HashMap<::std::string::String, ScopeList>,
     ///List of scopes available for this sport
     pub scopes: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SportFilterDetails> for SportFilterDetails {
@@ -35031,7 +36270,8 @@ impl ::std::convert::From<&SportFilterDetails> for SportFilterDetails {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct StructuredTarget {
     ///Additional details about the structured target. Contains flexible JSON data specific to the target type.
     #[serde()]
@@ -35040,6 +36280,7 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_details)))]
     pub details: Option<::serde_json::Map<::std::string::String, ::serde_json::Value>>,
     ///Unique identifier for the structured target.
     #[serde()]
@@ -35048,6 +36289,7 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_id), into))]
     pub id: ::std::option::Option<::std::string::String>,
     ///Timestamp when this structured target was last updated.
     #[serde()]
@@ -35056,6 +36298,7 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_last_updated_ts)))]
     pub last_updated_ts: ::std::option::Option<::chrono::DateTime<::chrono::offset::Utc>>,
     ///Name of the structured target.
     #[serde()]
@@ -35064,6 +36307,7 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_name), into))]
     pub name: ::std::option::Option<::std::string::String>,
     ///External source identifier for the structured target, if available (e.g., third-party data provider ID).
     #[serde()]
@@ -35072,6 +36316,7 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_id), into))]
     pub source_id: ::std::option::Option<::std::string::String>,
     ///Source ids of structured target if available.
     #[serde()]
@@ -35080,6 +36325,7 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source_ids)))]
     pub source_ids:
         Option<::std::collections::HashMap<::std::string::String, ::std::string::String>>,
     ///Type of the structured target.
@@ -35089,8 +36335,10 @@ pub struct StructuredTarget {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_type_), into))]
     pub type_: ::std::option::Option<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&StructuredTarget> for StructuredTarget {
@@ -35134,7 +36382,8 @@ impl ::std::convert::From<&StructuredTarget> for StructuredTarget {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SubaccountBalance {
     ///Balance in dollars.
     pub balance: FixedPointDollars,
@@ -35145,6 +36394,7 @@ pub struct SubaccountBalance {
     ///Unix timestamp of last balance update.
     pub updated_ts: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SubaccountBalance> for SubaccountBalance {
@@ -35182,7 +36432,8 @@ impl ::std::convert::From<&SubaccountBalance> for SubaccountBalance {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SubaccountNettingConfig {
     ///Whether netting is enabled for this subaccount.
     pub enabled: bool,
@@ -35191,6 +36442,7 @@ pub struct SubaccountNettingConfig {
     ///Subaccount number (0 for primary, 1-63 for subaccounts).
     pub subaccount_number: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SubaccountNettingConfig> for SubaccountNettingConfig {
@@ -35245,7 +36497,8 @@ impl ::std::convert::From<&SubaccountNettingConfig> for SubaccountNettingConfig 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct SubaccountTransfer {
     ///Cash transfer amount in cents.
     pub amount_cents: i64,
@@ -35258,8 +36511,10 @@ pub struct SubaccountTransfer {
     ///Destination subaccount number (0 for primary, 1-63 for subaccounts).
     pub to_subaccount: i64,
     ///Unique identifier for this transfer.
+    #[builder(setter(into))]
     pub transfer_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&SubaccountTransfer> for SubaccountTransfer {
@@ -35295,13 +36550,15 @@ impl ::std::convert::From<&SubaccountTransfer> for SubaccountTransfer {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct TargetBalanceAllocation {
     ///Exchange index that receives this percentage of sweepable balance
     pub exchange_index: u64,
     ///Target percentage of sweepable balance for the exchange index
     pub percent: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&TargetBalanceAllocation> for TargetBalanceAllocation {
@@ -35345,13 +36602,15 @@ impl ::std::convert::From<&TargetBalanceAllocation> for TargetBalanceAllocation 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct TargetBalanceAllocationInput {
     ///Exchange index that receives this percentage of sweepable balance
     pub exchange_index: u64,
     ///Target percentage of sweepable balance for the exchange index
     pub percent: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&TargetBalanceAllocationInput> for TargetBalanceAllocationInput {
@@ -35396,15 +36655,19 @@ impl ::std::convert::From<&TargetBalanceAllocationInput> for TargetBalanceAlloca
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct TickerPair {
     ///Event ticker identifier.
+    #[builder(setter(into))]
     pub event_ticker: ::std::string::String,
     ///Market ticker identifier.
+    #[builder(setter(into))]
     pub market_ticker: ::std::string::String,
     ///Side of the market (yes or no).
     pub side: TickerPairSide,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&TickerPair> for TickerPair {
@@ -35567,7 +36830,8 @@ impl ::std::convert::TryFrom<::std::string::String> for TickerPairSide {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Trade {
     ///String representation of the number of contracts bought or sold in this trade
     pub count_fp: FixedPointCount,
@@ -35594,14 +36858,18 @@ pub struct Trade {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_taker_side)))]
     pub taker_side: ::std::option::Option<TradeTakerSide>,
     ///Unique identifier for the market
+    #[builder(setter(into))]
     pub ticker: ::std::string::String,
     ///Unique identifier for this trade
+    #[builder(setter(into))]
     pub trade_id: ::std::string::String,
     ///Yes price for this trade in dollars
     pub yes_price_dollars: FixedPointDollars,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Trade> for Trade {
@@ -35824,6 +37092,8 @@ impl ::std::convert::From<EmptyResponse> for TriggerOrderGroupBody {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct TriggerOrderGroupParameters {
     #[serde()]
     #[serde(
@@ -35831,7 +37101,9 @@ pub struct TriggerOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
+    #[builder(setter(into))]
     pub order_group_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -35839,6 +37111,7 @@ pub struct TriggerOrderGroupParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&TriggerOrderGroupParameters> for TriggerOrderGroupParameters {
@@ -36046,12 +37319,15 @@ impl ::std::convert::From<UpdateFcmEventContractDailyCapRequest>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct UpdateFcmEventContractDailyCapRequest {
     pub limit: FixedPointDollars,
     ///The subtrader whose daily cap should be set. Must belong to the requesting FCM.
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&UpdateFcmEventContractDailyCapRequest>
@@ -36347,15 +37623,19 @@ impl ::std::convert::From<UpdateFcmSubtraderBlockedCategoriesRequest>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct UpdateFcmSubtraderBlockedCategoriesRequest {
     ///True adds the category to the blocked set; false removes it. Removing a category that is not blocked is a no-op.
     pub blocked: bool,
     ///A single event category to add to or remove from the blocked set, 1-100 characters (e.g. "Politics").
+    #[builder(setter(into))]
     pub category: ::std::string::String,
     ///The subtrader whose blocked categories should be updated. Must belong to the requesting FCM.
+    #[builder(setter(into))]
     pub subtrader_id: ::std::string::String,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&UpdateFcmSubtraderBlockedCategoriesRequest>
@@ -36388,11 +37668,13 @@ impl ::std::convert::From<&UpdateFcmSubtraderBlockedCategoriesRequest>
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct UpdateFcmSubtraderBlockedCategoriesResponse {
     ///The subtrader's full resulting blocked set, sorted ascending.
     pub categories: ::std::vec::Vec<::std::string::String>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&UpdateFcmSubtraderBlockedCategoriesResponse>
@@ -36685,6 +37967,8 @@ impl ::std::convert::From<UpdateOrderGroupLimitRequest> for UpdateOrderGroupLimi
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
 #[serde(deny_unknown_fields)]
+#[derive(::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct UpdateOrderGroupLimitParameters {
     #[serde()]
     #[serde(
@@ -36692,7 +37976,9 @@ pub struct UpdateOrderGroupLimitParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_exchange_index)))]
     pub exchange_index: ::std::option::Option<ExchangeIndex>,
+    #[builder(setter(into))]
     pub order_group_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -36700,6 +37986,7 @@ pub struct UpdateOrderGroupLimitParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_subaccount)))]
     pub subaccount: ::std::option::Option<i64>,
 }
 impl ::std::convert::From<&UpdateOrderGroupLimitParameters> for UpdateOrderGroupLimitParameters {
@@ -36741,7 +38028,8 @@ impl ::std::convert::From<&UpdateOrderGroupLimitParameters> for UpdateOrderGroup
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct UpdateOrderGroupLimitRequest {
     ///New maximum number of contracts that can be matched within this group over a rolling 15-second window. Whole contracts only. Provide contracts_limit or contracts_limit_fp; if both provided they must match.
     #[serde()]
@@ -36750,6 +38038,7 @@ pub struct UpdateOrderGroupLimitRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_limit)))]
     pub contracts_limit: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde()]
     #[serde(
@@ -36757,8 +38046,10 @@ pub struct UpdateOrderGroupLimitRequest {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contracts_limit_fp)))]
     pub contracts_limit_fp: Option<Option<FixedPointCount>>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&UpdateOrderGroupLimitRequest> for UpdateOrderGroupLimitRequest {
@@ -36995,13 +38286,15 @@ impl ::std::convert::From<UpdateSubaccountNettingRequest> for UpdateSubaccountNe
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct UpdateSubaccountNettingRequest {
     ///Whether netting is enabled for this subaccount.
     pub enabled: bool,
     ///Subaccount number (0 for primary, 1-63 for subaccounts).
     pub subaccount_number: i64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&UpdateSubaccountNettingRequest> for UpdateSubaccountNettingRequest {
@@ -37237,7 +38530,8 @@ impl ::std::convert::TryFrom<::std::string::String> for UserFilter {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct WeatherIndexCalibration {
     ///End of the calibration window (exclusive).
     #[serde()]
@@ -37246,6 +38540,7 @@ pub struct WeatherIndexCalibration {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_calibration_window_end_ms)))]
     pub calibration_window_end_ms: ::std::option::Option<i64>,
     ///Start of the trailing observation window the offsets were estimated from. Absent on records not derived from a calibration window (the launch configuration).
     #[serde()]
@@ -37254,6 +38549,7 @@ pub struct WeatherIndexCalibration {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_calibration_window_start_ms)))]
     pub calibration_window_start_ms: ::std::option::Option<i64>,
     ///Why the configuration changed.
     #[serde()]
@@ -37262,9 +38558,11 @@ pub struct WeatherIndexCalibration {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_change_reason), into))]
     pub change_reason: ::std::option::Option<::std::string::String>,
     pub city_reference_c: f64,
     ///Configuration version (e.g. `miami-temperature-v1.0-cal-20260831`). Index points report the version they were computed under in their `config_version` field.
+    #[builder(setter(into))]
     pub config_version: ::std::string::String,
     ///The record governs event minutes at or after this time (unix milliseconds UTC), until superseded by the next record.
     pub effective_at_ms: i64,
@@ -37275,10 +38573,12 @@ pub struct WeatherIndexCalibration {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_published_at_ms)))]
     pub published_at_ms: ::std::option::Option<i64>,
     ///Configured member stations, in configuration order.
     pub stations: ::std::vec::Vec<WeatherIndexCalibrationStation>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&WeatherIndexCalibration> for WeatherIndexCalibration {
@@ -37322,10 +38622,12 @@ impl ::std::convert::From<&WeatherIndexCalibration> for WeatherIndexCalibration 
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct WeatherIndexCalibrationStation {
     pub offset_c: f64,
     ///Member station ID (e.g. `KMIA1M`).
+    #[builder(setter(into))]
     pub station_id: ::std::string::String,
     ///Weekly-calibration disposition, present only on weekly calibration records: `updated ...` with the residual count, target, and applied adjustment, or `insufficient ...` when the prior offset was retained.
     #[serde()]
@@ -37334,9 +38636,11 @@ pub struct WeatherIndexCalibrationStation {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_update_note), into))]
     pub update_note: ::std::option::Option<::std::string::String>,
     pub weight: f64,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&WeatherIndexCalibrationStation> for WeatherIndexCalibrationStation {
@@ -37390,7 +38694,8 @@ impl ::std::convert::From<&WeatherIndexCalibrationStation> for WeatherIndexCalib
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct WeatherIndexPoint {
     ///Number of accepted member stations backing the point. Absent on `incomplete` points.
     #[serde()]
@@ -37399,6 +38704,7 @@ pub struct WeatherIndexPoint {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_contributors)))]
     pub contributors: ::std::option::Option<i64>,
     ///Present only on points produced by the labelled historical backfill that seeds a city's series for the period before it went live. `synoptic_latency` means the receipt-deadline test used `observation_time + Synoptic ingest latency` in place of Kalshi's local receipt clock. Absent on canonical points, which are the only settlement-eligible ones.
     #[serde()]
@@ -37407,6 +38713,7 @@ pub struct WeatherIndexPoint {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_receipt_basis), into))]
     pub receipt_basis: ::std::option::Option<::std::string::String>,
     ///Per-station audit readings (only with `detailed=true`), sorted by station ID — every configured member's reported value and QC disposition before incorporation into the index.
     #[serde()]
@@ -37415,8 +38722,10 @@ pub struct WeatherIndexPoint {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_stations)))]
     pub stations: Option<::std::vec::Vec<WeatherIndexStationReading>>,
     ///`normal` (every member contributed its exact-minute primary observation) or `degraded` (a member was absent, fallback-fed, or substituted by quality control; the value is equally settlement-eligible). With `detailed=true`, trailing minutes still inside their receipt deadline are additionally served as `incomplete`: no value, and stations carrying the raw readings recorded so far (code `pending`, not yet quality-controlled — more readings may still arrive, and the canonical value may differ).
+    #[builder(setter(into))]
     pub status: ::std::string::String,
     ///Event minute, unix milliseconds UTC.
     pub t: i64,
@@ -37426,8 +38735,10 @@ pub struct WeatherIndexPoint {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_v)))]
     pub v: ::std::option::Option<f64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&WeatherIndexPoint> for WeatherIndexPoint {
@@ -37483,9 +38794,11 @@ impl ::std::convert::From<&WeatherIndexPoint> for WeatherIndexPoint {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct WeatherIndexStationReading {
     ///Disposition: `ok` (accepted), `missing` (no eligible observation), `late` (received after the deadline; diagnostic only), a QC rejection (`range`, `rate_spatial`, `extreme`), or `pending` (raw reading on an `incomplete` minute, not yet quality-controlled).
+    #[builder(setter(into))]
     pub code: ::std::string::String,
     ///Observation time for carried-forward fallbacks (differs from the event minute). Absent for exact-minute primaries.
     #[serde()]
@@ -37494,6 +38807,7 @@ pub struct WeatherIndexStationReading {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_obs_time_ms)))]
     pub obs_time_ms: ::std::option::Option<i64>,
     ///Why the primary observation was passed over when a fallback was selected instead.
     #[serde()]
@@ -37502,6 +38816,7 @@ pub struct WeatherIndexStationReading {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_primary_code), into))]
     pub primary_code: ::std::option::Option<::std::string::String>,
     ///Local wire-receipt time backing the eligibility deadline.
     #[serde()]
@@ -37510,6 +38825,7 @@ pub struct WeatherIndexStationReading {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_received_at_ms)))]
     pub received_at_ms: ::std::option::Option<i64>,
     ///`hf_asos` (exact-minute primary) or `metar` (carried-forward official observation). Absent when no reading was available.
     #[serde()]
@@ -37518,8 +38834,10 @@ pub struct WeatherIndexStationReading {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_source), into))]
     pub source: ::std::option::Option<::std::string::String>,
     ///Member station (e.g. `KMIA1M`) or its official fallback ID.
+    #[builder(setter(into))]
     pub station_id: ::std::string::String,
     #[serde()]
     #[serde(
@@ -37527,8 +38845,10 @@ pub struct WeatherIndexStationReading {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_non_null"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_temp_f)))]
     pub temp_f: ::std::option::Option<f64>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&WeatherIndexStationReading> for WeatherIndexStationReading {
@@ -37619,7 +38939,8 @@ impl ::std::convert::From<&WeatherIndexStationReading> for WeatherIndexStationRe
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct WeeklySchedule {
     ///End date and time for when this weekly schedule is no longer effective.
     pub end_time: ::chrono::DateTime<::chrono::offset::Utc>,
@@ -37640,6 +38961,7 @@ pub struct WeeklySchedule {
     ///Trading hours for Wednesday. May contain multiple sessions.
     pub wednesday: ::std::vec::Vec<DailySchedule>,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&WeeklySchedule> for WeeklySchedule {
@@ -37726,7 +39048,8 @@ impl ::std::convert::From<&WeeklySchedule> for WeeklySchedule {
 ///}
 /// ```
 /// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone)]
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, ::typed_builder::TypedBuilder)]
+#[builder(doc)]
 pub struct Withdrawal {
     ///Withdrawal amount in cents.
     pub amount_cents: i64,
@@ -37740,8 +39063,10 @@ pub struct Withdrawal {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::typed::optional_nullable"
     )]
+    #[builder(default, setter(strip_option(fallback = opt_finalized_ts)))]
     pub finalized_ts: Option<Option<i64>>,
     ///Unique identifier for the withdrawal.
+    #[builder(setter(into))]
     pub id: ::std::string::String,
     ///Current status of the withdrawal. 'applied' means funds have been deducted from balance.
     pub status: WithdrawalStatus,
@@ -37749,6 +39074,7 @@ pub struct Withdrawal {
     #[serde(rename = "type")]
     pub type_: WithdrawalType,
     #[serde(flatten)]
+    #[builder(default)]
     pub extra: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
 }
 impl ::std::convert::From<&Withdrawal> for Withdrawal {
